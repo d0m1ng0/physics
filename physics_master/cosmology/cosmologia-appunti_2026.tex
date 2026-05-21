@@ -1,0 +1,1928 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\addto\captionsitalian{%
+  \renewcommand{\chaptername}{Lezione}%
+}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+
+\geometry{a4paper, margin=2.5cm}
+
+\title{\textbf{Cosmologia Integrale}\\ \Large Appunti, Sbobinature e Approfondimenti Teorici}
+\author{Basato sulle lezioni del Prof. Moscardini\\ \textit{Rielaborazione a cura di Domingo Verdini}}
+\date{Anno Accademico 2016/2017}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ==========================================
+% LEZIONE 1
+% ==========================================
+\chapter{Lunedì 26 Settembre 2016}
+
+\section{Introduzione alla Cosmologia (Fedele alle lezioni)}
+La cosmologia è lo studio dell'Universo nella sua interezza. Mentre in passato i cosmologi erano perlopiù filosofi, con Galileo, Copernico e Newton si è passati a una descrizione matematica.
+Oggi, lo scopo della prima parte del corso è avere il quadro attuale della cosmologia, studiando l'evoluzione di un \textbf{universo imperturbato}: una sfera di gas perfetto, omogenea e isotropa, per capirne la storia termica (usando la temperatura come sinonimo di tempo). Nella seconda parte del corso si studierà l'universo perturbato, ovvero come si formano le strutture (galassie, ammassi) tramite l'instabilità gravitazionale a partire da disomogeneità iniziali.
+
+\subsection{Il quadro cosmologico attuale}
+La cosmologia moderna si basa sulla Teoria della Relatività Generale (RG) e sui dati osservativi. L'idea attuale è che l'Universo sia spazialmente \textbf{piatto}. Per giustificare questa piattezza, il contributo energetico totale deve essere suddiviso in:
+\begin{itemize}
+    \item \textbf{70\% Energia Oscura} (Dark Energy).
+    \item \textbf{30\% Materia Totale}, a sua volta composta per l'80\% da Materia Oscura (non visibile ma rilevabile gravitazionalmente) e per il 20\% da Materia Barionica (materia ordinaria).
+\end{itemize}
+Nota interessante: la migliore stima della massa del neutrino non viene dagli esperimenti di laboratorio della fisica delle particelle, ma dalla cosmologia, studiando l'impronta che i neutrini lasciano nella distribuzione delle galassie su larga scala.
+
+\subsection{Modello Standard e Modello Inflazionario}
+Il Modello Standard dell'Universo si basa sul \textbf{Big Bang (B.B.)}. Questo modello ha un limite: porta a una singolarità matematica iniziale ($t_0$) dove la gravità dovrebbe essere quantizzata. 
+Il modello del Big Bang si è imposto sul Modello Statico (che ipotizzava la creazione continua di materia dal vuoto per mantenere l'universo stazionario durante l'espansione) in seguito alla scoperta della \textbf{Radiazione Cosmica di Fondo (CMB)}. La CMB è un "bagno di fotoni" termico, la cui esistenza falsifica i modelli stazionari.
+
+Tuttavia, il Big Bang classico ha dei problemi intrinseci, in primis il \textit{problema dell'orizzonte}: regioni opposte dell'Universo hanno la stessa temperatura (CMB omogenea) senza aver mai potuto scambiare fotoni (assenza di connessione causale). Per risolvere questo problema, negli anni '70 è stato aggiunto \textit{ad hoc} il \textbf{Modello Inflazionario}, un'espansione primordiale iper-accelerata che ha omogeneizzato e isotropizzato lo spazio, prevedendo inoltre un Universo a geometria piatta.
+
+\subsection{Evidenze recenti: Disomogeneità e Accelerazione}
+Negli anni '90 si è scoperto che:
+\begin{enumerate}
+    \item La CMB presenta piccole disomogeneità ($\sim 10^{-5}$ K), che sono la prova e il seme per la formazione delle strutture cosmiche.
+    \item L'espansione dell'Universo non è decelerata, ma \textbf{accelerata} (scoperta legata all'osservazione delle Supernovae).
+\end{enumerate}
+Questo porta a un problema filosofico e fisico notevole riguardo all'Equazione di Einstein:
+L'energia oscura può essere vista come un termine aggiuntivo a destra dell'equazione (una nuova forma di energia misteriosa) oppure come una modifica del membro di sinistra (la geometria). Nel secondo caso, significherebbe che la Relatività Generale va modificata su scale cosmologiche. Lo studio della crescita delle perturbazioni servirà proprio a distinguere tra "più energia" e "gravità modificata".
+
+
+\subsection{I Postulati e la Geometria}
+Le basi della cosmologia moderna sono la Relatività Generale e il \textbf{Principio Cosmologico}: \textit{su scale sufficientemente grandi ($\sim 100$ Mpc), l'Universo è omogeneo e isotropo (nessuna posizione e nessuna direzione privilegiata).} 
+Attenzione a distinguerlo dal \textit{Principio Cosmologico Perfetto}, che richiedeva che l'Universo fosse immutabile anche nel tempo (modello stazionario), falsificato dal fatto che l'Universo è in evoluzione.
+
+Per tradurre tutto ciò in geometria, usiamo il concetto di distanza in relatività (la \textbf{metrica}):
+\begin{equation}
+ds^2 = g_{\alpha\beta} dx^\alpha dx^\beta = c^2 dt^2 - dl^2
+\end{equation}
+dove i termini misti spazio-temporali sono nulli per preservare omogeneità e isotropia. 
+In 2D, possiamo avere solo 3 geometrie possibili, espresse in forma compatta usando coordinate polari:
+\begin{equation}
+dl^2 = a^2 \left[ \frac{dr^2}{1-kr^2} + r^2 d\phi^2 \right]
+\end{equation}
+Dove $a$ è il fattore di scala (che contiene la dimensionalità) e $k$ è il parametro di curvatura: $k=0$ (Euclidea cartesiana), $k=+1$ (Sferica), $k=-1$ (Iperbolica). Nella prossima lezione estenderemo questo concetto al 3D.
+
+\newpage
+\section{Lezione 1 - Extra: Approfondimento Teorico}
+\textit{Questa sezione è dedicata alla formalizzazione rigorosa dei concetti fisici e geometrici introdotti a lezione, con un approccio basato sulla relatività generale formale.}
+
+\subsection{Formalizzazione del Principio Cosmologico}
+L'affermazione che l'Universo sia "omogeneo e isotropo" ha un significato matematico preciso in geometria differenziale.
+\begin{itemize}
+    \item \textbf{Isotropia:} Significa che per ogni punto (o "evento") dello spaziotempo, non esiste una direzione spaziale privilegiata. Dal punto di vista metrico, se si fissa l'origine in un punto, la geometria deve essere invariante sotto l'azione del gruppo delle rotazioni spaziali tridimensionali $SO(3)$.
+    \item \textbf{Omogeneità:} Significa che la metrica dello spazio è invariante sotto traslazioni spaziali. 
+\end{itemize}
+Combinare isotropia (intorno a ogni punto) e omogeneità implica che le sezioni a tempo costante del nostro spaziotempo siano \textit{spazi a curvatura costante}. 
+
+\subsection{Costruzione Rigorosa della Metrica}
+Se assumiamo che l'Universo sia permeato da un "fluido cosmico" le cui particelle sono le galassie, e ci poniamo in un sistema di riferimento \textit{comovente} (un osservatore in caduta libera che si muove con il fluido), il tempo misurato dal suo orologio è il \textbf{tempo cosmico} $t$. 
+
+L'intervallo spaziotemporale generale è $ds^2 = g_{\mu\nu} dx^\mu dx^\nu$. 
+\begin{enumerate}
+    \item Per l'isotropia, i coefficienti $g_{0i}$ (termini misti tempo-spazio) devono annullarsi. Se non lo facessero, il vettore $g_{0i}$ indicherebbe una direzione privilegiata nello spazio, violando l'isotropia. Quindi $ds^2 = g_{00} c^2 dt^2 - dl^2$.
+    \item Poiché misuriamo il tempo proprio degli orologi comoventi standard, possiamo sempre riscalare la coordinata temporale in modo tale da fissare $g_{00} = 1$. Dunque la metrica si fattorizza esattamente in:
+    \begin{equation}
+        ds^2 = c^2 dt^2 - dl^2
+    \end{equation}
+\end{enumerate}
+
+\subsection{Spazi a Curvatura Costante e Parametro $k$}
+La parte spaziale $dl^2$ deve descrivere una varietà tridimensionale massimamente simmetrica. Il tensore di Riemann per uno spazio 3D massimamente simmetrico dipende da un solo parametro scalare, la curvatura spaziale $K$. 
+Esistono solo tre possibilità topologiche e geometriche per spazi isotropi e omogenei, che si riconducono all'elemento di linea spaziale:
+\begin{equation}
+    dl^2 = a^2(t) \left[ \frac{dr^2}{1-kr^2} + r^2(d\theta^2 + \sin^2\theta d\phi^2) \right]
+\end{equation}
+dove la coordinata radiale $r$ è adimensionale, $a(t)$ è il fattore di scala con le dimensioni di una lunghezza, e $k \in \{+1, 0, -1\}$. 
+Questo approccio teorico ci permette di capire che l'introduzione di $k$ non è una semplice "analogia con la superficie sferica", ma l'unica soluzione matematica ammessa dalle equazioni differenziali di Killing per uno spazio che rispetta le simmetrie del Principio Cosmologico.
+
+% ==========================================
+% LEZIONE 2
+% ==========================================
+\chapter{Martedì 27 Settembre 2016}
+
+\section{Estensione della Metrica e Geometria dell'Universo (Fedele alle lezioni)}
+
+Nella lezione precedente avevamo definito l'elemento di linea spaziale in due dimensioni. Ora generalizziamo il concetto a tre dimensioni. Gli elementi di distanza diventano elementi di volume (volume cartesiano per $k=0$, volume sferoide per $k=+1$, e iperboloide tridimensionale per $k=-1$). 
+
+Sostituendo l'angolo azimutale $d\phi^2$ con l'angolo solido tridimensionale $d\Omega^2 = d\theta^2 + \sin^2\theta d\phi^2$, la metrica spaziale si generalizza a:
+\begin{equation}
+dl^2 = a^2(t) \left[ \frac{dr^2}{1-kr^2} + r^2 d\Omega^2 \right]
+\end{equation}
+Combinando questa parte puramente spaziale con l'intervallo temporale in Relatività Generale (e ricordando che i termini misti si annullano per il Principio Cosmologico), otteniamo la \textbf{Metrica di Robertson-Walker-Friedmann}:
+\begin{equation}
+ds^2 = c^2 dt^2 - a^2(t) \left[ \frac{dr^2}{1-kr^2} + r^2(d\theta^2 + \sin^2\theta d\phi^2) \right]
+\end{equation}
+Questa è la metrica fondamentale per un Universo omogeneo e isotropo. Il parametro $k \in \{-1, 0, +1\}$ indica la geometria intrinseca, mentre $a(t)$ è il \textbf{fattore di scala} e contiene tutta l'informazione sull'espansione e sulla dimensionalità fisica delle grandezze cosmologiche.
+
+\section{Distanza Propria, Comovente e Legge di Hubble}
+
+\subsection{Definizione delle Distanze}
+In Relatività Generale, il concetto di distanza richiede precisione. Se vogliamo calcolare la distanza radiale tra noi (osservatori nell'origine) e un punto a coordinata radiale fissa $r$, fissiamo gli angoli ($d\theta = d\phi = 0$). 
+La \textbf{distanza propria} $d_{PR}$ è misurata "congelando" il tempo ($dt=0$):
+\begin{equation}
+d_{PR}(t) = \int_0^r \frac{a(t)}{\sqrt{1-kr'^2}} dr' = a(t) f(r)
+\end{equation}
+dove la primitiva $f(r)$ vale $r$ (se $k=0$), $\arcsin(r)$ (se $k=+1$) o $\text{arcsinh}(r)$ (se $k=-1$). 
+Dato che questa misura a tempo "congelato" è concettualmente impossibile su grandi distanze in relatività, si introduce la \textbf{distanza comovente} $d_C$, definita come la distanza propria valutata al tempo \textit{di oggi} ($t_0$):
+\begin{equation}
+d_C = d_{PR}(t_0) = a_0 f(r)
+\end{equation}
+A differenza della distanza propria che cresce con l'espansione, la distanza comovente per un oggetto che segue il flusso dell'Universo resta fissa. La relazione che le lega è semplicemente: $d_C = d_{PR}(t) \frac{a_0}{a(t)}$.
+
+\subsection{Velocità di recessione e Legge di Hubble}
+Derivando la distanza propria rispetto al tempo, otteniamo la \textit{velocità radiale} (o di recessione) dell'oggetto:
+\begin{equation}
+v_r = \frac{d}{dt} d_{PR}(t) = \dot{a}(t) f(r) = \frac{\dot{a}(t)}{a(t)} \left[ a(t) f(r) \right] = \frac{\dot{a}(t)}{a(t)} d_{PR}
+\end{equation}
+Questa non è altro che la \textbf{Legge di Hubble} ($v = H d$), che ricaviamo quindi come diretta conseguenza geometrica dell'espansione metrica, avendo definito il parametro di Hubble:
+\begin{equation}
+H(t) \equiv \frac{\dot{a}(t)}{a(t)}
+\end{equation}
+Il valore di $H$ misurato oggi è indicato come $H_0 \approx 70$ km/s/Mpc.
+
+\section{Il Redshift Cosmologico}
+Assumiamo che una sorgente a tempo $t_E$ emetta un fotone con lunghezza d'onda $\lambda_E$, che viaggia verso di noi e viene osservato al tempo attuale $t_0$ con lunghezza d'onda $\lambda_0$.
+Definiamo il \textbf{Redshift} $z$ (spostamento verso il rosso) come:
+\begin{equation}
+z = \frac{\lambda_0 - \lambda_E}{\lambda_E} \implies 1 + z = \frac{\lambda_0}{\lambda_E}
+\end{equation}
+Per la luce, l'intervallo spaziotemporale è nullo ($ds^2 = 0$). Dalla metrica otteniamo $c \frac{dt}{a(t)} = \frac{dr}{\sqrt{1-kr^2}}$. Se integriamo lungo il percorso della luce (che copre lo stesso intervallo spaziale comovente per i vari fotoni), troviamo la relazione fondamentale del redshift cosmologico:
+\begin{equation}
+1 + z = \frac{a(t_0)}{a(t_E)}
+\end{equation}
+
+\textit{Nota didattica da lezione:} Questa formula può essere ricavata "in modo improprio" applicando localmente l'effetto Doppler per variazioni infinitesime, ponendo $\frac{\delta\nu}{\nu} = -\frac{v}{c} = -\frac{H dl}{c} = -\frac{\dot{a}}{a}dt$. Integrando si ritrova $1+z = a_0/a$, ma non si tratta di un vero effetto Doppler (i corpi non si muovono nello spazio rigido, è lo spazio stesso che si sta dilatando).
+
+\newpage
+\section{Lezione 2 - Extra: Approfondimento Teorico}
+
+\textit{Questa sezione formalizza rigorosamente la natura geometrica del Redshift cosmologico, distinguendolo dalle interpretazioni classiche legate all'effetto Doppler cinematico, seguendo il formalismo della fisica teorica.}
+
+\subsection{Rigore sulla Derivazione del Redshift}
+Come notato a lezione, l'uso dell'effetto Doppler cinematico per spiegare il redshift cosmologico è concettualmente fallace su grandi distanze. In Relatività Generale, il redshift cosmologico è un puro effetto dell'allungamento della metrica spazio-temporale.
+
+Consideriamo due "creste" d'onda emesse a tempi $t_E$ e $t_E + \delta t_E$. Le due creste arrivano all'osservatore comovente nei tempi $t_0$ e $t_0 + \delta t_0$. Il percorso comovente radiale della luce ($ds^2 = 0$) impone che:
+\begin{equation}
+\int_{t_E}^{t_0} \frac{c \, dt}{a(t)} = \int_0^r \frac{dr'}{\sqrt{1-kr'^2}} \equiv f(r)
+\end{equation}
+Poiché l'oggetto osservato e l'osservatore hanno coordinate comoventi fisse, la distanza comovente integrale $f(r)$ è identica per entrambe le creste. Possiamo quindi eguagliare gli integrali per le due creste:
+\begin{equation}
+\int_{t_E}^{t_0} \frac{c \, dt}{a(t)} = \int_{t_E+\delta t_E}^{t_0+\delta t_0} \frac{c \, dt}{a(t)}
+\end{equation}
+Sottraendo il termine comune $\int_{t_E+\delta t_E}^{t_0} \frac{c \, dt}{a(t)}$ da ambo i membri, otteniamo:
+\begin{equation}
+\int_{t_E}^{t_E+\delta t_E} \frac{c \, dt}{a(t)} = \int_{t_0}^{t_0+\delta t_0} \frac{c \, dt}{a(t)}
+\end{equation}
+Poiché i periodi di un'onda luminosa $\delta t_E$ e $\delta t_0$ sono minuscoli rispetto ai tempi di espansione dell'Universo (frazioni di femtosecondi contro miliardi di anni), $a(t)$ può essere considerato costante negli intervalli di integrazione. Ne consegue direttamente:
+\begin{equation}
+\frac{\delta t_E}{a(t_E)} = \frac{\delta t_0}{a(t_0)} \implies \frac{\delta t_0}{\delta t_E} = \frac{a(t_0)}{a(t_E)}
+\end{equation}
+Moltiplicando i periodi per $c$, otteniamo le lunghezze d'onda, da cui emerge rigorosamente:
+\begin{equation}
+1 + z = \frac{\lambda_0}{\lambda_E} = \frac{a(t_0)}{a(t_E)}
+\end{equation}
+Il redshift cosmologico misura la dilatazione dello spazio avvenuta tra l'emissione e l'osservazione; non è una misura della "velocità relativa" istantanea, ma il rapporto esatto fra le "taglie" dell'Universo ai due estremi dell'osservazione.
+
+\subsection{Distanza Propria e Orizzonti (Nota Teorica)}
+La definizione "sincrona" della distanza propria $d_{PR} = a(t) \int dr$ per oggetti molto lontani ha senso solo come astrazione matematica di una "istantanea" dell'Universo, poiché non esiste segnale fisico in grado di misurarla all'istante (servirebbe velocità infinita). 
+A livello teorico, $v_r = H d_{PR}$ può superare la velocità della luce $c$ per oggetti sufficientemente distanti, senza violare la Relatività Speciale. La Relatività Ristretta impone un limite alla velocità \textit{locale} (la velocità della galassia rispetto allo spaziotempo che la circonda misurata in un sistema inerziale locale), ma in cosmologia è lo \textit{stesso} tessuto spaziotemporale a dilatarsi in mezzo a due osservatori, portando a velocità apparenti di recessione superluminali.
+
+% ==========================================
+% LEZIONE 3
+% ==========================================
+\chapter{ Mercoledì 28 Settembre 2016}
+
+\section{Distanze Cosmologiche e Osservabili (Fedele alle lezioni)}
+
+Riprendiamo i concetti fondamentali introdotti finora:
+\begin{itemize}
+    \item Distanza di luminosità: $d_L = a_0 r (1+z)$
+    \item Distanza angolare: $d_A = a_0 r = \frac{d_L}{(1+z)^2}$
+    \item Parametro di Hubble: $H = \frac{\dot{a}}{a}$ (oggi $H_0 \approx 70 \text{ km/s/Mpc}$)
+    \item Parametro di decelerazione: $q = -\frac{\ddot{a}a}{\dot{a}^2}$
+\end{itemize}
+
+Abbiamo visto che tramite lo sviluppo di Taylor del fattore di scala è possibile ricavare un'espressione per la distanza (adimensionale) in funzione del redshift $z$:
+\begin{equation}
+r = \frac{c}{a_0 H_0} \left[ z - \frac{1}{2}(1+q_0)z^2 + \dots \right]
+\end{equation}
+Inserendo questa in $d_L$, otteniamo la relazione che esprime la distanza di luminosità direttamente tramite gli osservabili:
+\begin{equation}
+d_L(z) = \frac{c}{H_0} z \left[ 1 + \frac{z}{2}(1-q_0) \right]
+\end{equation}
+Per $z$ piccoli si misura solo $H_0$, ma per $z$ sufficientemente alti è possibile misurare anche il parametro di decelerazione $q_0$.
+
+\subsection{Il Modulo di Distanza}
+In astronomia, i flussi luminosi vengono misurati tramite le magnitudini. Fissando una distanza convenzionale di 10 parsec per la magnitudine assoluta $M$, si ottiene la relazione che lega magnitudine apparente $m$, $M$ e $d_L$:
+\begin{equation}
+m - M = -5 + 5 \log(d_L [\text{pc}])
+\end{equation}
+Passando ai Megaparsec ($1 \text{ Mpc} = 10^6 \text{ pc}$), la formula diventa:
+\begin{equation}
+m - M = 25 + 5 \log(d_L [\text{Mpc}])
+\end{equation}
+Sostituendo $d_L(z)$ al suo interno e usando l'approssimazione $\log(1+x) \simeq \frac{x}{\ln 10}$, arriviamo a:
+\begin{equation}
+m - M \simeq 25 + 5 \log \left(\frac{cz}{H_0}\right) + 1.086 (1-q_0)z
+\end{equation}
+Misurando magnitudini e redshift di oggetti come le Supernovae, proprio grazie a questa equazione si è scoperta l'espansione accelerata dell'Universo.
+
+\subsection{Il Test di Hubble (Conteggi)}
+Un altro modo di misurare le distanze in cosmologia sfrutta i volumi. In uno spazio euclideo, il numero di oggetti osservati con flusso maggiore di un flusso limite $l$ scala come $N(>l) \propto l^{-3/2}$. In termini di magnitudini, corrisponde a una pendenza di $0.6$. Se l'Universo non è euclideo, bisogna integrare sul volume della metrica di Robertson-Walker:
+\begin{equation}
+N(>l) = 4\pi \int \frac{r'^2}{\sqrt{1-kr'^2}} a^3(t) n(t) dr'
+\end{equation}
+Tuttavia, questo test oggi è poco usato perché presuppone che la densità di oggetti $n(t)$ si conservi (niente fusione di galassie o "merging"), un'ipotesi smentita dai modelli di formazione strutturale.
+
+\section{I Modelli di Friedmann}
+
+Il Modello del Big Bang è fondato sulle equazioni di Friedmann, che a loro volta derivano dall'Equazione di campo di Einstein:
+\begin{equation}
+R_{ij} - \frac{1}{2}g_{ij}R = \frac{8\pi G}{c^4}T_{ij}
+\end{equation}
+Per risolvere questo complesso sistema di equazioni, Friedmann inserì due assunzioni fondamentali:
+\begin{enumerate}
+    \item \textbf{Omogeneità e Isotropia:} Significa imporre la metrica di Robertson-Walker per la parte geometrica.
+    \item \textbf{Fluido Perfetto:} Significa che la materia/energia dell'Universo (il tensore $T_{ij}$) è descritta solo dalla sua densità $\rho$ e pressione $p$, omettendo flussi di calore e viscosità.
+\end{enumerate}
+Con queste assunzioni, le 16 equazioni tensoriali si riducono a \textbf{due sole equazioni indipendenti}:
+\begin{equation}
+\ddot{a} = -\frac{4\pi G}{3}\left(\rho + \frac{3p}{c^2}\right) a
+\label{eq:F1}
+\end{equation}
+\begin{equation}
+\dot{a}^2 + k c^2 = \frac{8\pi G}{3} \rho a^2
+\label{eq:F2}
+\end{equation}
+A queste si aggiunge la \textbf{condizione di adiabaticità} (derivante dalla conservazione dell'energia $dU = -p dV$):
+\begin{equation}
+d(\rho c^2 a^3) = -p d(a^3)
+\label{eq:Adiab}
+\end{equation}
+
+Le equazioni \eqref{eq:F1}, \eqref{eq:F2} e \eqref{eq:Adiab} non sono tutte e tre indipendenti (date due, si ricava la terza). La loro soluzione, fissata l'equazione di stato tra pressione e densità, definisce la dinamica e la storia evolutiva dell'Universo nei Modelli di Friedmann. 
+
+\textit{Nota del professore:} L'equazione \eqref{eq:F2} e \eqref{eq:F1} possono essere dedotte anche usando un "trucco" della fisica newtoniana, giustificato dal Teorema di Birkhoff, che ci permette di trattare la massa dentro una sfera comovente. Tuttavia per trovare la \eqref{eq:F1} in ambito newtoniano bisogna inserire ad hoc la "densità efficace" $\rho_{eff} = \rho + \frac{3p}{c^2}$ per tenere conto dell'effetto relativistico della pressione.
+
+\newpage
+\section{Lezione 3 - Extra: Approfondimento Teorico}
+\textit{In questa sezione analizziamo formalmente come la dinamica dell'Universo derivi intrinsecamente dalla Relatività Generale, chiarendo i passaggi che a lezione sono stati presentati tramite analogie newtoniane.}
+
+\subsection{La Gravità della Pressione in Relatività Generale}
+A lezione il professore ha mostrato che è possibile ricavare l'equazione dell'accelerazione $\ddot{a}$ tramite un'equazione differenziale newtoniana (la conservazione dell'energia meccanica), dovendo però impiegare un "trucco": sostituire $\rho$ con la densità efficace $\rho + 3p/c^2$. 
+
+Per un fisico teorico, è fondamentale chiarire che non si tratta di un trucco. Nella teoria Newtoniana la forza di gravità è generata \textbf{esclusivamente dalla massa}. Nella Relatività Generale, invece, la gravità è determinata da tutti i termini del tensore energia-impulso $T_{\mu\nu}$.
+Il tensore per un fluido perfetto è:
+\begin{equation}
+T_{\mu\nu} = \left(\rho + \frac{p}{c^2}\right) u_\mu u_\nu - p g_{\mu\nu}
+\end{equation}
+La traccia di questo tensore, che in Newton sarebbe semplicemente legata a $\rho$, in GR diventa $T \equiv T^\mu_\mu = \rho c^2 - 3p$. 
+Quando andiamo a inserire questo tensore nell'equazione di campo di Einstein (scritta nella forma equivalente $R_{\mu\nu} = \frac{8\pi G}{c^4} (T_{\mu\nu} - \frac{1}{2}g_{\mu\nu}T)$), la componente temporale (0-0) che lega la geometria spaziale all'accelerazione diventa direttamente proporzionale al termine:
+\begin{equation}
+\rho c^2 + \frac{3p}{c^2} 
+\end{equation}
+Quindi, l'apparizione del termine $3p/c^2$ è una \textbf{naturale conseguenza tensoriale} della Relatività Generale: in un mezzo altamente relativistico (come l'Universo primordiale dominato dalla radiazione), la pressione del gas contribuisce alla sua stessa attrazione gravitazionale, causando una decelerazione molto più drastica rispetto a un gas freddo (dust) di pari densità.
+
+\subsection{Sviluppi di Taylor vs Modelli Integrali}
+È importante sottolineare un aspetto metodologico: l'equazione per il modulo di distanza $m-M$ ricavata con lo sviluppo di Taylor troncato al secondo ordine in $z$ (con i parametri $H_0$ e $q_0$) è intrinsecamente un'approssimazione valida solo nell'universo locale ($z \ll 1$). 
+Quando la cosmologia moderna analizza la Radiazione Cosmica di Fondo ($z \sim 1100$) o galassie lontane, l'approccio di Taylor fallisce catastroficamente. Bisogna abbandonare l'espansione e risolvere l'integrale \textit{esatto} della metrica di Friedmann (come vedremo nelle lezioni successive).
+
+% ==========================================
+% LEZIONE 4
+% ==========================================
+\chapter{Lunedì 3 Ottobre 2016}
+
+\section{Modelli di Friedmann e Costante Cosmologica (Fedele alle lezioni)}
+
+Nelle lezioni precedenti si è cominciata la discussione dei Modelli di Friedmann per cui si sono impostate le equazioni partendo dall'equazione di campo di Einstein:
+\begin{equation}
+R_{ij} - \frac{1}{2}g_{ij}R = \frac{8\pi G}{c^4} T_{ij}
+\label{eq:Einstein}
+\end{equation}
+In cui Friedmann inserisce due semplici idee: quella di omogeneità ed isotropia attraverso la metrica di Robertson-Walker per la parte spaziale (sinistra), e quella di fluido perfetto per la parte di destra, con il tensore energia-impulso che dipende solo dalla pressione $p$ e dalla densità $\rho$. Operando in questo modo si ottengono due sole equazioni indipendenti dalle 16 totali:
+\begin{equation}
+\ddot{a} = -\frac{4\pi G}{3} \left( \rho + \frac{3p}{c^2} \right) a
+\label{eq:F1}
+\end{equation}
+\begin{equation}
+\dot{a}^2 + kc^2 = \frac{8\pi G}{3}\rho a^2
+\label{eq:F2}
+\end{equation}
+Inoltre le due equazioni sono tra loro legate dalla condizione di adiabaticità $d(\rho c^2 a^3) = -p d(a^3)$.
+
+\subsection{Il preconcetto statico e l'introduzione di $\Lambda$}
+Se ci poniamo nell'ottica di Friedmann nel 1922, dobbiamo pensare che egli dimostrò che \textbf{l'Universo non può essere statico}, in contrapposizione al preconcetto dell'epoca. Cercando soluzioni statiche si deve imporre $\dot{a}=0$ e $\ddot{a}=0$. Dalla prima equazione \eqref{eq:F1} questo richiede:
+\begin{equation}
+\rho = -\frac{3p}{c^2}
+\end{equation}
+Tuttavia, per la fisica ordinaria, sia la densità $\rho$ sia la pressione $p$ sono quantità positive o al più nulle ($\rho, p \geq 0$) e non possono avere segno discorde. Ne consegue che non possono esistere soluzioni statiche.
+
+Persino Einstein, per assecondare questo preconcetto nel 1917, modificò la sua equazione introducendo a sinistra il termine più semplice possibile che mantenesse il carattere covariante: la \textbf{Costante Cosmologica $\Lambda$}:
+\begin{equation}
+R_{ij} - \frac{1}{2}g_{ij}R - \Lambda g_{ij} = \frac{8\pi G}{c^4} T_{ij}
+\end{equation}
+La modifica della Relatività Generale è fatta a sinistra (parte geometrica). Questa cosa ha un impatto filosofico notevole: \textbf{dal punto di vista filosofico, inserire $\Lambda$ a sinistra vuol dire modificare la gravità; portarla a destra significa invece aggiungere una nuova componente materiale/energetica (energia oscura).}
+
+Matematicamente le soluzioni non cambiano. Portando la costante a destra, definiamo un \textit{tensore energia-impulso efficace} $\tilde{T}_{ij} = T_{ij} + \frac{\Lambda c^4}{8\pi G} g_{ij}$. Questo ci porta a definire una densità e una pressione efficaci:
+\begin{equation}
+\tilde{p} = p - \frac{\Lambda c^4}{8\pi G} \qquad \text{e} \quad \tilde{\rho} = \rho + \frac{\Lambda c^2}{8\pi G}
+\end{equation}
+Considerando $\Lambda > 0$, il suo contributo alla densità è positivo, mentre il suo contributo alla pressione è \textit{negativo}. Circa la dimensionalità, la costante geometrica $\Lambda$ si misura in $\text{cm}^{-2}$.
+
+Tramite questa aggiunta, Einstein trovò la sua agognata soluzione statica (Universo di Einstein), ma si scoprì poi che l'Universo si espande. Oggi usiamo la Costante Cosmologica non per rendere l'universo statico, ma per spiegarne l'espansione accelerata.
+
+\section{Densità Critica e Parametro $\Omega$}
+
+Torniamo ai modelli ordinari (senza $\Lambda$) e prendiamo l'equazione \eqref{eq:F2}. Dividendo tutto per $a^2$:
+\begin{equation}
+\frac{\dot{a}^2}{a^2} - \frac{8\pi G}{3}\rho = -\frac{kc^2}{a^2}
+\end{equation}
+Valutando questa equazione al giorno d'oggi (pedice "0"), abbiamo $H_0 = \dot{a}_0/a_0$. Possiamo definire una \textbf{densità critica} al giorno d'oggi:
+\begin{equation}
+\rho_{0, CRT} = \frac{3H_0^2}{8\pi G} \approx 1.9 \times 10^{-29} h^2 \text{ g/cm}^3 \approx 2.77 \times 10^{11} h^2 \frac{M_\odot}{\text{Mpc}^3}
+\end{equation}
+Essa assume il nome "critica" in quanto rappresenta il valore spartiacque per la geometria. Introduciamo il \textbf{parametro di densità adimensionale}:
+\begin{equation}
+\Omega_0 = \frac{\rho_0}{\rho_{0, CRT}}
+\end{equation}
+Cosicché, a seconda del tipo di Universo:
+\begin{itemize}
+    \item $k = 0 \implies \rho_0 = \rho_{0, CRT} \implies \Omega_0 = 1$ (Universo Piatto)
+    \item $k = +1 \implies \rho_0 > \rho_{0, CRT} \implies \Omega_0 > 1$ (Universo Sferico)
+    \item $k = -1 \implies \rho_0 < \rho_{0, CRT} \implies \Omega_0 < 1$ (Universo Iperbolico)
+\end{itemize}
+
+\section{Equazione di Stato ed Evoluzione dell'Universo}
+
+In cosmologia, la relazione che lega densità e pressione si chiama \textbf{equazione di stato}:
+\begin{equation}
+p = w \rho c^2
+\end{equation}
+I casi principali dipendono dal parametro $w$:
+\begin{itemize}
+    \item \textbf{Materia (Dust):} $w = 0$ (pressione trascurabile). Dall'equazione di conservazione si ricava l'evoluzione: $\rho_M \propto a^{-3}$. In termini di redshift: $\rho_M = \rho_{0,M} (1+z)^3$.
+    \item \textbf{Radiazione:} $w = 1/3$ ($p_R = \frac{1}{3}\rho_R c^2$). L'evoluzione della densità è più rapida per via del redshift dei fotoni: $\rho_R \propto a^{-4}$, ovvero $\rho_R = \rho_{0,R} (1+z)^4$.
+    \item \textbf{Costante $\Lambda$:} $w = -1$ ($p_\Lambda = -\rho_\Lambda c^2$). La sua densità è invariante nel tempo: $\rho_\Lambda = \text{costante} = \rho_{0,\Lambda}$.
+\end{itemize}
+
+Inserendo le densità normalizzate all'interno dell'equazione di Friedmann, otteniamo l'equazione più compatta e generale della storia evolutiva del fattore di scala. Esprimendola in funzione della sommatoria su tutte le componenti $\Omega_{0,i}$ presenti:
+\begin{equation}
+\left(\frac{\dot{a}}{a_0}\right)^2 = H_0^2 \left[ (1 - \Omega_{TOT}) + \sum_i \Omega_{0,i} \left( \frac{a_0}{a} \right)^{1+3w_i} \right]
+\end{equation}
+dove $(1 - \Omega_{TOT})$ racchiude il contributo della curvatura $k$. 
+
+\newpage
+\section{Lezione 4 - Extra: Approfondimento Teorico}
+
+\textit{Questa sezione approfondisce rigorosamente i passaggi teorici introdotti fenomenologicamente a lezione, ancorandoli ai fondamenti della Relatività Generale e della Termodinamica.}
+
+\subsection{L'instabilità dell'Universo Statico di Einstein}
+A lezione si è detto che Einstein introdusse $\Lambda$ per trovare una soluzione statica, ma non è stato dimostrato matematicamente il motivo per cui tale soluzione sia instabile.
+
+Consideriamo l'Universo di Einstein, caratterizzato da sola materia ($\rho_M$, con $p=0$) e dalla costante cosmologica ($\Lambda > 0$). Le equazioni di Friedmann per lo stato statico ($\dot{a}=\ddot{a}=0$) impongono che l'attrazione gravitazionale bilanci esattamente la repulsione del vuoto:
+\begin{equation}
+\frac{4\pi G}{3}\rho_{M, eq} = \frac{\Lambda c^2}{3}
+\end{equation}
+Immaginiamo ora di introdurre una perturbazione microscopica che espanda leggermente l'Universo ($a \to a + \delta a$, con $\delta a > 0$). Sappiamo che la densità di materia scala come $a^{-3}$, perciò in seguito all'espansione la densità $\rho_M$ diminuirà. Tuttavia, la costante cosmologica $\Lambda$ mantiene una densità di energia rigorosamente costante, indipendente da $a$. 
+
+Viene meno l'equilibrio: il termine attrattivo ($-\frac{4\pi G}{3}\rho_M$) si indebolisce, mentre il termine repulsivo ($\frac{\Lambda c^2}{3}$) resta immutato. L'accelerazione $\ddot{a}$ diventa strettamente positiva ($\ddot{a} > 0$), innescando un'espansione accelerata inarrestabile (effetto "runaway"). 
+Simmetricamente, una perturbazione in contrazione ($\delta a < 0$) farebbe aumentare la densità di materia, che sovrasterebbe la repulsione del vuoto, causando un inesorabile collasso (Big Crunch). L'Universo di Einstein è quindi instabile come una matita in bilico sulla sua punta.
+
+\subsection{Derivazione Termodinamica rigorosa di $\rho \propto a^{-3(1+w)}$}
+A lezione è stata posta la proporzionalità $\rho \propto a^{-3(1+w)}$ come conseguenza dell'equazione $d(\rho c^2 a^3) = -p d(a^3)$. Deriviamo questo risultato con rigore partendo dal Primo Principio della Termodinamica applicato a un volume comovente espansivo $V \propto a^3$ con energia interna $U = \rho c^2 a^3$.
+
+La variazione di energia interna per un'espansione adiabatica ($dQ=0$) è $dU = -p dV$:
+\begin{equation}
+d(\rho c^2 a^3) + p d(a^3) = 0
+\end{equation}
+Sviluppando i differenziali rispetto al tempo $t$:
+\begin{equation}
+\dot{\rho}c^2 a^3 + 3\rho c^2 a^2 \dot{a} + 3p a^2\dot{a} = 0
+\end{equation}
+Dividendo l'intera espressione per $a^2 \dot{a}$ otteniamo:
+\begin{equation}
+\dot{\rho}c^2 \left(\frac{a}{\dot{a}}\right) + 3\rho c^2 + 3p = 0 \implies \frac{\dot{\rho}}{\rho + p/c^2} = -3\frac{\dot{a}}{a}
+\end{equation}
+Sostituendo l'equazione di stato $p = w \rho c^2$, il denominatore a sinistra diventa $\rho + w\rho = \rho(1+w)$:
+\begin{equation}
+\frac{\dot{\rho}}{\rho(1+w)} = -3\frac{\dot{a}}{a} \implies \frac{d\rho}{\rho} = -3(1+w)\frac{da}{a}
+\end{equation}
+Integrando ambo i membri:
+\begin{equation}
+\ln \rho = -3(1+w)\ln a + C
+\end{equation}
+Esponenzionando, otteniamo la legge di conservazione esatta:
+\begin{equation}
+\rho(a) \propto a^{-3(1+w)}
+\end{equation}
+Questa è la dimostrazione formale che lega intrinsecamente l'equazione di stato (e la Relatività) all'evoluzione temporale della densità delle singole componenti dell'Universo cosmologico.
+
+% ==========================================
+% LEZIONE 5
+% ==========================================
+\chapter{Mercoledì 5 Ottobre 2016}
+
+\section{Modelli di Friedmann Esatti (Fedele alle lezioni)}
+
+Abbiamo visto che le equazioni di Friedmann definiscono la dinamica dell'Universo e dipendono dalla densità $\rho$ delle componenti. L'equazione di conservazione adiabatica $d(\rho c^2 a^3) = -p d(a^3)$, unita all'equazione di stato $p = w \rho c^2$, fornisce la legge con cui le densità evolvono nel tempo:
+\begin{equation}
+\rho \propto a^{-3(1+w)}
+\end{equation}
+L'andamento differente delle densità fa sì che componenti diverse possano dominare in epoche distinte. Spingendoci verso il Big Bang ($a \to 0$), la radiazione ($\propto a^{-4}$) cresce più rapidamente della materia ($\propto a^{-3}$) ed è la componente dominante primordiale. Per $a \to \infty$, la costante cosmologica ($\propto a^0$) diventerà dominante.
+
+L'equazione generale di espansione, misurata rispetto al parametro di Hubble attuale $H_0$, assume la forma compatta tramite la funzione $E(z)$:
+\begin{equation}
+H^2 = \left(\frac{\dot{a}}{a}\right)^2 = H_0^2 \left[ (1-\Omega_0) + \sum \Omega_{0,i}(1+z)^{3(1+w_i)} \right] = H_0^2 E^2(z)
+\end{equation}
+
+\subsection{Soluzioni per Universi Piatti ($k=0$): Einstein-de Sitter}
+Per universi spazialmente piatti ($\Omega_0 = 1$) costituiti da un singolo fluido, l'equazione si semplifica e si può risolvere analiticamente. Posto $a_0 = 1$:
+\begin{equation}
+\dot{a} = H_0 a^{-(1+3w)/2} \implies a^{(1+3w)/2} da = H_0 dt
+\end{equation}
+Integrando con la condizione al contorno del Big Bang $a(t=0)=0$, troviamo la legge di espansione:
+\begin{equation}
+a(t) \propto t^{\frac{2}{3(1+w)}}
+\end{equation}
+I due casi fondamentali sono:
+\begin{itemize}
+    \item \textbf{Universo di Materia ($w=0$):} $a(t) \propto t^{2/3}$. L'espansione decelera nel tempo. L'età dell'universo risulta essere $t_0 = \frac{2}{3} H_0^{-1}$.
+    \item \textbf{Universo di Radiazione ($w=1/3$):} $a(t) \propto t^{1/2}$. L'espansione è ancora più frenata a causa della pressione positiva che contribuisce alla gravità. L'età dell'universo sarebbe $t_0 = \frac{1}{2} H_0^{-1}$.
+\end{itemize}
+
+\subsection{Soluzioni Parametriche per Universi Curvi di sola Materia}
+Se l'Universo è dominato dalla materia ($w=0$) ma possiede curvatura spaziale ($k \neq 0$), l'equazione differenziale non ammette una soluzione esplicita banale $a(t)$. Tramite la sostituzione $p = \dot{a}$, separazione delle variabili e integrazione per parti, si ottengono le soluzioni sotto forma parametrica.
+
+Per un \textbf{Universo Chiuso ($k=+1, \Omega_0 > 1$)}:
+L'espansione incontra un punto di arresto ($\dot{a}=0$) quando la gravità della materia vince sull'inerzia dell'espansione iniziale. Le equazioni parametriche rispetto a un parametro angolare $\alpha \in [0, 2\pi]$ sono le equazioni di una cicloide:
+\begin{equation}
+\begin{cases}
+a(\alpha) = \frac{a_0 \Omega_0}{2(\Omega_0 - 1)} (1 - \cos\alpha) \\
+t(\alpha) = \frac{1}{2H_0 (\Omega_0 - 1)^{3/2}} (\alpha - \sin\alpha)
+\end{cases}
+\end{equation}
+A $\alpha = \pi$ si ha la massima espansione $a_{max}$. Successivamente l'Universo collassa su se stesso fino al Big Crunch per $\alpha = 2\pi$.
+
+Per un \textbf{Universo Aperto ($k=-1, \Omega_0 < 1$)}:
+L'energia cinetica dell'espansione è troppo alta. Le funzioni trigonometriche diventano iperboliche in base a un parametro $\psi$:
+\begin{equation}
+\begin{cases}
+a(\psi) = \frac{a_0 \Omega_0}{2(1 - \Omega_0)} (\cosh\psi - 1) \\
+t(\psi) = \frac{1}{2H_0 (1 - \Omega_0)^{3/2}} (\sinh\psi - \psi)
+\end{cases}
+\end{equation}
+Questo Universo si espande indefinitamente. Asintoticamente la velocità di espansione diventa costante ($\dot{a} \to c$).
+
+\section{L'Età dell'Universo ($t_0$)}
+Conoscendo la funzione generale $H(z)$, l'età dell'Universo (il tempo trascorso dal Big Bang a un dato redshift $z$) si calcola invertendo $dt = \frac{da}{\dot{a}}$ e passando al redshift:
+\begin{equation}
+t(z) = \int_z^\infty \frac{dz'}{(1+z') H(z')}
+\end{equation}
+Valutando l'integrale per arrivare a oggi ($z=0$), troviamo un problema critico: per un universo curvo di sola materia con i valori di $H_0 \approx 70 \text{ km/s/Mpc}$, le età previste risultano incompatibili con l'osservazione. A parità di $H_0$, l'età prevista dall'universo piatto di Einstein-de Sitter ($t_0 \approx 9$ miliardi di anni) e dagli universi chiusi è inferiore all'età calcolata per gli ammassi globulari più vecchi della nostra galassia (circa $12-13$ miliardi di anni). È impossibile che l'Universo sia più giovane degli oggetti che contiene! 
+Questo limite ha spinto definitivamente la cosmologia moderna verso i modelli dominati dall'Energia Oscura, che permettono a $a(t)$ di accelerare, garantendo così un'età dell'Universo $t_0$ nettamente maggiore e compatibile coi dati.
+
+
+\newpage
+\section{Lezione 5 - Extra: Approfondimento Teorico}
+
+\textit{Dietro il complesso trucco matematico di integrazione utilizzato a lezione per trovare le soluzioni parametriche di Friedmann si nasconde uno dei concetti geometrici più eleganti e importanti della Relatività Generale: il tempo conforme.}
+
+\subsection{La vera natura del parametro $\alpha$: Il Tempo Conforme}
+A lezione, le soluzioni per l'Universo curvo di materia sono state derivate definendo un parametro ausiliario astratto (chiamato $\alpha$ o $\theta$) per risolvere un noioso integrale $dp/dx$. In cosmologia teorica, non si usano "trucchi di integrazione", ma si sfrutta la struttura causale della metrica.
+
+La metrica di Robertson-Walker è:
+\begin{equation}
+ds^2 = c^2 dt^2 - a^2(t) \left[ d\chi^2 + S_k^2(\chi)d\Omega^2 \right]
+\end{equation}
+Definiamo una nuova coordinata temporale $\eta$, detta \textbf{Tempo Conforme}, tale per cui:
+\begin{equation}
+d\eta \equiv \frac{c \, dt}{a(t)} \implies \eta(t) = \int_0^t \frac{c \, dt'}{a(t')}
+\end{equation}
+Con questa sostituzione, la metrica intera può essere fattorizzata come se fosse una metrica statica moltiplicata per il fattore di espansione globale:
+\begin{equation}
+ds^2 = a^2(\eta) \left[ d\eta^2 - \left( d\chi^2 + S_k^2(\chi)d\Omega^2 \right) \right]
+\end{equation}
+In questo sistema di coordinate, un raggio di luce ($ds^2 = 0$) puramente radiale si muove lungo traiettorie banali in cui $d\eta = \pm d\chi$. I coni di luce diventano rette a 45 gradi proprio come nello spazio piatto della Relatività Ristretta di Minkowski. Il tempo conforme $\eta$ rappresenta in sostanza la distanza comovente massima che un fotone ha potuto percorrere dall'inizio dei tempi.
+
+\subsection{Equazioni di Friedmann nel Tempo Conforme}
+Riscrivendo l'equazione di Friedmann $\dot{a}^2 + kc^2 = \frac{C}{a}$ per un universo chiuso di materia ($k=+1$) utilizzando la derivata rispetto al tempo conforme ($a' \equiv \frac{da}{d\eta}$), sapendo che $\dot{a} = \frac{ca'}{a}$, otteniamo:
+\begin{equation}
+c^2 \frac{(a')^2}{a^2} + c^2 = \frac{C}{a} \implies (a')^2 + a^2 = \frac{C}{c^2} a
+\end{equation}
+Questa è l'equazione differenziale di un oscillatore armonico semplice! La soluzione immediata per $a(\eta)$, con la condizione iniziale $a(0)=0$, è:
+\begin{equation}
+a(\eta) = \frac{C}{2c^2} (1 - \cos\eta)
+\end{equation}
+Per ritrovare il tempo cosmico $t$, basta integrare la definizione di tempo conforme $c \, dt = a(\eta) d\eta$:
+\begin{equation}
+t(\eta) = \frac{1}{c}\int a(\eta) d\eta = \frac{C}{2c^3} (\eta - \sin\eta)
+\end{equation}
+Il misterioso parametro $\alpha$ introdotto a lezione come variabile matematica ausiliaria non è altro che la coordinata del \textbf{Tempo Conforme} $\eta$.
+
+\subsection{Il Destino dell'Universo e le Condizioni di Energia}
+Le equazioni mostrano che un universo chiuso ($k=+1$) di sola materia è destinato necessariamente a collassare. Teoricamente, il Big Crunch è inevitabile per qualsiasi fluido perfetto per cui la quantità $\rho c^2 + 3p$ è positiva (ovvero che rispetta la "Strong Energy Condition" in Relatività Generale).
+Un'espansione accelerata $\ddot{a} > 0$ e un evitamento del Big Crunch in un universo chiuso sono possibili solo se l'Universo è permeato da un campo che viola tale condizione, fornendo una pressione fortemente negativa $\left( p < -\frac{1}{3}\rho c^2 \right)$, esattamente il comportamento che caratterizza l'Energia Oscura e la fase dell'Inflazione cosmica primordiale.
+
+% ==========================================
+% LEZIONE 6
+% ==========================================
+\chapter{Lunedì 10 Ottobre 2016}
+
+\section{Evoluzione di $\Omega$ e il Problema della Piattezza (Fedele alle lezioni)}
+
+Riprendiamo l'equazione di Friedmann per un Universo con una singola componente materiale dominante (con equazione di stato $w$), per capire come evolve il parametro di densità $\Omega$ nel tempo. Partendo dall'equazione dell'espansione e manipolandola algebricamente, possiamo isolare il valore di $\Omega$ a un generico redshift $z$:
+\begin{equation}
+\Omega_w^{-1}(z) - 1 = (\Omega_{0,w}^{-1} - 1)(1+z)^{-(1+3w)}
+\end{equation}
+dove $\Omega_{0,w}$ è il valore misurato oggi. Questa equazione è fondamentale perché ci spiega il comportamento di $\Omega$ andando indietro nel tempo, cioè verso il Big Bang ($z \to \infty$).
+
+Dato che per la materia ordinaria e la radiazione il termine $(1+3w)$ è strettamente positivo, l'esponente $-(1+3w)$ fa sì che il termine $(1+z)^{-(1+3w)}$ tenda a zero per alti redshift. Di conseguenza:
+\begin{equation}
+\lim_{z \to \infty} \left[ \Omega_w^{-1}(z) - 1 \right] = 0 \implies \Omega_w(z) \to 1
+\end{equation}
+Questo significa che, vicino al Big Bang, tutti gli universi tendono a comportarsi come universi piatti (Modello di Einstein-de Sitter, $\Omega=1$).
+Da qui nasce il \textbf{Problema della Piattezza (Flatness Problem)} o problema del \textit{fine-tuning}: se misuriamo oggi un Universo in cui le diverse componenti si sommano a dare $\Omega_{TOT} \approx 1$ (spazialmente piatto), allora nell'Universo primordiale la densità doveva essere uguale alla densità critica con una precisione spaventosamente alta (fino alla sessantesima cifra decimale). Una deviazione infinitesima da $1$ all'epoca primordiale si sarebbe amplificata enormemente oggi.
+
+\section{L'Orizzonte delle Particelle}
+
+Per affrontare un altro dei grandi problemi del Modello Standard, dobbiamo calcolare la scala dell'orizzonte causale. L'\textbf{Orizzonte delle Particelle} $R_H(t)$ rappresenta la distanza propria percorsa dalla luce dal tempo $t=0$ (il Big Bang) fino al tempo $t$. Integrando la metrica per un raggio di luce ($ds=0$) radiale:
+\begin{equation}
+R_H(t) = a(t) \int_0^t \frac{c \, dt'}{a(t')}
+\end{equation}
+Ipotizzando una legge di potenza generale per il fattore di scala $a(t) \propto t^\alpha$, con $\alpha = \frac{2}{3(1+w)}$, l'integrale converge solo se l'esponente di espansione permette alla luce di "recuperare" l'espansione dello spazio. Integrando, otteniamo:
+\begin{equation}
+R_H(t) = \frac{3(1+w)}{1+3w} c t
+\end{equation}
+Sostituendo i valori di $w$, ricaviamo l'orizzonte per le epoche principali:
+\begin{itemize}
+    \item \textbf{Universo di Materia ($w=0$):} $R_H(t) = 3 c t$
+    \item \textbf{Universo di Radiazione ($w=1/3$):} $R_H(t) = 2 c t$
+\end{itemize}
+Possiamo notare che, in tutti questi casi, l'Orizzonte delle Particelle è dell'ordine di $ct$. È perciò consuetudine in cosmologia definire il \textbf{Raggio di Hubble} $\tilde{R}_H$ come:
+\begin{equation}
+\tilde{R}_H \equiv \frac{c}{H(t)}
+\end{equation}
+Essendo $H = \dot{a}/a = \alpha/t$, si ha che $\tilde{R}_H = \frac{c}{\alpha/t} \propto ct$. Dunque l'Orizzonte delle Particelle $R_H(t)$ e il Raggio di Hubble $\tilde{R}_H$ sono tra loro proporzionali ($R_H \propto \tilde{R}_H$).
+
+\section{Il Paradosso dell'Orizzonte e l'Inflazione}
+
+Il calcolo dell'orizzonte fa emergere il \textbf{Problema dell'Orizzonte}. Osservando la Radiazione Cosmica di Fondo (CMB), notiamo che l'Universo ha la stessa temperatura ($T \approx 2.725$ K) in ogni direzione del cielo. Tuttavia, le regioni opposte dell'Universo osservabile distano tra loro oggi molto di più dell'orizzonte causale primordiale calcolato al momento dell'emissione della CMB. Come fanno regioni che non si sono mai potute scambiare segnali (nemmeno alla velocità della luce) ad essere in perfetto equilibrio termico?
+
+Per risolvere questo problema, dobbiamo rompere la dinamica standard. Se esaminiamo il \textit{raggio dell'orizzonte comovente} $\tilde{R}_{H,C} = \frac{c}{a(t)H(t)} = \frac{c}{\dot{a}(t)}$, notiamo che in un Universo frenato dalla gravità ($\ddot{a} < 0$, quindi $\dot{a}$ decresce) l'orizzonte comovente \textbf{cresce} nel tempo.
+L'unico modo per connettere causalmente l'intero Universo osservabile nel passato è postulare una fase in cui l'orizzonte comovente sia \textbf{decresciuto}:
+\begin{equation}
+\frac{d}{dt} \left( \frac{c}{\dot{a}} \right) < 0 \implies \ddot{a} > 0
+\end{equation}
+Serve cioè una fase iniziale di \textbf{espansione accelerata}. Guardando l'equazione di Friedmann per l'accelerazione ($\ddot{a} \propto -(\rho + 3p/c^2)$), questa condizione richiede un'equazione di stato esotica:
+\begin{equation}
+1 + 3w < 0 \implies w < -\frac{1}{3}
+\end{equation}
+Questa epoca primordiale iper-accelerata, dominata da una pressione fortemente negativa, prende il nome di \textbf{Inflazione}. L'inflazione, oltre a risolvere il problema dell'orizzonte "stirando" un'unica microscopica \textit{patch} causale su tutto l'Universo osservabile, risolve intrinsecamente anche il Problema della Piattezza, guidando l'Universo verso $\Omega=1$.
+
+\newpage
+\section{Lezione 6 - Extra: Approfondimento Teorico}
+
+\textit{In questa sezione chiariamo, con il rigore della fisica teorica, la cruciale distinzione tra l'Orizzonte delle Particelle e la Sfera di Hubble, e formuliamo il Problema della Piattezza come un problema di instabilità meccanica.}
+
+\subsection{Orizzonte delle Particelle vs Sfera di Hubble}
+A lezione il Raggio di Hubble $\tilde{R}_H = c/H$ e l'Orizzonte delle Particelle $R_H(t)$ sono stati presentati quasi come interscambiabili, giustificando la cosa con la loro reciproca proporzionalità. In Relatività Generale, però, rappresentano concetti profondamente diversi:
+\begin{itemize}
+    \item L'\textbf{Orizzonte delle Particelle} ($R_p \equiv a(t) \int_0^t \frac{c dt'}{a(t')}$) è un concetto integrato. Misura la massima distanza propria da cui un segnale causale emesso a $t=0$ può averci raggiunto al tempo $t$. Dipende dall'intera storia passata del fattore di scala. In termini di tempo conforme $\eta$, $R_p = a(\eta) \eta$.
+    \item La \textbf{Sfera di Hubble} ($R_H \equiv c/H$) è un concetto istantaneo, locale (non integrato). È semplicemente la distanza a cui la velocità di recessione delle galassie dovuta al flusso di Hubble ($v = Hd$) raggiunge la velocità della luce $c$.
+\end{itemize}
+Ciò che delimita la "causalità" termodinamica non è la Sfera di Hubble, ma l'Orizzonte delle Particelle. Regioni attualmente al di fuori della nostra Sfera di Hubble (che recedono a velocità superluminali) possono benissimo essere all'interno del nostro Orizzonte delle Particelle, purché lo spazio tra noi e loro si sia dilatato *dopo* che i fotoni le hanno oltrepassate. Il Paradosso dell'Orizzonte sussiste perché, al momento della ricombinazione (emissione della CMB a $z \approx 1100$), l'Orizzonte delle Particelle era molto più piccolo della distanza comovente che oggi ci separa da quelle regioni.
+
+\subsection{Il Problema della Piattezza come Instabilità Dinamica}
+L'equazione che esprime l'evoluzione di $\Omega$ può essere compresa in modo molto più potente (e rigoroso) scrivendola in termini della prima equazione di Friedmann derivata nel tempo. Dalla definizione $\Omega(t) = \frac{\rho(t)}{\rho_{CRT}(t)}$ e ricordando che $\rho_{CRT} = \frac{3H^2}{8\pi G}$, si ha:
+\begin{equation}
+|1 - \Omega(t)| = \frac{|k|c^2}{a^2 H^2} = \frac{|k|c^2}{\dot{a}^2}
+\end{equation}
+Questa espressione è rivelatrice. Nelle epoche ordinarie dell'Universo dominate da gravità attrattiva (Materia o Radiazione), l'espansione decelera. Pertanto, la derivata $\dot{a}(t)$ è una funzione \textbf{monotonamente decrescente} del tempo ($\ddot{a} < 0$).
+Poiché $\dot{a}^2$ sta al denominatore, il termine $|1-\Omega(t)|$ \textbf{cresce col tempo}.
+$\Omega = 1$ non è solo uno spartiacque, ma è un \textbf{punto di equilibrio instabile} (come una palla sulla cima di una collina). Se l'Universo inizia con $\Omega = 0.99999$, la repulsione da 1 amplificherà enormemente quella differenza, portando $\Omega \to 0$ in fretta.
+Trovare un Universo con $\Omega \approx 1$ oggi equivale a lanciare una matita sperando che resti in bilico sulla punta per 14 miliardi di anni.
+
+L'Inflazione risolve elegantemente il problema perché, invertendo il segno dell'accelerazione ($\ddot{a} > 0$), rende $\dot{a}(t)$ una funzione \textbf{rapidamente crescente}. Durante l'Inflazione, il denominatore dell'equazione esplode, forzando $|1-\Omega(t)| \to 0$. L'Inflazione trasforma l'Universo piatto da punto di equilibrio instabile ad \textbf{attrattore stabile} del sistema dinamico, spiegando la naturalezza della geometria euclidea che osserviamo oggi.
+
+% ==========================================
+% LEZIONE 7
+% ==========================================
+\chapter{Martedì 11 Ottobre 2016}
+
+\section{Stima dei Parametri Cosmologici: La Materia Barionica (Fedele alle lezioni)}
+
+Fino ad ora abbiamo discusso l'evoluzione e i destini dell'Universo manipolando teoricamente i parametri di densità $\Omega_0$. Ora ci poniamo il problema osservativo: quali sono i valori reali di questi parametri?
+Cominciamo dalla componente più familiare, la \textbf{materia barionica}, e in particolare dalla porzione di essa che è direttamente visibile. Il modo più semplice per valutare il contributo alla densità di questa materia è "contare le galassie" e misurarne la massa.
+
+Poiché i telescopi misurano la luce (flussi) e non direttamente la massa, si ricorre al \textbf{Rapporto Massa/Luminosità ($M/L$)}. Se prendiamo la nostra galassia come riferimento o mediamo su campioni locali, troviamo che un valore tipico è:
+\begin{equation}
+\frac{M}{L} \approx 30 \, \frac{M_\odot}{L_\odot}
+\end{equation}
+Questo rapporto indica che gran parte della massa di una galassia non emette luce (presenza di materia oscura nell'alone o stelle di piccolissima massa).
+
+\subsection{La Funzione di Luminosità di Schechter}
+Per capire quanta luce totale ci sia in un dato volume di Universo, dobbiamo sapere come sono distribuite le galassie per classe di luminosità. Questa statistica è descritta empiricamente dalla \textbf{Funzione di Luminosità di Schechter}:
+\begin{equation}
+\Phi(L) dL = A \left( \frac{L}{L_*} \right)^\alpha \exp\left( - \frac{L}{L_*} \right) dL
+\end{equation}
+Questa funzione descrive il numero di galassie per unità di volume nell'intervallo di luminosità tra $L$ e $L+dL$. La funzione presenta una legge di potenza ($L^\alpha$) per le galassie deboli (che sono la maggioranza) e un taglio esponenziale che inibisce fortemente l'esistenza di galassie con luminosità superiori a una luminosità caratteristica $L_*$.
+
+\subsection{Densità Galattica e Universo Aperto}
+Per ottenere la densità di luminosità totale $\mathcal{L}_g$, integriamo la funzione di Schechter moltiplicata per la luminosità $L$:
+\begin{equation}
+\mathcal{L}_g = \int_0^\infty L \Phi(L) dL
+\end{equation}
+Conoscendo la densità di luminosità, possiamo stimare la densità di massa racchiusa nelle galassie ($\rho_{0,gal}$) moltiplicando $\mathcal{L}_g$ per il rapporto medio $M/L$. Il risultato osservativo attuale è:
+\begin{equation}
+\rho_{0,gal} \approx 6 \times 10^{-31} \, h^2 \text{ g/cm}^3
+\end{equation}
+dove $h$ è la costante di Hubble normalizzata ($H_0 = 100 \, h \text{ km/s/Mpc}$). L'incertezza sulle distanze si propaga sulle misurazioni dei volumi ($\propto h^{-3}$) e delle masse dinamiche ($\propto h^{-1}$), risultando in una dipendenza complessiva dal parametro $h^2$.
+
+Se confrontiamo questa densità luminosa con la Densità Critica dell'Universo ($\rho_{CRT} \approx 10^{-29} \text{ g/cm}^3$), otteniamo il parametro di densità adimensionale per la materia galattica:
+\begin{equation}
+\Omega_{0,gal} = \frac{\rho_{0,gal}}{\rho_{CRT}} \approx 0.02
+\end{equation}
+Il risultato è sconvolgente: se supponessimo che l'Universo sia costituito esclusivamente dalla materia che possiamo vedere direttamente all'interno delle galassie, arriveremmo alla conclusione di vivere in un Universo estremamente vuoto ed "Aperto", ben lontano dal valore $\Omega = 1$ richiesto per la piattezza. 
+
+\newpage
+\section{Lezione 7 - Extra: Approfondimento Teorico}
+
+\textit{Dietro le formule empiriche mostrate a lezione si celano la teoria dell'instabilità gravitazionale e l'astrofisica dei plasmi. In questa sezione formalizziamo da dove nasce la funzione di Schechter e la vera natura della dipendenza da $h^2$.}
+
+\subsection{Origine fisica della Funzione di Schechter}
+La formula empirica di Schechter $\Phi(L) \propto L^\alpha \exp(-L/L_*)$ non è una semplice intuizione matematica, ma il riflesso di precisi processi di formazione strutturale:
+\begin{itemize}
+    \item \textbf{La legge di potenza ($\mathbf{L^\alpha}$):} Deriva dalla distribuzione primordiale degli aloni di materia oscura (Formalismo di Press-Schechter), secondo cui gli aloni piccoli si formano in numero di gran lunga maggiore rispetto a quelli grandi (collasso gerarchico "bottom-up").
+    \item \textbf{Il cutoff esponenziale ($\mathbf{\exp(-L/L_*)}$):} Se la luce seguisse perfettamente la massa oscura, dovremmo vedere galassie massicce fino a masse enormi. Il taglio esponenziale esiste a causa dei tempi di raffreddamento del gas (cooling problem) e del \textbf{feedback degli AGN} (Active Galactic Nuclei). In aloni di materia oscura giganteschi (sopra i $10^{13} M_\odot$), il gas primordiale si scalda a temperature di svariati milioni di gradi (virializzazione) e la densità è troppo bassa perché riesca a irradiare e raffreddarsi in un tempo inferiore all'età dell'Universo. Se il gas non si raffredda e non collassa nel centro, non forma stelle. Inoltre, i getti relativistici dei buchi neri supermassicci soffiano via il gas freddo rimasto. Questo "spegne" la formazione galattica alle alte masse, troncando bruscamente la funzione di luminosità a $L_*$.
+\end{itemize}
+
+\subsection{Rigore dimensionale sulla dipendenza da $h$}
+A lezione si afferma che la densità di materia delle galassie scala come $h^2$, deducendo la cosa con un rapido gioco di incertezze sui volumi e le masse. Per un fisico teorico, è vitale tracciare esattamente questo percorso dimensionale per dimostrare perché $\Omega_{gal}$ ne risulti magicamente indipendente.
+
+Tutte le distanze cosmologiche $D$ scalano teoricamente come $h^{-1}$ (poiché $D = cz/H_0 = cz/(100h)$).
+Vediamo come questo si propaga sulle osservabili:
+\begin{enumerate}
+    \item \textbf{Densità di Luminosità $\mathcal{L}_g$:} Si basa sulla conta di un certo numero $N$ di galassie in un volume di survey $V \propto D^3 \propto h^{-3}$. La densità numerica è $n = N/V \propto h^3$. La luminosità vera $L$ di una singola galassia si ricava dal flusso misurato $f$ tramite $L = 4\pi D^2 f \propto h^{-2}$. La densità di luminosità è $\mathcal{L}_g = n \times L \propto h^3 \times h^{-2} = \mathbf{h^1}$.
+    \item \textbf{Rapporto Massa/Luce $M/L$:} La massa dinamica $M$ di un ammasso o di una galassia si misura tramite il Teorema del Viriale: $M \sim \frac{v^2 R}{G}$. La dispersione di velocità $v$ si ottiene tramite l'effetto Doppler ed è svincolata da $h$ (è una misura diretta). Il raggio fisico $R$ deriva dal diametro angolare $\theta$: $R = \theta \times D \propto h^{-1}$. Quindi la massa calcolata scala come $M \propto h^{-1}$. Di conseguenza, il rapporto Massa su Luminosità scala come $M/L \propto h^{-1} / h^{-2} = \mathbf{h^1}$.
+    \item \textbf{Densità di Massa $\rho_{gal}$:} È il prodotto dei due termini precedenti: $\rho_{gal} = \mathcal{L}_g \times \langle M/L \rangle \propto h^1 \times h^1 = \mathbf{h^2}$.
+\end{enumerate}
+Perché tutto questo calcolo è fondamentale?
+Perché per trovare $\Omega_{0,gal}$ dobbiamo dividere la densità misurata per la densità critica $\rho_{CRT} = \frac{3H_0^2}{8\pi G}$. Poiché $H_0 \propto h^1$, si ha che \textbf{anche $\mathbf{\rho_{CRT} \propto h^2}$}.
+Nel rapporto finale $\Omega_{0,gal} = \rho_{0,gal} / \rho_{CRT}$, i fattori $h^2$ a numeratore e denominatore si cancellano perfettamente. La genialità e l'utilità del parametro $\Omega$ risiedono proprio in questo: \textbf{il suo valore adimensionale calcolato dalle galassie (0.02) è intrinsecamente esatto, indipendente dalla grande incertezza storica che abbiamo sulla misura della Costante di Hubble.}
+
+% ==========================================
+% LEZIONE 8
+% ==========================================
+\chapter{Lunedì 17 Ottobre 2016}
+
+\section{La Storia Termica dell'Universo (Fedele alle lezioni)}
+
+Per comprendere la storia termica dell'Universo, dobbiamo confrontare due tempi caratteristici fondamentali: il tempo tipico di espansione dell'Universo (legato ad $H^{-1}$) e il tempo tipico delle collisioni tra le particelle del plasma cosmico [2]. 
+Finché il tasso di collisione è sufficientemente alto rispetto al tasso di espansione, le particelle riescono a scambiarsi energia in modo efficiente [2]. In queste condizioni, materia e radiazione rimangono in perfetto equilibrio termico, condividendo la medesima temperatura:
+\begin{equation}
+T_M = T_R \propto (1+z)
+\end{equation}
+Oggi, tuttavia, sappiamo che l'Universo è estremamente "vuoto" e il tempo tipico delle collisioni è diventato immensamente superiore al tempo di espansione [2]. Materia e radiazione sono ormai disaccoppiate e le loro temperature evolvono con leggi diverse [2]:
+\begin{itemize}
+    \item La temperatura della radiazione evolve come $T_R \propto (1+z)$ [2].
+    \item La temperatura della materia (gas non relativistico) evolve in modo più rapido, raffreddandosi come $T_M \propto (1+z)^2$ [2].
+\end{itemize}
+
+\subsection{Le Ere Cosmologiche e le Soglie di Massa}
+Poiché l'Universo è un sistema termodinamico in espansione (e quindi in raffreddamento), l'equilibrio delle varie specie di particelle si sposta a seconda che l'energia termica del bagno di fotoni ($kT$) sia maggiore o minore dell'energia di massa a riposo delle particelle stesse ($mc^2$) [1]. 
+
+Quando la temperatura scende sotto una determinata soglia critica ($kT < mc^2$), i fotoni non hanno più l'energia sufficiente per creare coppie particella-antiparticella, e quelle esistenti si annichilano [1]. 
+Andando a ritroso nel tempo verso il Big Bang (ovvero salendo in temperatura e in energia), l'Universo ha attraversato diverse ere dominate da particelle via via più massicce: l'era leptonica, l'era adronica e, avvicinandosi a energie estreme, l'era dei quark [1].
+
+\subsection{La Bariogenesi e l'Asimmetria Materia-Antimateria}
+Oggi osserviamo un Universo composto esclusivamente da materia, con un'assenza quasi totale di antimateria [5]. Questo solleva un problema enorme: se nel plasma primordiale particelle e antiparticelle venivano create in coppie simmetriche dai fotoni, come mai non si sono annichilite completamente lasciando un Universo riempito di sola radiazione?
+
+Misurando l'entropia della radiazione per barione oggi presente, si scopre che c'è stato un piccolissimo eccesso di materia primordiale: per ogni $10^8$ antibarioni c'erano $10^8 + 1$ barioni [2, 4]. Dopo la gigantesca annichilizione globale, tutte le coppie sono scomparse lasciando i fotoni che vediamo oggi, e quel singolo barione in eccesso ogni cento milioni è sopravvissuto andando a formare tutte le stelle e le galassie dell'Universo [2, 4].
+
+La creazione dinamica di questa asimmetria prende il nome di \textbf{Bariogenesi} [2]. Affinché un Universo inizialmente simmetrico sviluppi questo eccesso, è necessario un momento in cui i processi di creazione non siano perfettamente bilanciati dai processi inversi. Questo momento deve avvenire prima che il numero barionico si conservi rigorosamente e, condizione fondamentale, l'Universo deve trovarsi \textbf{fuori dall'equilibrio termico}, altrimenti ogni reazione sarebbe controbilanciata da una reazione uguale e contraria [4].
+
+\newpage
+\section{Lezione 8 - Extra: Approfondimento Teorico}
+
+\textit{Dietro le intuizioni fenomenologiche della lezione si celano la termodinamica dei fluidi cosmologici e la fisica delle interazioni fondamentali. Questa sezione formalizza le leggi di raffreddamento e i requisiti quantistici per la genesi dell'asimmetria.}
+
+\subsection{Derivazione Termodinamica di $T_R$ e $T_M$}
+A lezione, le leggi di evoluzione per le temperature $T_R \propto (1+z)$ e $T_M \propto (1+z)^2$ sono state fornite empiricamente [2]. Per un fisico teorico, esse derivano banalmente dal comportamento adiabatico di fluidi diversi in espansione.
+Per un'espansione adiabatica ($dQ=0$) in un volume $V \propto a^3$, la relazione generale tra temperatura e volume è data da:
+\begin{equation}
+T V^{\gamma-1} = \text{costante} \implies T a^{3(\gamma-1)} = \text{costante}
+\end{equation}
+dove $\gamma = c_p/c_v$ è l'indice adiabatico del gas.
+\begin{itemize}
+    \item \textbf{Gas di Fotoni (Radiazione):} Un fluido ultra-relativistico ha un indice adiabatico $\gamma = 4/3$. Sostituendo nella relazione: $T_R a^{3(4/3 - 1)} = T_R a^1 = \text{costante}$. Ne segue rigorosamente $T_R \propto a^{-1} \propto (1+z)$.
+    \item \textbf{Gas Monoatomico Ideale (Materia Oscura/Barioni dopo il disaccoppiamento):} Un gas di particelle non relativistiche ha un indice adiabatico $\gamma = 5/3$. Inserendo il valore: $T_M a^{3(5/3 - 1)} = T_M a^2 = \text{costante}$. Ne segue rigorosamente $T_M \propto a^{-2} \propto (1+z)^2$.
+\end{itemize}
+Finché il tasso di interazione Compton ($\Gamma \propto n_e \sigma_T c$) è molto maggiore del tasso di espansione ($\Gamma \gg H$), i due fluidi sono forzati ad avere $T_M = T_R \propto a^{-1}$ a causa dei continui urti termalizzanti [2]. Quando gli elettroni si legano ai protoni formando l'idrogeno neutro (Ricombinazione), $\Gamma$ crolla improvvisamente sotto $H$. I fluidi si disaccoppiano e la materia, liberata dal giogo termico della radiazione, inizia a raffreddarsi drasticamente più in fretta seguendo la sua naturale curva $T \propto a^{-2}$ [1, 2].
+
+\subsection{Le Condizioni di Sakharov per la Bariogenesi}
+L'intuizione di Moscardini sull'importanza dell'uscita dall'equilibrio termico fu formalizzata per la prima volta nel 1967 dal fisico russo Andrej Sacharov. Affinché un Universo nato senza numero barionico netto ($\Delta B = 0$) possa generare e congelare l'asimmetria osservata di $\eta \sim 10^{-10}$, devono verificarsi \textit{simultaneamente} tre condizioni microscopiche:
+\begin{enumerate}
+    \item \textbf{Violazione del Numero Barionico ($B$):} Deve esistere un processo di fisica delle particelle capace di convertire quark in antiquark o leptoni, modificando il numero barionico netto. Il Modello Standard prevede tale violazione in processi non-perturbativi (sfaleroni elettrodeboli).
+    \item \textbf{Violazione della simmetria C (Coniugazione di Carica) e CP (Carica-Parità):} Se la simmetria C e CP fossero conservate in modo esatto, per ogni processo che crea un eccesso di barioni esisterebbe un processo perfettamente speculare che crea un eccesso identico di antibarioni. La violazione CP introduce uno squilibrio microscopico nei tassi di decadimento.
+    \item \textbf{Uscita dall'equilibrio termico ($\Gamma \ll H$):} Questa è la chiave termodinamica citata a lezione. Il teorema CPT impone che particelle e antiparticelle abbiano la \textit{stessa massa identica}. In uno stato di perfetto equilibrio termico, le distribuzioni di probabilità nello spazio delle fasi dipendono unicamente dalla massa e dalla temperatura: le densità $n_B$ e $n_{\bar{B}}$ sarebbero forzatamente identiche, cancellando istantaneamente qualsiasi asimmetria generata dalla violazione CP. L'Universo \textit{deve} espandersi e raffreddarsi così velocemente da uscire dall'equilibrio (freeze-out termico) mentre le reazioni di violazione B e CP stanno avvenendo, "congelando" l'eccesso barionico per l'eternità [4].
+\end{enumerate}
+
+% ==========================================
+% LEZIONE 9
+% ==========================================
+\chapter{Martedì 18 Ottobre 2016}
+
+\section{Transizioni di Fase ed Ere Cosmologiche (Fedele alle lezioni)}
+
+Avvicinandosi al Big Bang, la temperatura dell'Universo cresce vertiginosamente. Spingendoci ad alte energie, le interazioni fondamentali che oggi ci appaiono distinte tendono a unificarsi, ripristinando simmetrie primordiali che oggi sono rotte. L'Universo, espandendosi e raffreddandosi, attraversa una serie di \textbf{transizioni di fase} in cui queste simmetrie vengono progressivamente perse, dando origine a ere cosmologiche distinte [2, 3]:
+\begin{itemize}
+    \item \textbf{Era di Planck ($t_P \approx 10^{-43}$ s, $E \approx 10^{19}$ GeV):} È il vero inizio della fisica nota. Prima di questo momento, la gravità necessita di una teoria quantistica ancora sconosciuta. A questa energia, la gravità si separa dalle altre tre forze fondamentali unificate [2, 4].
+    \item \textbf{Era GUT ($t \approx 10^{-37}$ s, $E \approx 10^{15}$ GeV):} "Grand Unified Theory". A queste energie la forza forte è unificata con quella elettrodebole. Al termine di questa era la forza forte si separa. È in questa fase che è possibile violare il numero barionico e innescare la Bariogenesi [2, 4].
+    \item \textbf{Era Elettrodebole ($t \approx 10^{-11}$ s, $E \approx 100$ GeV):} La forza elettromagnetica si separa dall'interazione debole [2].
+    \item \textbf{Transizione Quark-Adroni ($E \approx 200-300$ MeV):} I quark liberi, non potendo più esistere a basse energie per via del confinamento quantistico, si uniscono per formare protoni e neutroni [2, 3].
+\end{itemize}
+
+\subsection{Transizioni di Fase: Primo e Secondo Ordine}
+Una transizione di fase porta l'Universo da uno stato ad alta energia a uno stato fondamentale più ordinato. La modalità con cui questo avviene è cruciale [1]:
+\begin{enumerate}
+    \item \textbf{Transizione del Secondo Ordine:} È una transizione istantanea. Man mano che la temperatura scende, il sistema "scivola" dolcemente e immediatamente nel nuovo minimo di energia, senza barriere da superare [1].
+    \item \textbf{Transizione del Primo Ordine:} È presente una barriera di potenziale che separa il vecchio stato (che diventa un "falso vuoto") dal nuovo stato fondamentale (il "vero vuoto"). Anche quando la temperatura scende sotto la soglia critica ($T_c$), il sistema rimane intrappolato nel falso vuoto. Subisce un forte \textbf{sovraraffreddamento} (supercooling) perché l'Universo continua ad espandersi e raffreddarsi senza che la transizione avvenga [1].
+\end{enumerate}
+
+Quando finalmente il sistema riesce a superare la barriera (tramite effetto tunnel quantistico) e a "rotolare" verso il vero vuoto, si ritrova in un ambiente a temperatura molto più bassa di quella che gli spetterebbe. L'enorme energia accumulata viene quindi rilasciata bruscamente sotto forma di \textbf{calore latente} [1]. 
+
+\subsection{L'Innesco dell'Inflazione Cosmica}
+Se la transizione GUT fosse del primo ordine, il periodo in cui l'Universo rimane bloccato nel "falso vuoto" avrebbe conseguenze straordinarie. 
+Durante il sovraraffreddamento, l'energia del vuoto rimane costante nonostante l'espansione. Questa enorme densità di energia agisce dinamicamente come una gigantesca Costante Cosmologica ($\Lambda$), fornendo esattamente "l'energia giusta" per causare un'espansione accelerata esponenziale: l'\textbf{Inflazione} [1, 4].
+
+Questa iper-espansione "stira" lo spaziotempo, risolvendo i problemi del Modello Standard: connette regioni causalmente separate (Problema dell'Orizzonte), azzera la curvatura spaziale spingendo inesorabilmente $\Omega \to 1$ (Problema della Piattezza) e diluisce drasticamente difetti topologici come i monopoli magnetici, rendendoli oggi introvabili [5]. Alla fine del processo, il calore latente rilasciato nella caduta verso il vero vuoto "riaccende" l'Universo (reheating), ripristinando l'equilibrio termico e riportando la dinamica a quella standard del Big Bang caldo [1].
+
+\newpage
+\section{Lezione 9 - Extra: Approfondimento Teorico}
+
+\textit{In questa sezione formalizziamo, tramite la teoria classica dei campi, il meccanismo fisico che permette all'energia del vuoto di comportarsi come una gravità repulsiva, unendo Relatività Generale e Meccanica Quantistica.}
+
+\subsection{Il Campo Scalare e il Falso Vuoto}
+Per descrivere rigorosamente la transizione di fase introdotta a lezione, la fisica teorica utilizza un campo scalare $\phi(\vec{x},t)$, chiamato \textbf{Inflatone}. La densità di energia (Hamiltoniana) e la pressione associate a un campo scalare omogeneo (ignorando per semplicità i gradienti spaziali) sono date da:
+\begin{equation}
+\rho_\phi c^2 = \frac{1}{2}\dot{\phi}^2 + V(\phi) \qquad \qquad p_\phi = \frac{1}{2}\dot{\phi}^2 - V(\phi)
+\end{equation}
+dove il primo termine è l'energia cinetica del campo e $V(\phi)$ è il suo potenziale energetico. 
+
+A temperature estreme ($T \gg T_c$), il potenziale efficace dipendente dalla temperatura costringe il campo nel minimo $\phi = 0$. Quando l'Universo si raffredda, il potenziale cambia forma ("cappello messicano"), e $\phi = 0$ cessa di essere il minimo assoluto. 
+Se la transizione è del primo ordine (a causa di una barriera repulsiva), l'Universo si raffredda ma il campo resta bloccato in $\phi = 0$. Questo è il \textbf{falso vuoto}. 
+
+\subsection{Il Tensore Energia-Impulso e lo Spaziotempo di de Sitter}
+Nel falso vuoto, il campo è "congelato" nel suo minimo locale. La sua derivata temporale è nulla ($\dot{\phi} = 0$), e l'energia è interamente dominata dal valore costante del potenziale $V_0 = V(0)$. Sostituendo $\dot{\phi}=0$ nelle equazioni del campo, otteniamo uno stato termodinamico sorprendente:
+\begin{equation}
+\rho_\phi c^2 = V_0 \qquad \text{e} \qquad p_\phi = -V_0 \implies \mathbf{p_\phi = -\rho_\phi c^2}
+\end{equation}
+Questa è esattamente l'equazione di stato $w = -1$ di una Costante Cosmologica! Un campo scalare intrappolato in un falso vuoto sviluppa un'enorme pressione intrinsecamente negativa.
+
+Inserendo questa densità di energia costante nella prima equazione di Friedmann (trascurando la curvatura spaziale $k$, che verrebbe comunque rapidamente soppressa), otteniamo:
+\begin{equation}
+H^2 = \left(\frac{\dot{a}}{a}\right)^2 = \frac{8\pi G}{3 c^2} V_0 \equiv H_I^2 = \text{costante}
+\end{equation}
+Integrando un parametro di Hubble rigorosamente costante nel tempo, si ricava la soluzione esatta per il fattore di scala:
+\begin{equation}
+a(t) \propto e^{H_I t}
+\end{equation}
+Questa è la dimostrazione matematica dell'Inflazione: lo stato di falso vuoto innesca una metrica spaziotemporale di de Sitter, forzando l'Universo in un'espansione esponenzialmente accelerata. Solo quando il campo $\phi$ riuscirà ad attraversare la barriera e "rotolare" verso il vero minimo, l'energia cinetica $\dot{\phi}^2$ diventerà non nulla, la condizione $p = -\rho c^2$ si romperà, e l'inflazione avrà termine.
+
+% ==========================================
+% LEZIONE 10
+% ==========================================
+\chapter{Lunedì 24 Ottobre 2016}
+
+\section{Il Fine-Tuning e la Soluzione Inflazionaria (Fedele alle lezioni)}
+
+Finora abbiamo affrontato i problemi del Modello Standard (Orizzonte e Piattezza) da un punto di vista concettuale. Ora vogliamo quantificare matematicamente il vero livello di "assurdità" a cui porterebbe l'assenza di un'epoca inflazionaria.
+
+\subsection{La catastrofe all'Epoca di Planck}
+Riprendiamo la formula che descrive l'evoluzione del parametro di densità in un Universo dominato da un fluido con equazione di stato $w$:
+\begin{equation}
+\Omega_w^{-1}(z) - 1 = (\Omega_{0}^{-1} - 1)(1+z)^{-(1+3w)}
+\end{equation}
+Sappiamo che andando indietro nel tempo verso il Big Bang ($z \to \infty$), in epoche dominate da materia ($w=0$) o radiazione ($w=1/3$), il termine $(1+3w)$ è positivo, quindi la deviazione dalla piattezza tende a zero. 
+
+Sostituiamo i valori numerici estrapolando la situazione all'Epoca di Planck ($t_P \approx 10^{-43}$ s). A quel tempo, l'energia termica era di circa $10^{19}$ GeV e il redshift associato era nell'ordine di $z_P \approx 10^{32}$. 
+Se oggi l'Universo ha un valore $\Omega_0$ compreso ragionevolmente tra 0.1 e 10 (basandoci sulle stime della materia visibile e oscura), quanto doveva valere $\Omega$ al tempo di Planck per far tornare i conti?
+
+Inserendo $z_P$ nella formula durante l'era radiativa ($1+3w = 2$), otteniamo:
+\begin{equation}
+|\Omega(t_P)^{-1} - 1| \approx |\Omega_0^{-1} - 1| \times (10^{32})^{-2} \approx |\Omega_0^{-1} - 1| \times 10^{-64}
+\end{equation}
+Da cui si ricava che al tempo di Planck la densità dell'Universo doveva essere:
+\begin{equation}
+\Omega(t_P) = 1 \pm 10^{-60}
+\end{equation}
+Questo è il drammatico \textbf{Problema del Fine-Tuning}. Se al tempo di Planck la densità dell'Universo fosse stata $1 + 10^{-59}$ (una deviazione infinitesima), l'Universo si sarebbe richiuso su se stesso in poche frazioni di secondo. Se fosse stata $1 - 10^{-59}$, l'Universo si sarebbe espanso e raffreddato così rapidamente da raggiungere i $3$ Kelvin già $10^{-11}$ secondi dopo il Big Bang. 
+Avere oggi, dopo 14 miliardi di anni, un Universo con età e temperature sufficienti per la vita implica che le condizioni iniziali siano state regolate con una precisione di 60 cifre decimali. Nel Modello Standard, questo non ha alcuna giustificazione fisica: è una pura coincidenza magica.
+
+\subsection{La Soluzione Dinamica: L'Inflazione in azione}
+Il modello inflazionario risolve il problema alla radice inserendo, prim'ancora dell'era radiativa, un'epoca in cui l'espansione è dominata dall'energia del vuoto ($w = -1$). 
+In questa fase, l'esponente $-(1+3w)$ diventa positivo: $-(1 - 3) = +2$. L'equazione di evoluzione inverte il suo comportamento!
+
+Andando \textit{avanti} nel tempo durante l'Inflazione (mentre il fattore di scala $a$ esplode esponenzialmente), il termine $(a_0/a)^2$ sopprime violentemente qualsiasi curvatura preesistente, spingendo la differenza $|\Omega^{-1} - 1|$ inesorabilmente a zero. 
+Non serve più alcun "miracolo" iniziale: qualunque fosse il valore di $\Omega$ prima dell'Inflazione (0.001 o 1000), l'iper-espansione lo stira fino a fargli raggiungere il valore $\Omega = 1$ con estrema precisione. 
+
+Oltre a risolvere la piattezza, questa enorme dilatazione spaziale allontana le regioni inizialmente in contatto causale (risolvendo il Problema dell'Orizzonte) e diluisce a zero la densità dei difetti topologici massicci (come i monopoli magnetici) previsti dalle teorie GUT, spiegando perché non ne osserviamo nessuno. L'unico grande mistero cosmologico che l'Inflazione non può risolvere è l'esistenza della Materia Oscura, la cui natura andrà ricercata nella fisica delle particelle.
+
+
+\newpage
+\section{Lezione 10 - Extra: Approfondimento Teorico}
+
+\textit{Dietro il "riassorbimento della curvatura" spiegato fenomenologicamente a lezione si cela il calcolo teorico di quanta espansione sia fisicamente necessaria per curare l'Universo. In questa sezione calcoliamo il numero critico di e-foldings ($N$).}
+
+\subsection{Quanta Inflazione serve? Il Numero di e-foldings ($N$)}
+In cosmologia teorica, la durata della fase inflazionaria non si misura in secondi, ma in numero di "e-foldings" $N$, ovvero il numero di volte in cui il fattore di scala è aumentato di un fattore di Nepero $e$. Per definizione:
+\begin{equation}
+N \equiv \int_{t_i}^{t_f} H(t) dt = \ln \left( \frac{a_f}{a_i} \right) \implies a_f = a_i e^N
+\end{equation}
+dove $t_i$ e $t_f$ sono i tempi di inizio e fine inflazione.
+A lezione è stato mostrato che, affinché non vi sia alcun fine-tuning, la deviazione iniziale da $\Omega=1$ all'epoca di Planck deve essere smorzata di un fattore $\sim 10^{-60}$. 
+
+Riscriviamo l'equazione di Friedmann durante l'Inflazione (in cui $H \approx$ costante) per il termine di curvatura:
+\begin{equation}
+|1 - \Omega(t)| = \frac{|k|c^2}{a^2(t) H^2}
+\end{equation}
+Valutando il rapporto tra la fine e l'inizio dell'Inflazione, e ricordando che $H_f \approx H_i$, si ottiene:
+\begin{equation}
+\frac{|1 - \Omega_f|}{|1 - \Omega_i|} = \left( \frac{a_i}{a_f} \right)^2 = e^{-2N}
+\end{equation}
+Supponiamo che prima dell'Inflazione l'Universo avesse una geometria naturale e generica, per nulla piatta, con $|1 - \Omega_i| \sim \mathcal{O}(1)$. Per restituirci un Universo post-inflazionario che simuli un $\Omega_f$ piatto al livello di $10^{-60}$, il fattore di soppressione deve essere enorme:
+\begin{equation}
+e^{-2N} \lesssim 10^{-60}
+\end{equation}
+Prendendo il logaritmo naturale di ambo i membri ($\ln(10) \approx 2.302$):
+\begin{equation}
+-2N \lesssim -60 \times 2.302 \implies N \gtrsim \frac{138}{2} \implies \mathbf{N \gtrsim 69}
+\end{equation}
+La fisica teorica fissa così un vincolo stringente su qualsiasi modello inflazionario (che sia di Guth, di Linde o di Starobinsky): per funzionare e spiegare l'Universo osservabile, la caduta del campo scalare (l'inflatone) nel suo potenziale deve garantire un numero minimo di e-foldings compreso tra 60 e 70.
+
+\subsection{L'Inflazione come Attrattore Dinamico}
+Il problema della piattezza può essere visualizzato elegantemente tramite la teoria dei sistemi dinamici. Riscrivendo l'evoluzione termodinamica in funzione del numero di e-foldings $dN = H dt$:
+\begin{equation}
+\frac{d\Omega}{dN} = -(1+3w)\Omega(1-\Omega)
+\end{equation}
+\begin{itemize}
+    \item \textbf{Decelerazione (Materia/Radiazione, $1+3w > 0$):} Il termine $-(1+3w)$ è negativo. Se $\Omega > 1$, la derivata è positiva (e $\Omega$ diverge verso l'infinito). Se $\Omega < 1$, la derivata è negativa (e $\Omega$ collassa a 0). Il punto $\Omega = 1$ è un \textbf{punto fisso repulsivo (instabile)}.
+    \item \textbf{Inflazione (Energia Oscura/Vuoto, $1+3w < 0$):} Il termine $-(1+3w)$ diventa positivo. I segni si invertono! Ora, qualunque perturbazione che allontani $\Omega$ da 1 viene immediatamente riassorbita dalla derivata che spinge in verso opposto. Il punto $\Omega = 1$ diventa un \textbf{attrattore globale stabile}. L'Inflazione non è un trucco algebrico, ma il collasso inesorabile dello spaziotempo verso la sua configurazione geometricamente più stabile.
+\end{itemize}
+
+% ==========================================
+% LEZIONE 11
+% ==========================================
+\chapter{Martedì 25 Ottobre 2016}
+
+\section{I Modelli di Inflazione e l'Inflatone (Fedele alle lezioni)}
+
+Finora abbiamo descritto l'Inflazione come una generica fase di espansione iper-accelerata in grado di risolvere i problemi del Modello Standard [5]. Esistono storicamente molti modelli inflazionari proposti per spiegare come questa fase si inneschi e come si concluda.
+
+\subsection{La Vecchia Inflazione di Guth}
+Il primo modello formale fu proposto da Alan Guth nel 1980, legando l'espansione all'energia del vuoto rilasciata durante la transizione di fase della teoria GUT (Grand Unified Theory) [2]. Come discusso in precedenza, in una transizione del primo ordine l'Universo subisce un sovraraffreddamento restando intrappolato in uno stato di falso vuoto, che si comporta a tutti gli effetti come una Costante Cosmologica gigantesca [1]. 
+
+Tuttavia, il modello di Guth ha un problema fatale, noto come il problema dell'"uscita graziosa" (graceful exit). Affinché la transizione al vero vuoto avvenga, si devono formare delle "bolle" di vero vuoto tramite effetto tunnel quantistico. Per risolvere il problema dell'orizzonte, queste bolle dovrebbero scontrarsi e coalescere termalizzando l'Universo [1]. Purtroppo, lo spazio tra una bolla e l'altra continua ad espandersi esponenzialmente, impedendo alle bolle di scontrarsi con sufficiente rapidità. Le singole bolle isolate (che dovrebbero rappresentare il nostro intero Universo osservabile) risultano essere troppo piccole per risolvere i problemi per cui l'inflazione era stata concepita [1]. Questo portò all'abbandono del modello iniziale [1].
+
+\subsection{L'Equazione di Moto del Campo Scalare}
+Per risolvere questa impasse, il paradigma si è spostato dall'idea della transizione di fase del primo ordine alla dinamica di un campo scalare generico, $\phi$ (l'\textbf{inflatone}), che evolve in un potenziale $V(\phi)$ molto piatto (transizioni del secondo ordine o inflazione caotica di Linde) [1].
+L'inflatone possiede una densità di energia e una pressione date da:
+\begin{equation}
+\rho_\phi = \frac{1}{2}\dot{\phi}^2 + V(\phi) \qquad \qquad p_\phi = \frac{1}{2}\dot{\phi}^2 - V(\phi)
+\end{equation}
+Inserendo queste espressioni nell'equazione di continuità, si ottiene l'\textbf{equazione del moto per il campo scalare} [6]:
+\begin{equation}
+\ddot{\phi} + 3H\dot{\phi} + \frac{\partial V}{\partial \phi} = 0
+\end{equation}
+Questa equazione ha l'esatta forma dell'equazione di un oscillatore unidimensionale smorzato: $\ddot{\phi}$ è l'accelerazione, $\frac{\partial V}{\partial \phi}$ è la forza di richiamo dettata dalla pendenza del potenziale, e $3H\dot{\phi}$ è il termine di attrito (Hubble friction), dovuto al fatto che l'espansione dell'Universo "frena" il campo nel suo rotolamento [2, 6].
+
+\subsection{Le Condizioni di Lento Rotolamento (Slow-Roll)}
+Per avere l'Inflazione ($p_\phi \approx -\rho_\phi$) è strettamente necessario che l'energia potenziale domini incontrastata sull'energia cinetica [2]:
+\begin{equation}
+\frac{1}{2}\dot{\phi}^2 \ll V(\phi)
+\end{equation}
+Inoltre, affinché questa fase duri un tempo sufficiente a generare il famoso numero di e-foldings necessari a curare l'Universo, il campo non deve accelerare troppo [2]. L'attrito cosmologico deve essere il termine dominante nella dinamica, bilanciando esattamente la pendenza del potenziale. Si richiede quindi che l'accelerazione del campo sia trascurabile rispetto all'attrito [2]:
+\begin{equation}
+|\ddot{\phi}| \ll |3H\dot{\phi}|
+\end{equation}
+Queste due assunzioni costituiscono l'approssimazione di \textbf{Lento Rotolamento (Slow-Roll)} [2]. Sotto queste condizioni, le complesse equazioni cosmologiche si semplificano drasticamente [6]:
+\begin{equation}
+H^2 \approx \frac{8\pi G}{3} V(\phi) \qquad \text{e} \qquad 3H\dot{\phi} \approx -\frac{\partial V}{\partial \phi}
+\end{equation}
+L'Inflazione ha termine quando il campo $\phi$ si avvicina al minimo del suo potenziale, il rotolamento si fa ripido, e le condizioni di slow-roll vengono violate (solitamente per valori di $\phi$ dell'ordine dell'unità in masse di Planck) [7, 8]. L'inflatone inizierà poi a oscillare violentemente attorno al minimo ($\phi = 0$).
+
+\newpage
+\section{Lezione 11 - Extra: Approfondimento Teorico}
+
+\textit{Dietro il concetto intuitivo della "pallina che rotola lentamente" illustrato dal Professore, si cela la potente teoria dei sistemi dinamici e degli attrattori nello spazio delle fasi, oltre a una parametrizzazione rigorosa delle condizioni di slow-roll tramite le derivate del potenziale.}
+
+\subsection{Lo Spazio delle Fasi e l'Attrattore Dinamico}
+A lezione il Professore ha mostrato graficamente lo studio del comportamento dell'inflatone nel piano $(\phi, \dot{\phi})$ [3]. La genialità dell'Inflazione a singolo campo risiede proprio in questa struttura matematica: l'approssimazione di lento rotolamento non è un fortunato caso di condizioni iniziali, ma un \textbf{attrattore globale} [3].
+
+Riscrivendo l'equazione del moto come un sistema dinamico accoppiato:
+\begin{equation}
+\begin{cases}
+\frac{d\phi}{dt} = \pi_\phi \\
+\frac{d\pi_\phi}{dt} = -3H(\phi, \pi_\phi) \pi_\phi - V'(\phi)
+\end{cases}
+\end{equation}
+Se tracciamo le orbite in questo spazio delle fasi, notiamo che, indipendentemente dalla velocità iniziale del campo (fase di "caduta libera"), l'immenso attrito di Hubble smorza le velocità [3, 4]. Tutte le traiettorie collassano rapidamente su un'unica curva asintotica definita da $\pi_\phi = -\frac{V'(\phi)}{3H}$, per poi "scivolare" lentamente lungo questa curva fino a cadere in un vortice attorno all'origine ($\phi=0, \dot{\phi}=0$) [3]. È l'esistenza di questo attrattore che esonera la cosmologia dal dover fare un "fine-tuning" sulle velocità primordiali del campo $\phi$.
+
+\subsection{Formalizzazione: I Parametri di Slow-Roll ($\epsilon$ e $\eta$)}
+A lezione le condizioni di slow-roll sono state espresse in termini delle derivate temporali ($\dot{\phi}, \ddot{\phi}$). Tuttavia, per valutare se un determinato modello analitico $V(\phi)$ sia idoneo a sostenere l'inflazione, è fondamentale tradurre questi vincoli puramente nella \textbf{geometria del potenziale}.
+
+Invertendo le equazioni approssimate di Friedmann e del moto, si introducono i parametri di lento rotolamento (nella convenzione $8\pi G = M_{Pl}^{-2}$, con $M_{Pl}$ massa di Planck ridotta):
+\begin{enumerate}
+    \item \textbf{Parametro $\epsilon$ (Piattezza):} Deriva dalla condizione dell'energia cinetica $\frac{1}{2}\dot{\phi}^2 \ll V(\phi)$. Indica che la pendenza (derivata prima) del potenziale deve essere sufficientemente piccola rispetto alla sua altezza:
+    \begin{equation}
+    \epsilon \equiv \frac{M_{Pl}^2}{2} \left( \frac{V'(\phi)}{V(\phi)} \right)^2 \ll 1
+    \end{equation}
+    La condizione rigorosa per avere espansione accelerata ($\ddot{a} > 0$) corrisponde esattamente a $\epsilon < 1$. L'inflazione finisce matematicamente nell'istante esatto in cui $\epsilon = 1$.
+    \item \textbf{Parametro $\eta$ (Concavità):} Deriva dalla condizione sull'accelerazione $|\ddot{\phi}| \ll |3H\dot{\phi}|$. Assicura che l'inflazione perduri nel tempo, richiedendo che la curvatura (derivata seconda) del potenziale sia minima:
+    \begin{equation}
+    \eta \equiv M_{Pl}^2 \frac{V''(\phi)}{V(\phi)} \ll 1 \qquad (\text{o rigorosamente } |\eta| \ll 1)
+    \end{equation}
+\end{enumerate}
+Questi due minuscoli parametri geometrici ($\epsilon$ e $\eta$) determinano direttamente lo \textit{spettro di potenza primordiale} delle fluttuazioni quantistiche che andranno a formare le galassie, traducendo la forma del potenziale in precise osservabili astrofisiche [6].
+
+% ==========================================
+% LEZIONE 12
+% ==========================================
+\chapter{Mercoledì 26 Ottobre 2016}
+
+\section{Soluzione Analitica dell'Inflazione Caotica (Fedele alle lezioni)}
+
+Nella lezione precedente abbiamo ricavato l'equazione del moto per l'inflatone e le condizioni di lento rotolamento (slow-roll). Per visualizzare concretamente come l'Universo si espanda in questa fase, dobbiamo specificare la forma del potenziale $V(\phi)$. 
+Scegliamo il caso più semplice possibile, quello di un campo scalare massivo libero, descritto dal potenziale di un oscillatore armonico:
+\begin{equation}
+V(\phi) = \frac{1}{2}m^2 \phi^2
+\end{equation}
+dove $m$ rappresenta la massa associata alla fluttuazione del campo $\phi$. 
+
+\subsection{Dinamica sull'Attrattore}
+Sotto le condizioni di slow-roll ($|\ddot{\phi}| \ll 3H|\dot{\phi}|$ e $\frac{1}{2}\dot{\phi}^2 \ll V(\phi)$), l'equazione del moto si riduce a un bilancio tra l'attrito di Hubble e la pendenza del potenziale:
+\begin{equation}
+3H\dot{\phi} \approx -\frac{\partial V}{\partial \phi} = -m^2 \phi
+\end{equation}
+L'equazione di Friedmann, assumendo $G=1$ per semplificare la notazione e ricordando che la densità è dominata dal potenziale ($\rho_\phi \approx V(\phi)$), diventa:
+\begin{equation}
+H^2 = \frac{8\pi}{3}\rho_\phi \approx \frac{8\pi}{3} \left( \frac{1}{2}m^2 \phi^2 \right) = \frac{4\pi}{3} m^2 \phi^2 \implies H = \sqrt{\frac{4\pi}{3}} m \phi
+\end{equation}
+Sostituendo l'espressione di $H$ nell'equazione del moto dell'inflatone:
+\begin{equation}
+3 \left( \sqrt{\frac{4\pi}{3}} m \phi \right) \dot{\phi} = -m^2 \phi \implies \sqrt{12\pi} \, m \dot{\phi} = -m^2 \implies \dot{\phi}_{attr} = -\frac{m}{\sqrt{12\pi}}
+\end{equation}
+Abbiamo trovato un risultato notevole: sull'attrattore dinamico, \textbf{la velocità del campo $\dot{\phi}$ è strettamente costante}. 
+
+Integrando questa velocità costante rispetto al tempo, possiamo trovare il valore del campo in funzione del tempo. Se l'inflazione termina al tempo $t_f$ (momento in cui $\phi \approx 0$), possiamo parametrizzare la caduta del campo come:
+\begin{equation}
+\phi_{attr}(t) = \frac{m}{\sqrt{12\pi}} (t_f - t)
+\end{equation}
+
+\subsection{Evoluzione del Fattore di Scala $a(t)$}
+Ora possiamo determinare come si espande lo spaziotempo in risposta alla caduta di $\phi$. Riprendiamo l'espressione del parametro di Hubble e sostituiamo la soluzione $\phi_{attr}(t)$:
+\begin{equation}
+H = \frac{\dot{a}}{a} = \sqrt{\frac{4\pi}{3}} m \left[ \frac{m}{\sqrt{12\pi}} (t_f - t) \right] = \sqrt{\frac{4\pi}{36\pi}} m^2 (t_f - t) = \frac{m^2}{3} (t_f - t)
+\end{equation}
+Poiché $H = \frac{d\ln a}{dt}$, possiamo integrare ambo i membri:
+\begin{equation}
+\int d\ln a = \int \frac{m^2}{3} (t_f - t) dt \implies \ln a(t) = -\frac{m^2}{6} (t_f - t)^2 + \text{costante}
+\end{equation}
+Valutando la costante al tempo finale dell'inflazione $t_f$ (dove $a = a_f$), otteniamo l'espressione finale e completa per il fattore di scala:
+\begin{equation}
+a(t) = a_f \exp\left[ -\frac{m^2}{6} (t_f - t)^2 \right]
+\end{equation}
+Ritroviamo così un'espansione di tipo esponenziale, ma con un esponente che dipende dal quadrato del tempo mancante alla fine dell'inflazione. L'espansione iper-accelerata si innesca solo se il campo scalare parte da un valore iniziale $\phi_i$ enormemente distante dal minimo, richiedendo scale di energia straordinariamente elevate.
+
+Quando il potenziale scende a valori dell'ordine dell'unità in masse di Planck ($\phi \approx M_{Pl}$), l'approssimazione cade. L'inflatone, avvicinandosi a $\phi = 0$, smette di rallentare dolcemente e comincia a oscillare violentemente attorno al minimo della buca di potenziale. Qui termina l'Inflazione e si aprono le porte a un nuovo problema cosmologico: la creazione di materia ordinaria (Reheating).
+
+\newpage
+\section{Lezione 12 - Extra: Approfondimento Teorico}
+
+\textit{Il modello di potenziale $V \propto \phi^2$ appena analizzato storicamente prende il nome di Inflazione Caotica. In questa sezione utilizziamo la metrica esatta per calcolare il numero di e-foldings generato e dimostriamo meccanicamente l'equazione di stato delle oscillazioni finali dell'inflatone.}
+
+\subsection{Inflazione Caotica e Valori Trans-Planckiani}
+A lezione, la condizione iniziale $\phi_i$ è stata lasciata indefinita. Calcoliamo esattamente quale debba essere questo valore iniziale per garantire il numero minimo di e-foldings ($N \approx 60$) necessario a risolvere i problemi del Modello Standard.
+
+Il numero di e-foldings è definito come:
+\begin{equation}
+N \equiv \int_{t_i}^{t_f} H dt = \int_{\phi_i}^{\phi_f} \frac{H}{\dot{\phi}} d\phi
+\end{equation}
+Nell'approssimazione di lento rotolamento, abbiamo $3H\dot{\phi} \approx -V'$ e $H^2 \approx \frac{8\pi G}{3}V$. Reinserendo formalmente la costante gravitazionale (tramite la massa di Planck ridotta $M_{Pl}^2 = \frac{1}{8\pi G}$), il rapporto $\frac{H}{\dot{\phi}}$ diventa:
+\begin{equation}
+\frac{H}{\dot{\phi}} \approx -\frac{3H^2}{V'} \approx -\frac{1}{M_{Pl}^2} \frac{V}{V'}
+\end{equation}
+Per il potenziale quadratico $V(\phi) = \frac{1}{2}m^2\phi^2$, la derivata è $V'(\phi) = m^2\phi$. Sostituendo:
+\begin{equation}
+N = \int_{\phi_f}^{\phi_i} \frac{1}{M_{Pl}^2} \frac{\frac{1}{2}m^2\phi^2}{m^2\phi} d\phi = \frac{1}{2M_{Pl}^2} \int_{\phi_f}^{\phi_i} \phi \, d\phi \approx \frac{\phi_i^2}{4M_{Pl}^2}
+\end{equation}
+(assumendo che il campo finale $\phi_f \approx 0$ sia trascurabile rispetto a $\phi_i$).
+
+Risolvendo per il campo iniziale, otteniamo la previsione fondamentale dell'Inflazione Caotica di Linde:
+\begin{equation}
+\phi_i \approx \sqrt{4N} M_{Pl}
+\end{equation}
+Se richiediamo $N \approx 60$, si ottiene $\phi_i \approx \sqrt{240} M_{Pl} \approx 15 M_{Pl}$.
+Questo dimostra matematicamente che, per far funzionare questo modello, il campo scalare deve partire da \textbf{valori super-Planckiani} (molto maggiori della massa di Planck). Il termine "Caotica" deriva proprio dall'idea che all'epoca di Planck le fluttuazioni quantistiche primordiali abbiano spinto casualmente il campo $\phi$ a valori enormi in alcune zone dell'Universo, innescando l'inflazione proprio in quelle regioni.
+
+\subsection{Dinamica delle Oscillazioni e Materia Oscura ($\langle w \rangle = 0$)}
+Cosa succede esattamente all'istante $t_f$ in cui l'Inflazione termina?
+Quando $\phi$ scende sotto $M_{Pl}$, le condizioni di slow-roll vengono violate ($\frac{1}{2}\dot{\phi}^2 \sim V(\phi)$). Il termine di attrito $3H\dot{\phi}$ diventa trascurabile rispetto alla forza di richiamo del potenziale $V'(\phi)$.
+L'equazione del moto diventa quella di un oscillatore armonico semplice libero:
+\begin{equation}
+\ddot{\phi} + m^2\phi = 0 \implies \phi(t) = \Phi_0 \cos(mt)
+\end{equation}
+Studiamo l'equazione di stato media durante queste repentine oscillazioni.
+La pressione del campo è $p_\phi = \frac{1}{2}\dot{\phi}^2 - \frac{1}{2}m^2\phi^2$. Calcoliamo il suo valore medio su un periodo di oscillazione $T = \frac{2\pi}{m}$:
+\begin{equation}
+\langle p_\phi \rangle = \frac{1}{2} \langle \dot{\phi}^2 \rangle - \frac{1}{2} m^2 \langle \phi^2 \rangle
+\end{equation}
+Dal teorema del Viriale per un potenziale quadratico, l'energia cinetica media uguaglia l'energia potenziale media ($\langle K \rangle = \langle V \rangle$). Ne consegue rigorosamente che:
+\begin{equation}
+\langle p_\phi \rangle = 0 \implies \langle w \rangle = 0
+\end{equation}
+Dopo l'Inflazione, il campo scalare fluttuante attorno al minimo si comporta fluidodinamicamente \textbf{esattamente come un gas di materia non relativistica (polvere, $w=0$)}. Tutta l'energia dell'Universo si trova imprigionata nelle oscillazioni massive dell'inflatone in un Universo completamente buio e freddo. Solo il decadimento quantistico di queste oscillazioni in particelle del Modello Standard potrà "riaccendere" il Big Bang Caldo (Bariogenesi), un processo che studieremo come \textit{Reheating}.
+
+% ==========================================
+% LEZIONE 13
+% ==========================================
+\chapter{Mercoledì 2 Novembre 2016}
+
+\section{Il Reheating: La Creazione della Materia (Fedele alle lezioni)}
+
+Alla fine dell'Inflazione, il campo scalare $\phi$ (l'inflatone) smette di rotolare lentamente e comincia a oscillare violentemente attorno al minimo del suo potenziale. Abbiamo dimostrato che l'equazione di stato media di queste oscillazioni è $\langle w \rangle = 0$. 
+Questo significa che l'Universo esce dalla fase inflazionaria comportandosi dinamicamente come se fosse dominato da materia fredda e non relativistica. Tuttavia, noi sappiamo che l'Universo primordiale del Modello Standard deve essere un plasma caldissimo dominato dalla radiazione ($w = 1/3$). 
+
+Come passiamo da un Universo freddo e vuoto (svuotato dall'iper-espansione) al Big Bang Caldo? La risposta risiede nel decadimento dell'inflatone, un processo noto come \textbf{Reheating (Riscaldamento)}.
+
+\subsection{La Lagrangiana di Interazione e il Decadimento}
+Le oscillazioni del campo $\phi$ rappresentano, dal punto di vista quantistico, un condensato di particelle massive (con massa $m \approx 10^{13}$ GeV) a riposo. Affinché queste particelle decadano nella materia ordinaria, l'inflatone deve essere accoppiato ad altri campi del Modello Standard (bosoni o fermioni). 
+Introduciamo una Lagrangiana di interazione fenomenologica:
+\begin{equation}
+\Delta \mathcal{L}_{int} = -g \phi X^2 - h \phi \bar{\Psi}\Psi
+\end{equation}
+dove $X$ rappresenta un campo scalare (bosonico) e $\Psi$ un campo fermionico, mentre $g$ e $h$ sono le costanti di accoppiamento.
+Il decadimento nel canale bosonico ($X$) è cinematicamente favorito e regolato da un tasso di decadimento (probabilità di decadimento per unità di tempo):
+\begin{equation}
+\Gamma_X = \frac{g^2}{8\pi m}
+\end{equation}
+L'equazione di evoluzione per la densità numerica degli inflatoni $n_\phi$ diventa quindi $\dot{n}_\phi + 3Hn_\phi = -\Gamma_X n_\phi$. Il decadimento rapido di queste particelle massive in particelle molto più leggere produce un'enorme quantità di particelle relativistiche che, interagendo tra loro, termalizzano rapidamente. L'energia immagazzinata nelle oscillazioni si converte così in calore, e l'Universo rientra nell'era radiativa ($w=1/3$).
+
+\subsection{Il Limite di Temperatura e i Monopoli Magnetici}
+Durante il Reheating, si genera una temperatura massima $T_{RH}$. Esiste un vincolo fisico insormontabile su questo valore:
+\textbf{La temperatura di Reheating non deve mai superare la temperatura della transizione di fase GUT ($T_{GUT} \approx 10^{15}$ GeV).}
+
+Se il decadimento dell'inflatone riscaldasse l'Universo al di sopra di $10^{15}$ GeV, la simmetria GUT verrebbe ripristinata. Nel successivo raffreddamento, l'Universo attraverserebbe \textit{di nuovo} la transizione di fase, ricreando i monopoli magnetici e gli altri difetti topologici massicci. Questo distruggerebbe uno dei più grandi successi dell'Inflazione (l'aver diluito i monopoli oltre il nostro orizzonte osservabile). È per questo che i modelli inflazionari richiedono che la massa dell'inflatone sia "piccola" rispetto alla massa di Planck ($m \sim 10^{-6} M_{Pl} \sim 10^{13}$ GeV), garantendo una $T_{RH}$ sicura.
+
+\section{Il Disaccoppiamento dei Neutrini}
+Una volta ristabilito il Big Bang Caldo, l'Universo è un plasma in equilibrio termico che si espande e si raffredda. Le prime particelle a disaccoppiarsi da questo plasma primordiale sono i neutrini.
+
+Fino a energie di circa $1$ MeV (o temperature di $\sim 10^{10}$ K), i neutrini sono mantenuti in equilibrio termico con gli elettroni, i positroni e i fotoni tramite le interazioni deboli (ad esempio $\nu + \bar{\nu} \leftrightarrow e^+ + e^-$). 
+Il disaccoppiamento avviene quando il tasso di interazione debole $\Gamma_W$ diventa inferiore al tasso di espansione dell'Universo $H$. Da quel momento in poi, i neutrini non riescono più a scambiare energia con il resto del plasma: si separano dal fluido termico e iniziano a propagarsi liberamente nello spazio, formando un fondo cosmico di neutrini (analogo alla CMB, ma molto più antico e freddo) che permea ancora oggi l'intero Universo.
+
+
+\newpage
+\section{Lezione 13 - Extra: Approfondimento Teorico}
+
+\textit{Dietro la scrittura fenomenologica della Lagrangiana vista a lezione si nasconde il calcolo esatto della Temperatura di Reheating. In questa sezione colleghiamo il decadimento quantistico all'espansione macroscopica.}
+
+\subsection{Calcolo della Temperatura di Reheating ($T_{RH}$)}
+A lezione è stato introdotto il tasso di decadimento $\Gamma_X$, ma non è stato dimostrato come questo si traduca in una temperatura termodinamica per l'Universo.
+
+L'inflatone decade efficacemente e cede la sua energia al plasma solo quando il tempo caratteristico di decadimento ($\tau = \Gamma^{-1}$) diventa paragonabile o inferiore all'età dell'Universo in espansione ($t \approx H^{-1}$). La condizione critica di conversione si ha quindi quando:
+\begin{equation}
+H \approx \Gamma
+\end{equation}
+Nell'istante in cui questa condizione è soddisfatta, assumiamo che tutta l'energia residua del campo scalare venga istantaneamente convertita in radiazione termalizzata ($\rho_\phi \to \rho_R$). 
+Dall'equazione di Friedmann, l'energia dell'Universo è legata ad $H$:
+\begin{equation}
+H^2 = \frac{8\pi G}{3c^2}\rho_R = \frac{\rho_R}{3M_{Pl}^2}
+\end{equation}
+Sostituendo $H \approx \Gamma$, la densità di energia radiativa generata al momento del Reheating è:
+\begin{equation}
+\rho_R \approx 3 M_{Pl}^2 \Gamma^2
+\end{equation}
+Dalla termodinamica statistica sappiamo che la densità di energia di un gas di particelle ultra-relativistiche a temperatura $T$ (legge di Stefan-Boltzmann generalizzata) è:
+\begin{equation}
+\rho_R = \frac{\pi^2}{30} g_* T^4
+\end{equation}
+dove $g_*$ è il numero di gradi di libertà relativistici efficaci.
+Uguagliando le due espressioni per $\rho_R$:
+\begin{equation}
+\frac{\pi^2}{30} g_* T_{RH}^4 \approx 3 M_{Pl}^2 \Gamma^2
+\end{equation}
+Isolando la temperatura, otteniamo la previsione fondamentale per la Temperatura di Reheating:
+\begin{equation}
+T_{RH} \approx \left( \frac{90}{\pi^2 g_*} \right)^{1/4} \sqrt{\Gamma M_{Pl}}
+\end{equation}
+Questa bellissima equazione ci dice che la temperatura massima raggiunta dal Big Bang non dipende da "quanta" inflazione c'è stata prima, ma dipende esclusivamente dalle proprietà microscopiche dell'inflatone: è proporzionale alla radice quadrata del suo tasso di decadimento quantistico moltiplicato per la massa di Planck. Controllando il parametro di accoppiamento $g$ nella Lagrangiana $\Delta \mathcal{L}_{int}$, i fisici teorici possono garantire che $T_{RH} < 10^{15}$ GeV, evitando la catastrofe dei monopoli.
+
+% ==========================================
+% LEZIONE 14
+% ==========================================
+\chapter{Lunedì 7 Novembre 2016}
+
+\section{La Nucleosintesi Primordiale (Fedele alle lezioni)}
+
+Nelle lezioni precedenti abbiamo tracciato la storia termica dell'Universo. Continuando a scendere di temperatura dopo l'era leptonica e il disaccoppiamento dei neutrini, l'Universo raggiunge energie dell'ordine di $1$ MeV (o temperature di $\approx 10^9$ K), corrispondenti a un'età di circa $100-200$ secondi dopo il Big Bang. 
+In questo momento, protoni e neutroni, che fino ad ora vagavano liberi nel plasma, hanno un'energia cinetica sufficientemente bassa da poter rimanere legati assieme dalla forza nucleare forte senza essere immediatamente distrutti dai fotoni di alta energia. Inizia l'era della \textbf{Nucleosintesi Primordiale} (Big Bang Nucleosynthesis, BBN), in cui si formano i primi nuclei atomici leggeri.
+
+\subsection{Abbondanze: Nucleosintesi Stellare vs Primordiale}
+Osservando l'Universo odierno, l'astrofisica classifica la composizione chimica della materia barionica in tre frazioni di massa:
+\begin{itemize}
+    \item $X \approx 74\%$ (Frazione di massa dell'Idrogeno)
+    \item $Y \approx 25\%$ (Frazione di massa dell'Elio-$4$)
+    \item $Z \approx 1\%$ (Frazione dei "metalli", ovvero tutti gli elementi più pesanti)
+\end{itemize}
+Inizialmente, prima dello sviluppo completo della cosmologia, si pensava che tutti gli elementi chimici (Elio compreso) fossero stati sintetizzati esclusivamente all'interno dei nuclei stellari tramite fusione nucleare (\textit{nucleosintesi stellare}).
+
+Tuttavia, l'abbondanza $Y = 25\%$ rappresenta un enorme problema per un modello puramente stellare. Se l'intera produzione di quel $25\%$ di Elio fosse avvenuta all'interno delle stelle nel corso della vita dell'Universo, la luminosità totale emessa dal cielo stellato durante queste reazioni termonucleari sarebbe dovuta essere immensamente superiore a quella che osserviamo oggi. Inoltre, le generazioni stellari che bruciano Idrogeno per formare Elio producono contemporaneamente anche elementi pesanti (metalli $Z$). Un'abbondanza di $Y = 25\%$ prodotta solo dalle stelle implicherebbe una metallicità $Z$ molto più elevata di quel magro $1\%$ misurato.
+
+\subsection{Un pilastro del Big Bang}
+L'unica soluzione a questo enigma è che \textbf{la stragrande maggioranza dell'Elio cosmico sia di origine primordiale}, formatosi prima ancora che esistessero le galassie. 
+Le condizioni estreme di densità e temperatura nei primi minuti di vita dell'Universo hanno trasformato l'intero cosmo in una gigantesca "fornace nucleare", convertendo rapidamente circa il 25\% della massa barionica in Elio-$4$ e lasciando tracce di Deuterio, Litio e Berillio. L'esatta coincidenza tra il $25\%$ calcolato teoricamente dalle equazioni del Big Bang e il $25\%$ osservato oggi nell'Universo profondo costituisce una delle prove più spettacolari e inattaccabili a favore del Modello Cosmologico Standard.
+
+
+\newpage
+\section{Lezione 14 - Extra: Approfondimento Teorico}
+
+\textit{Dietro le percentuali di abbondanza citate a lezione si cela il delicato equilibrio termodinamico tra le forze deboli e il tasso di espansione di Hubble. In questa sezione formalizziamo il calcolo teorico del $25\%$ di Elio cosmico e spieghiamo il collo di bottiglia del Deuterio.}
+
+\subsection{Il Freeze-out del Rapporto Neutroni/Protoni ($n/p$)}
+A temperature superiori a $1$ MeV, le interazioni elettrodeboli ($p + e^- \leftrightarrow n + \nu_e$) mantengono neutroni e protoni in equilibrio statistico termico. Essendo la massa del neutrone leggermente superiore a quella del protone ($\Delta m = m_n - m_p \approx 1.293$ MeV), l'abbondanza relativa segue la distribuzione di Maxwell-Boltzmann:
+\begin{equation}
+\left( \frac{n}{p} \right)_{eq} = \exp\left( -\frac{\Delta m c^2}{k_B T} \right)
+\end{equation}
+Finché $k_B T \gg \Delta m c^2$, il rapporto $n/p \approx 1$. 
+
+Quando la temperatura scende a $T_F \approx 0.8$ MeV, il tasso delle reazioni deboli $\Gamma_W$ (che scala come $T^5$) crolla al di sotto del tasso di espansione dell'Universo $H$ (che scala come $T^2$). Avviene il \textbf{freeze-out} delle interazioni deboli. I protoni e i neutroni si disaccoppiano, e il loro rapporto si "congela" termodinamicamente al valore:
+\begin{equation}
+\left( \frac{n}{p} \right)_{freeze} = \exp\left( -\frac{1.293 \text{ MeV}}{0.8 \text{ MeV}} \right) \approx \frac{1}{5}
+\end{equation}
+
+\subsection{Il Collo di Bottiglia del Deuterio e il Decadimento Beta}
+Se i neutroni venissero immediatamente incorporati in nuclei di Elio a $0.8$ MeV, l'abbondanza finale sarebbe superiore al $25\%$. Tuttavia, per formare l'Elio-$4$, protoni e neutroni devono prima fondersi nel \textbf{Deuterio} ($p + n \leftrightarrow D + \gamma$). 
+
+Il Deuterio ha un'energia di legame molto debole ($E_B \approx 2.22$ MeV). Data l'enorme quantità di fotoni per ogni barione ($\eta^{-1} \sim 10^9$), l'Universo è permeato da una "coda" di fotoni molto energetici della distribuzione di Planck, capaci di fotodisintegrare il Deuterio non appena questo si forma. Questo fenomeno prende il nome di \textbf{Collo di bottiglia del Deuterio}: la nucleosintesi è costretta ad aspettare che l'Universo si raffreddi ulteriormente fino a $\sim 0.1$ MeV, affinché non vi siano più fotoni in grado di distruggere i nuclei di Deuterio.
+
+Questa attesa cosmica (che dura circa $200$ secondi) costa cara ai neutroni. Essendo particelle libere e instabili, iniziano a decadere tramite decadimento beta ($n \to p + e^- + \bar{\nu}_e$) con un tempo di vita media $\tau \approx 880$ s. Durante questa "pausa", il rapporto $n/p$ diminuisce ulteriormente rispetto al valore di freeze-out, assestandosi a:
+\begin{equation}
+\left( \frac{n}{p} \right)_{BBN} \approx \frac{1}{7}
+\end{equation}
+
+\subsection{Il Calcolo Teorico di $Y_p$}
+A $0.1$ MeV, il collo di bottiglia si rompe. Praticamente tutti i neutroni sopravvissuti vengono incamerati nell'elemento leggero più stabile: l'Elio-$4$ ($^4$He). Un nucleo di Elio-$4$ contiene $2$ protoni e $2$ neutroni. 
+La frazione di massa primordiale dell'Elio ($Y_p$) è definita come il rapporto tra la massa totale dell'Elio e la massa barionica totale. Assumendo $m_n \approx m_p$:
+\begin{equation}
+Y_p \equiv \frac{4 n_{He}}{n_n + n_p} = \frac{4 (n_n / 2)}{n_n + n_p} = \frac{2 n_n}{n_n + n_p} = \frac{2 (n/p)}{1 + (n/p)}
+\end{equation}
+Sostituendo il valore teorico del rapporto calcolato dopo il decadimento beta ($n/p \approx 1/7$):
+\begin{equation}
+Y_p \approx \frac{2 (1/7)}{1 + 1/7} = \frac{2/7}{8/7} = \frac{2}{8} = 0.25 = \mathbf{25\%}
+\end{equation}
+Questa elegante dimostrazione della meccanica quantistica termodinamica conferma esattamente il valore astrofisico introdotto fenomenologicamente a lezione, legando indissolubilmente la fisica nucleare alla cosmologia.
+
+% ==========================================
+% LEZIONE 15
+% ==========================================
+\chapter{Martedì 8 Novembre 2016}
+
+\section{Fine della Storia Termica: Ricombinazione e CMB (Fedele alle lezioni)}
+
+Proseguendo l'espansione e il raffreddamento dell'Universo, l'energia termica del bagno di fotoni scende al di sotto dell'energia di legame elettromagnetica dell'idrogeno. Fino a questo momento, i fotoni erano sufficientemente energetici da distruggere istantaneamente qualsiasi atomo neutro si formasse, mantenendo la materia barionica sotto forma di plasma ionizzato (protoni ed elettroni liberi).
+
+Tramite l'\textbf{Equazione di Saha}, si descrive l'equilibrio statistico della reazione di ricombinazione ($p^+ + e^- \leftrightarrow H + \gamma$). Si trova che la transizione da idrogeno ionizzato a idrogeno neutro avviene a una temperatura di $T \approx 4000$ K. Questo evento, chiamato \textbf{Ricombinazione} ($REC$), avviene a un redshift di:
+\begin{equation}
+Z_{REC} \approx 1500
+\end{equation}
+Tuttavia, finché c'è una seppur minima frazione residua di elettroni liberi, questi sono sufficienti a garantire una certa opacità del plasma (tramite scattering Thomson). Il vero \textbf{Disaccoppiamento} ($DEC$) tra materia e radiazione, ovvero il momento in cui i fotoni smettono di interagire con la materia e iniziano a propagarsi liberamente (la profondità ottica crolla), avviene un po' più tardi:
+\begin{equation}
+Z_{DEC} \approx 300
+\end{equation}
+Questi fotoni liberi viaggiano in linea retta fino ad oggi, spostati verso il rosso dall'espansione cosmica, formando la \textbf{Radiazione Cosmica di Fondo (CMB)}. Poiché sono stati generati in condizioni di perfetto equilibrio termico, essi mantengono uno spettro di Corpo Nero pressoché perfetto, governato dalla legge di Planck e approssimabile, per basse frequenze, con la legge di Rayleigh-Jeans.
+
+\textit{Con questo argomento si chiude formalmente la prima metà del corso, dedicata allo studio del background cosmologico omogeneo.}
+
+\section{Inizio Teoria delle Perturbazioni: Il Regime Lineare}
+
+L'Universo reale non è perfettamente omogeneo; presenta stelle, galassie e ammassi. Per descrivere l'evoluzione di queste strutture, partiamo dalle fluttuazioni primordiali di materia oscura nate durante l'Inflazione e studiamo come esse crescono gravitazionalmente.
+Per descrivere fluidodinamicamente la materia abbiamo bisogno di 5 equazioni fondamentali: l'equazione di continuità (conservazione della massa), le tre componenti dell'equazione di Eulero (conservazione dell'impulso) e l'equazione di Poisson per il campo gravitazionale. A queste va aggiunta un'equazione di stato per chiudere il sistema, assumendo trasformazioni adiabatiche (entropia costante).
+
+Il metodo standard consiste nel prendere le soluzioni esatte del background omogeneo espansivo (che conosciamo) e sommarvi delle \textbf{piccole perturbazioni}:
+\begin{equation}
+\rho = \rho_b + \delta\rho \qquad p = p_b + \delta p \qquad \phi = \phi_b + \delta\phi
+\end{equation}
+Per la velocità, dobbiamo tenere conto del flusso di Hubble locale:
+\begin{equation}
+\vec{u} = H\vec{r} + \vec{v}
+\end{equation}
+dove $\vec{v}$ è la velocità peculiare rispetto all'espansione.
+Si introduce una quantità fondamentale, il \textbf{Contrasto di Densità}:
+\begin{equation}
+\delta = \frac{\delta\rho}{\rho_b}
+\end{equation}
+Sostituendo queste espressioni nelle equazioni fluidodinamiche e \textbf{scartando sistematicamente tutti i termini di secondo ordine} (prodotti di due perturbazioni come $\delta\rho \cdot \vec{v} \approx 0$), si ottengono le equazioni linearizzate. 
+
+Le soluzioni di queste equazioni, che descrivono come cresce una perturbazione nello spazio e nel tempo, vengono cercate sotto forma di \textbf{onde piane}:
+\begin{equation}
+\delta_k(\vec{r}, t) = \delta_k \exp(i\vec{k}\cdot\vec{r} + i\omega t)
+\end{equation}
+A seconda del valore della frequenza angolare al quadrato $\omega^2$ (che può risultare positiva o negativa), la soluzione temporale esibirà oscillazioni propaganti (onde di puro suono) oppure esibirà una parte immaginaria esplicita, trasformando l'esponenziale complesso in una crescita esponenziale reale della struttura.
+
+\newpage
+\section{Lezione 15 - Extra: Approfondimento Teorico}
+
+\textit{Questa sezione formalizza termodinamicamente i passaggi intuitivi esposti a lezione. Spiegheremo perché la ricombinazione avviene "in ritardo" rispetto a quanto ci si aspetterebbe classicamente e formalizzeremo la velocità del suono cosmologico.}
+
+\subsection{Il Paradosso Energetico dell'Equazione di Saha}
+L'energia di ionizzazione dell'Idrogeno dal suo stato fondamentale è $\chi = 13.6$ eV. Classicizzando rozzamente il problema termico ponendo $k_B T \approx \chi$, ci aspetteremmo che l'Universo diventi neutro a una temperatura enorme: $T = \chi / k_B \approx 160.000$ K. A lezione è stato invece enunciato che la ricombinazione avviene a soli $T \approx 4000$ K (circa $0.3$ eV). Perché questo enorme scarto?
+
+La risposta giace in un altro fondamentale parametro cosmologico: il rapporto barioni/fotoni $\eta = n_b / n_\gamma \sim 10^{-9}$. Nel plasma primordiale, per ogni singolo nucleo di idrogeno esistono circa un miliardo di fotoni. 
+La distribuzione delle energie dei fotoni segue la statistica di Planck. Anche quando la temperatura media del cosmo scende a $\sim 4000$ K, esiste sempre una "coda esponenziale" di fotoni molto energetici (nella zona di Wien) che possiedono un'energia $E > 13.6$ eV. Essendoci un miliardo di fotoni per ogni barione, la quantità di questi fotoni eccezionalmente energetici è ancora sufficiente ad annichilire, colpo su colpo, ogni atomo neutro di idrogeno che tenta di formarsi. L'Universo \textbf{deve raffreddarsi drasticamente} per spazzare via del tutto l'estrema coda ad alta energia, permettendo finalmente alla Ricombinazione di vincere sulla fotoionizzazione.
+
+\subsection{L'Ipotesi Adiabatica e la Velocità del Suono}
+A lezione il sistema di equazioni linearizzato è stato "chiuso" supponendo semplicemente che la pressione sia funzione della densità, $p = p(\rho)$. La giustificazione fisica profonda sta nella termodinamica della Teoria delle Perturbazioni.
+
+Se il fluido barionico, disaccoppiato o debolmente disaccoppiato, subisce compressioni ed espansioni su scale cosmologiche a causa delle onde di densità, questi processi avvengono troppo rapidamente perché il calore possa fluire e uniformare la temperatura del gas. Il processo è squisitamente adiabatico (entropia $S$ costante).
+Di conseguenza, la fluttuazione di pressione $\delta p$ e la fluttuazione di densità $\delta\rho$ non sono indipendenti, ma sono legate esattamente alla definizione della velocità del suono $v_s$ in un gas:
+\begin{equation}
+\delta p = \left(\frac{\partial p}{\partial \rho}\right)_S \delta\rho \implies \delta p = v_s^2 \delta\rho
+\end{equation}
+È proprio l'introduzione di questa identità nell'equazione di Eulero linearizzata, unita al calcolo del gradiente spaziale del potenziale $\nabla \phi$ tramite l'equazione di Poisson quantistica ($\nabla^2 (\delta\phi) = 4\pi G \rho_b \delta$), a generare la relazione di dispersione per le onde di materia, svelando che la gravità agisce esattamente contro la pressione fluidodinamica guidata da $v_s^2$.
+
+% ==========================================
+% LEZIONE 16
+% ==========================================
+\chapter{Lunedì 14 Novembre 2016}
+
+\section{La Relazione di Dispersione e la Scala di Jeans (Fedele alle lezioni)}
+
+Nella lezione precedente, linearizzando le equazioni della fluidodinamica per le perturbazioni e cercando soluzioni sotto forma di onde piane $\delta_k(\vec{r}, t) = \delta_k \exp(i\vec{k}\cdot\vec{r} + i\omega t)$, abbiamo ricavato un'equazione fondamentale: la \textbf{relazione di dispersione}:
+\begin{equation}
+\omega^2 = k^2 v_s^2 - 4\pi G \rho_b
+\end{equation}
+Questa espressione è straordinariamente densa di significato fisico, poiché quantifica il tiro alla fune cosmico:
+\begin{itemize}
+    \item Il termine $k^2 v_s^2$ deriva dal gradiente di pressione. Tende a far oscillare il fluido, disperdendo le perturbazioni (forza stabilizzatrice).
+    \item Il termine $-4\pi G \rho_b$ deriva dall'equazione di Poisson. Tende ad accentuare le disomogeneità facendole collassare su se stesse (forza instabilizzatrice).
+\end{itemize}
+
+\subsection{La Lunghezza di Jeans ($\lambda_J$)}
+L'equilibrio critico tra gravità e pressione si ottiene ponendo $\omega^2 = 0$. Questo definisce un numero d'onda critico, chiamato \textbf{Numero d'onda di Jeans} ($k_J$):
+\begin{equation}
+k_J^2 v_s^2 = 4\pi G \rho_b \implies k_J = \frac{\sqrt{4\pi G \rho_b}}{v_s}
+\end{equation}
+Passando dalle frequenze spaziali alle lunghezze fisiche, definiamo la \textbf{Lunghezza di Jeans} $\lambda_J = \frac{2\pi}{k_J}$:
+\begin{equation}
+\lambda_J = v_s \sqrt{\frac{\pi}{G\rho_b}}
+\end{equation}
+Riscriviamo ora la relazione di dispersione raccogliendo il termine $k^2 v_s^2$ ed esprimendola in funzione di queste scale critiche:
+\begin{equation}
+\omega^2 = k^2 v_s^2 \left[ 1 - \left(\frac{k_J}{k}\right)^2 \right] = k^2 v_s^2 \left[ 1 - \left(\frac{\lambda}{\lambda_J}\right)^2 \right]
+\end{equation}
+
+\subsection{Evoluzione delle Perturbazioni: Onde vs Collasso}
+Il destino di una perturbazione è dettato dalla sua dimensione fisica $\lambda$ rispetto alla scala di Jeans $\lambda_J$. L'argomento dell'esponenziale è $i\omega t$. Si aprono due scenari radicalmente diversi:
+
+\textbf{1. Scale piccole ($\lambda < \lambda_J \implies k > k_J$)}
+In questo caso, il termine tra parentesi quadre è positivo, dunque $\omega^2 > 0$. Ne consegue che $\omega$ è un numero reale.
+L'esponenziale $e^{i\omega t}$ rimane una pura fase complessa. La perturbazione è stabile: non cresce in ampiezza, ma si propaga nello spazio sotto forma di un'onda acustica. La sua \textbf{velocità di fase} risulta essere alterata dalla gravità locale:
+\begin{equation}
+v_{fase} = \frac{\omega}{k} = \pm v_s \sqrt{ 1 - \left(\frac{\lambda}{\lambda_J}\right)^2 }
+\end{equation}
+
+\textbf{2. Scale grandi ($\lambda > \lambda_J \implies k < k_J$)}
+Se la perturbazione è abbastanza estesa, la gravità vince sulla pressione. Il termine tra parentesi quadre diventa negativo, dunque $\omega^2 < 0$. Ne consegue che $\omega$ è un numero puramente immaginario ($\omega = \pm i|\omega|$).
+Sostituendo nell'argomento, il fattore immaginario di $i\omega t$ si elide con l'$i$ dell'onda piana ($i \cdot i = -1$):
+\begin{equation}
+\exp(i(\pm i|\omega|)t) = \exp(\mp |\omega| t)
+\end{equation}
+L'esponenziale complesso si trasforma in un esponenziale reale. Trascurando la soluzione decadente, l'onda cessa di propagarsi e la sua ampiezza \textbf{cresce esponenzialmente nel tempo} ($\delta \propto e^{|\omega|t}$). Questo innesca inesorabilmente il collasso gravitazionale che porterà alla nascita delle strutture cosmiche.
+
+\newpage
+\section{Lezione 16 - Extra: Approfondimento Teorico}
+
+\textit{La derivazione appena mostrata poggia su un grave abuso matematico tollerato a lezione. In questa sezione formalizziamo la Massa di Jeans e sveliamo l'inconsistenza del background statico (il Trucco di Jeans).}
+
+\subsection{La Massa di Jeans ($M_J$)}
+La lunghezza di Jeans ci dice "quanto grande" debba essere una perturbazione per collassare. Per un'applicazione astrofisica concreta, è più utile tradurre questa scala geometrica nella quantità di materia racchiusa all'interno della perturbazione critica. Definiamo la \textbf{Massa di Jeans} come la massa contenuta in una sfera di diametro $\lambda_J$:
+\begin{equation}
+M_J \approx \frac{4\pi}{3} \rho_b \left( \frac{\lambda_J}{2} \right)^3 \propto \rho_b \lambda_J^3 \propto \rho_b \left( v_s \sqrt{\frac{\pi}{G\rho_b}} \right)^3
+\end{equation}
+Risolvendo le dipendenze, troviamo che:
+\begin{equation}
+M_J \propto \frac{v_s^3}{\sqrt{G^3 \rho_b}}
+\end{equation}
+Questa formula è il faro della cosmologia strutturale primordiale: ci dice che il collasso di una nube di gas è ostacolato dalle alte temperature (alte velocità del suono $v_s$, che alzano la massa minima richiesta) ed è favorito dalle alte densità ($\rho_b$). Una fluttuazione primordiale partorirà una galassia solo se la massa al suo interno supera questo valore soglia $M_J$.
+
+\subsection{L'Inconsistenza Teorica: Il "Trucco" di Jeans}
+Se analizziamo rigorosamente la dimostrazione di Jeans usata a lezione per il background statico, c'è un clamoroso errore logico.
+Abbiamo assunto un Universo di background statico, omogeneo e infinito in cui:
+\begin{equation}
+\vec{v}_b = 0, \qquad \rho_b = \text{costante} > 0
+\end{equation}
+Ma l'equazione di Poisson gravitazionale per questo background richiede che:
+\begin{equation}
+\nabla^2 \phi_b = 4\pi G \rho_b
+\end{equation}
+Poiché $\rho_b$ è costante e non nulla, l'unica soluzione per il potenziale $\phi_b$ in uno spazio infinito divergerebbe ovunque (sarebbe infinita), il che genererebbe forze gravitazionali infinite che distruggerebbero immediatamente lo stato di quiete ($\vec{v}_b = 0$). In sostanza, \textbf{un universo di Newton omogeneo e infinito non può essere statico}.
+
+Storicamente, James Jeans ignorò questa inconsistenza (ignorò l'equazione di Poisson di ordine zero e considerò solo quella di ordine 1 perturbato). Questo illecito matematico è noto nei libri di testo come \textbf{Jeans Swindle} (La Truffa di Jeans).
+Perché le equazioni che derivano da questa "truffa" funzionano lo stesso in astrofisica? Perché la vera cura a questo paradosso è offerta dalla Relatività Generale: un Universo di materia denso \textit{deve} espandersi. Quando (nella prossima lezione) le equazioni di perturbazione verranno ricalcolate correttamente sopra a una metrica di Friedmann (con lo spazio che si dilata e la frizione di Hubble), il paradosso del background svanirà e il concetto geometrico del parametro critico di Jeans resterà matematicamente salvo.
+
+% ==========================================
+% LEZIONE 17
+% ==========================================
+\chapter{Lunedì 21 Novembre 2016}
+
+\section{Perturbazioni in un Universo in Espansione (Fedele alle lezioni)}
+
+Nella lezione precedente abbiamo ricavato la scala di Jeans assumendo un Universo di background statico ($\vec{v}_b = 0$). Tuttavia, per descrivere l'evoluzione reale delle strutture, dobbiamo sovrapporre le perturbazioni a un background descritto dalla metrica in espansione, in cui il campo di velocità imperturbato è dato dalla legge di Hubble $\vec{v}_b = H\vec{r}$.
+
+Per farlo, passiamo dalle coordinate fisiche $\vec{r}$ alle coordinate comoventi $\vec{x}$ (tali per cui $\vec{r} = a(t)\vec{x}$). Le trasformate di Fourier delle perturbazioni si esprimeranno tramite un numero d'onda comovente $k_c$, legato a quello fisico dalla relazione $k = k_c / a$.
+Sviluppando nuovamente l'equazione di continuità, l'equazione di Eulero e quella di Poisson, scartando i termini del secondo ordine e combinandole fra loro, si elimina la velocità peculiare e il potenziale gravitazionale perturbato, ottenendo la nuova equazione di evoluzione per il contrasto di densità:
+\begin{equation}
+\ddot{\delta}_k + 2\frac{\dot{a}}{a}\dot{\delta}_k + \delta_k \left[ \frac{k^2 v_s^2}{a^2} - 4\pi G \rho_b \right] = 0
+\end{equation}
+Rispetto al caso statico studiato da Jeans, compare un nuovo termine dipendente dalla derivata prima temporale: $2H\dot{\delta}_k$. Questo termine agisce in fluidodinamica come una forza di attrito viscoso, proporzionale alla velocità con cui la perturbazione collassa, e prende il nome di \textbf{Frizione di Hubble (Hubble friction)}. È la chiara manifestazione meccanica dell'espansione spaziale che rema contro la gravità locale.
+
+\subsection{Soluzione per un Universo Einstein-de Sitter (EdS)}
+Analizziamo il destino di una perturbazione di materia oscura su grandi scale (lunghezze d'onda molto maggiori della scala di Jeans, $\lambda \gg \lambda_J$). In questo regime la gravità vince sulla pressione, permettendoci di trascurare il termine legato alla velocità del suono ($v_s \approx 0$).
+Ci focalizziamo inoltre sull'epoca successiva all'equivalenza, dominata dalla materia ($\rho_b \propto a^{-3}$), assumendo la geometria piatta di un modello di Einstein-de Sitter ($\Omega_m = 1$).
+
+Nel modello EdS, sappiamo esplicitamente che il fattore di scala evolve come $a(t) \propto t^{2/3}$. Ne consegue che il parametro di Hubble e la densità diventano:
+\begin{equation}
+H = \frac{\dot{a}}{a} = \frac{2}{3t} \qquad \text{e} \qquad 4\pi G \rho_b = \frac{3}{2}H^2 = \frac{2}{3t^2}
+\end{equation}
+Sostituendo queste due espressioni all'interno dell'equazione differenziale perturbata, ci riduciamo a un'equazione puramente temporale:
+\begin{equation}
+\ddot{\delta}_k + \frac{4}{3t}\dot{\delta}_k - \frac{2}{3t^2}\delta_k = 0
+\end{equation}
+Questa è un'equazione differenziale di Eulero, che ammette soluzioni a legge di potenza. Assumendo $\delta_k \propto t^\alpha$ e calcolando le derivate $\dot{\delta}_k = \alpha t^{\alpha-1}$ e $\ddot{\delta}_k = \alpha(\alpha-1)t^{\alpha-2}$, possiamo sostituire e semplificare il termine $t^{\alpha-2}$, ricavando l'equazione algebrica per l'esponente:
+\begin{equation}
+\alpha(\alpha-1) + \frac{4}{3}\alpha - \frac{2}{3} = 0 \implies \alpha^2 + \frac{1}{3}\alpha - \frac{2}{3} = 0
+\end{equation}
+Risolvendo l'equazione di secondo grado in $\alpha$, si ottengono due soluzioni distinte per l'evoluzione temporale della perturbazione:
+\begin{itemize}
+    \item $\alpha = -1 \implies \delta_- \propto t^{-1}$ (\textbf{Modo decadente})
+    \item $\alpha = 2/3 \implies \delta_+ \propto t^{2/3} \propto a(t)$ (\textbf{Modo crescente})
+\end{itemize}
+Il modo decadente si estingue rapidamente nel tempo, "dimenticando" le fluttuazioni transitorie. La fisica della formazione cosmica è interamente descritta dal \textbf{modo crescente} $\delta_+$. Scopriamo un risultato fondamentale per la cosmologia moderna: durante l'era della materia di un Universo EdS, le fluttuazioni non collassano più in modo esponenziale, ma crescono dolcemente e linearmente col fattore di scala ($\delta \propto a$).
+
+\newpage
+\section{Lezione 17 - Extra: Approfondimento Teorico}
+
+\textit{Dietro a questa pacata legge di potenza si cela una delle difese naturali più importanti del nostro cosmo. In questa sezione colleghiamo la Frizione di Hubble alla sopravvivenza del gas primordiale e spieghiamo il congelamento (freeze-out) strutturale.}
+
+\subsection{La Salvezza Termodinamica del Paradosso di Jeans}
+Risolvendo l'instabilità in un universo statico, l'equazione forniva una soluzione esponenziale pura $\delta \propto \exp(|\omega|t)$. Se quel risultato fosse rimasto vero, non appena l'Universo fosse sceso al di sotto di $T_{REC}$ (ricombinazione), ogni singola sovradensità con $M > M_J$ sarebbe collassata su se stessa istantaneamente. La materia oscura e i barioni si sarebbero condensati in modo caotico ed esplosivo in buchi neri o stelle supermassicce in poche decine di milioni di anni, consumando interamente il gas disponibile prima di poter strutturare galassie ordinate a spirale come la nostra.
+
+L'introduzione formale del termine relativistico di Frizione Cosmologica $2H\dot{\delta}$ trasforma matematicamente un oscillatore instabile (che esplode in modo esponenziale) in un oscillatore fortemente iper-smorzato. L'espansione frena l'implosione. È questo delicatissimo attrito metrico a imporre il lento passo $t^{2/3}$, offrendo all'Universo il lunghissimo tempo necessario (miliardi di anni) per formare le corone galattiche, rinfrescare il gas ed innescare placidamente i processi di retroazione stellare (feedback) in modo controllato.
+
+\subsection{L'Arresto della Crescita in un Universo Accelerato}
+La soluzione lineare $\delta_+ \propto a(t)$ è un lusso concesso solo agli universi "piatti" dominati dalla materia. Se consideriamo la vera miscela cosmologica in cui viviamo oggi (dove esiste l'Energia Oscura $\Lambda$ ad alimentare l'espansione), l'equazione subisce una rottura drastica alle basse epoche (bassi redshift).
+
+L'equazione differenziale generale ammette una soluzione analitica dipendente dal parametro di densità dipendente dal tempo $\Omega_m(a)$:
+\begin{equation}
+\delta_+ (a) = \frac{5 \Omega_{m,0}}{2} H(a) \int_0^a \frac{da'}{[a' H(a')]^3}
+\end{equation}
+La sensibilità di questa crescita può essere misurata dal tasso di crescita logaritmico $f = d\ln\delta / d\ln a$. In teoria lineare, esso si approssima eccellentemente come $f \approx \Omega_m(a)^{0.55}$.
+
+Andando verso il presente ($z \to 0$), l'Energia Oscura inizia a prendere il sopravvento. La densità $\Omega_m$ scende bruscamente sotto 1 (oggi misuriamo $\approx 0.3$). Quando ciò accade, l'espansione accelera ($\ddot{a} > 0$), e il fattore di Hubble $H(a)$ non scende più abbastanza rapidamente da far vincere la gravità. Il tasso di accrescimento \textbf{$f$ crolla improvvisamente verso zero}.
+L'Universo subisce un \textbf{Freeze-out Strutturale}: l'espansione divarica lo spaziotempo a una velocità tale che la Frizione di Hubble sconfigge per sempre l'attrattiva Newtoniana su larga scala. Nelle epoche cosmologiche future, nessuna nuova grande struttura riuscirà più a collassare, condannando l'Universo ad isolare gli attuali "fossili" galattici.
+
+% ==========================================
+% LEZIONE 18
+% ==========================================
+\chapter{Martedì 22 Novembre 2016}
+
+\section{Perturbazioni nell'Era Radiativa (Fedele alle lezioni)}
+
+Nelle lezioni precedenti abbiamo studiato la crescita delle perturbazioni nell'era dominata dalla materia. Prima di procedere a ritroso, concludiamo con una quantità utile per confrontare la teoria con le osservazioni: il \textbf{tasso di crescita logaritmico} $f = \frac{d\ln \delta_+}{d\ln a}$. La Relatività Generale predice per questa quantità l'eccellente approssimazione $f \approx \Omega_m^{0.55}$, utilizzata costantemente nei test cosmologici.
+
+Ora ci spingiamo a tempi precedenti all'equivalenza ($t < t_{eq}$), nell'era dominata dalla radiazione. La componente di interesse è ultra-relativistica ($w=1/3$). Nelle equazioni fluidodinamiche perturbate, dobbiamo considerare non solo la densità di energia, ma anche il forte contributo della pressione di radiazione ($p_R = \frac{1}{3}\rho_R c^2$).
+Sapendo che nell'era radiativa il background evolve come $a(t) \propto t^{1/2}$, abbiamo che il parametro di Hubble è $H = \frac{1}{2t}$ e la densità di background è $\rho_b = \frac{3}{32\pi G t^2}$.
+
+L'equazione differenziale per il contrasto di densità $\delta_k$ assume la forma:
+\begin{equation}
+\ddot{\delta}_k + \frac{1}{t}\dot{\delta}_k + \delta_k \left[ k^2 v_s^2 - \frac{1}{t^2} \right] = 0
+\end{equation}
+
+\subsection{Evoluzione fuori e dentro l'Orizzonte}
+Il comportamento delle perturbazioni dipende criticamente dalla loro dimensione rispetto all'orizzonte causale $R_H \approx 2ct$.
+\begin{itemize}
+    \item \textbf{Fuori dall'orizzonte ($\lambda \gg R_H$):} Il termine spaziale legata al numero d'onda $k$ è trascurabile. Risolvendo l'equazione differenziale, si trova che le perturbazioni crescono molto rapidamente, seguendo la legge $\delta_k \propto t \propto a^2$.
+    \item \textbf{Dentro l'orizzonte ($\lambda \ll R_H$):} Il termine di pressione acustica diventa dominante e le perturbazioni della radiazione non riescono più a collassare, iniziando a propagarsi e oscillare.
+\end{itemize}
+Poiché l'orizzonte $R_H$ cresce linearmente col tempo ($\propto t$), mentre il fattore di scala primordiale cresce solo come $t^{1/2}$, \textbf{l'orizzonte si allarga più velocemente di quanto lo spazio si espanda}. Di conseguenza, tutte le scale di perturbazione (create inizialmente dall'inflazione su scale super-orizzonte) finiscono, prima o poi, per "entrare" nell'orizzonte.
+
+\subsection{La Stagnazione della Materia Oscura}
+Cosa succede alla materia oscura quando una sua perturbazione entra nell'orizzonte durante l'era radiativa?
+Nonostante non subisca la pressione di radiazione, la materia oscura è costretta a subire uno stop. Passando dalla variabile temporale $t$ alla variabile normalizzata $a/a_{eq}$, si dimostra che il contrasto di densità evolve come:
+\begin{equation}
+\delta_k \propto \left( 1 + \frac{3}{2}\frac{a}{a_{eq}} \right)
+\end{equation}
+Finché ci troviamo in piena era radiativa ($a \ll a_{eq}$), questa espressione è praticamente costante ($\delta_k \approx \text{costante}$). La perturbazione \textbf{stagna}. Inizierà a ri-crescere linearmente ($\propto a$) solo quando l'Universo si avvicinerà al momento dell'equivalenza.
+
+\subsection{Il Taglio dello Spettro ($k^{-2}$)}
+Questo fenomeno di "entrata differenziale" crea uno spartiacque decisivo tra le scale:
+\begin{itemize}
+    \item Le \textbf{grandi scale} (bassi $k$) entrano nell'orizzonte \textit{dopo} l'equivalenza. Esse non subiscono alcun blocco e crescono ininterrottamente fino ad oggi.
+    \item Le \textbf{piccole scale} (alti $k$) entrano nell'orizzonte \textit{prima} dell'equivalenza. Esse subiscono un periodo di "pausa" forzata nella loro crescita, che dura dall'istante di entrata $t_k$ fino al tempo di equivalenza $t_{eq}$.
+\end{itemize}
+Rispetto a una scala che entra comodamente durante l'era di materia, una scala piccola che entra durante l'era radiativa perde un fattore di crescita cumulativo proporzionale al tempo che ha passato in stagnazione, che si traduce algebricamente in un taglio proporzionale a $k^{-2}$. L'espansione primordiale impone così un'impronta geometrica inconfondibile, piegando irrimediabilmente la distribuzione iniziale delle fluttuazioni.
+
+\newpage
+\section{Lezione 18 - Extra: Approfondimento Teorico}
+
+\textit{Il congelamento descritto fenomenologicamente a lezione è noto in cosmologia teorica come "Effetto Mészáros". In questa sezione lo dimostriamo rigorosamente e formalizziamo il concetto di Funzione di Trasferimento $T(k)$.}
+
+\subsection{L'Effetto Mészáros: Troppo Attrito, Poca Gravità}
+Perché la Materia Oscura Fredda (CDM) smette di collassare se entra nell'orizzonte prima dell'equivalenza? Per capirlo, scriviamo l'equazione dell'evoluzione per la perturbazione di materia oscura ($\delta_M$) immersa in un background dominato dalla radiazione.
+
+Poiché la materia oscura non ha pressione acustica intrinseca, il termine dipendente da $v_s^2$ è nullo. Tuttavia, il tasso di espansione $H$ è dettato interamente dalla densità energetica della radiazione ($\rho_R \gg \rho_M$). L'equazione di evoluzione per la materia diventa:
+\begin{equation}
+\ddot{\delta}_M + 2H\dot{\delta}_M - 4\pi G \rho_M \delta_M = 0
+\end{equation}
+Sostituendo $H = 1/(2t)$, il termine di frizione di Hubble ammonta a $\frac{1}{t}\dot{\delta}_M$.
+Il termine gravitazionale, invece, dipende unicamente da $\rho_M$. Nell'era radiativa profonda, $\rho_M$ è un quantitativo matematicamente insignificante rispetto alla densità che guida l'espansione ($\rho_R$). Di conseguenza, l'attrazione gravitazionale è trascurabile. L'equazione si riduce a un oscillatore privo di richiamo:
+\begin{equation}
+\ddot{\delta}_M + \frac{1}{t}\dot{\delta}_M \approx 0
+\end{equation}
+La soluzione analitica generale di questa equazione differenziale è:
+\begin{equation}
+\delta_M(t) = C_1 + C_2 \ln(t)
+\end{equation}
+Rispetto a una dirompente crescita a legge di potenza, una crescita logaritmica è spaventosamente lenta, virtualmente nulla. \textbf{L'Effetto Mészáros} ci insegna che l'espansione radiativa impone una \textit{Hubble friction} troppo violenta per essere vinta dalla flebile autogravità della sola materia oscura. Le strutture sono condannate all'ibernazione strutturale finché i fotoni governano il cosmo.
+
+\subsection{La Funzione di Trasferimento $T(k)$}
+Il taglio proporzionale a $k^{-2}$ preannunciato dal Professor Moscardini alla lavagna si esprime matematicamente attraverso la \textbf{Funzione di Trasferimento} $T(k)$. Essa agisce come un "filtro cosmologico" che lega lo spettro di potenza primordiale $P_{prim}(k)$ (generato quantisticamente dall'Inflazione) allo spettro di potenza lineare che andrà a plasmare le galassie $P(k)$:
+\begin{equation}
+P(k, t) = P_{prim}(k) \, T^2(k) \, D^2(t)
+\end{equation}
+dove $D(t)$ è il semplice fattore di crescita lineare globale (indipendente dalla scala nell'era di materia).
+Sulla base del momento in cui le scale entrano nell'orizzonte (paragonando il loro $k$ al numero d'onda dell'equivalenza $k_{eq}$), il comportamento asintotico di $T(k)$ è:
+\begin{itemize}
+    \item $T(k) \approx 1$ per $k \ll k_{eq}$ (Scale giganti: entrano dopo l'equivalenza. Non subendo alcun Effetto Mészáros, mantengono lo spettro primordiale invariato).
+    \item $T(k) \propto \left(\frac{k_{eq}}{k}\right)^2$ per $k \gg k_{eq}$ (Piccole scale: entrano in piena era radiativa. Subiscono la stagnazione Mészáros per un tempo tanto più lungo quanto più alto è il loro $k$).
+\end{itemize}
+Se l'Inflazione predice un elegante spettro primordiale di Harrison-Zel'dovich ($P_{prim}(k) \propto k^1$), l'azione spietata della Funzione di Trasferimento modificherà lo spettro facendolo flettere a $k_{eq}$, facendogli assumere una pendenza $P(k) \propto k^1 \cdot (k^{-2})^2 = k^{-3}$ per le perturbazioni più fitte. Questo definisce la celebre forma "a campana" dello spettro di potenza della Cold Dark Matter!
+
+% ==========================================
+% LEZIONE 19
+% ==========================================
+\chapter{Mercoledì 23 Novembre 2016}
+
+\section{Il destino dei Barioni e la Classificazione della Materia Oscura (Fedele alle lezioni)}
+
+Finora abbiamo studiato l'evoluzione delle perturbazioni per la Materia Oscura. Ma cosa accade alla materia barionica ($\delta_B$) da cui noi stessi siamo composti?
+Fino al momento della Ricombinazione e del Disaccoppiamento ($t < t_{DEC}$), i barioni sono strettamente legati alla radiazione. La loro velocità del suono è enorme ($v_s \approx c/\sqrt{3}$) e la pressione acustica impedisce loro di collassare.
+
+Dopo il disaccoppiamento ($t > t_{DEC}$), la radiazione si separa. La pressione dei barioni crolla bruscamente ai valori termici di un gas neutro. Tuttavia, i barioni non collassano da soli: si ritrovano in un Universo in cui la Materia Oscura (che non subisce la pressione di radiazione) ha già iniziato a collassare fin dall'epoca dell'equivalenza. L'equazione di evoluzione per i barioni diventa:
+\begin{equation}
+\ddot{\delta}_B + 2H\dot{\delta}_B = 4\pi G \bar{\rho}_{DM} \delta_{DM}
+\end{equation}
+I barioni non fanno altro che "cadere" nelle buche di potenziale gravitazionale già scavate e preparate dalla Materia Oscura. La formazione delle galassie è quindi guidata interamente dal comportamento della Dark Matter primordiale.
+
+\subsection{Hot Dark Matter (HDM) vs Cold Dark Matter (CDM)}
+Per capire quali strutture si formeranno, dobbiamo indagare la natura microscopica della Materia Oscura, che ad oggi è ipotizzata essere costituita da particelle esotiche (non barioniche). Il comportamento cosmologico di una particella dipende dal confronto tra due momenti chiave:
+\begin{itemize}
+    \item $a_{dec}$: il fattore di scala al quale la particella si disaccoppia dalle altre interazioni e inizia a vagare liberamente (diventa "collisionless").
+    \item $a_{NR}$: il fattore di scala al quale la temperatura dell'Universo scende sotto la massa a riposo della particella ($k_B T \approx mc^2$), segnando la sua transizione da particella relativistica ($v \approx c$) a non-relativistica.
+\end{itemize}
+
+A seconda dell'ordine cronologico di questi due eventi, classifichiamo la Materia Oscura in due categorie diametralmente opposte:
+\begin{enumerate}
+    \item \textbf{Hot Dark Matter (HDM):} Si ha se $a_{dec} \ll a_{NR}$. La particella si disaccoppia quando l'Universo è ancora caldissimo ed essa è altamente relativistica. L'esempio classico è il \textbf{neutrino}. Dopo il disaccoppiamento, queste particelle continuano a viaggiare a velocità prossime a $c$ per gran parte della storia dell'Universo.
+    \item \textbf{Cold Dark Matter (CDM):} Si ha se $a_{dec} \gg a_{NR}$. La particella si disaccoppia quando l'Universo si è già raffreddato abbondantemente al di sotto della sua massa a riposo. L'esempio classico sono le ipotetiche \textbf{WIMPs} (Weakly Interacting Massive Particles). Al momento del disaccoppiamento, esse sono già non-relativistiche e "lente" ("fredde").
+\end{enumerate}
+
+\subsection{La Scala di Free-Streaming ($\lambda_{FS}$)}
+Le perturbazioni cosmologiche possono sopravvivere solo se le particelle che le compongono non "scappano via". Se una particella di Materia Oscura ha una velocità termica residua alta, essa tenderà a muoversi liberamente (free-streaming) fuoriuscendo dalle regioni più dense per finire in quelle meno dense, spianando e cancellando le fluttuazioni.
+
+Definiamo la \textbf{Lunghezza di Free-Streaming} come la massima distanza comovente (portata poi in coordinate fisiche) che una particella è in grado di percorrere dal momento del Big Bang fino a un generico tempo $t$:
+\begin{equation}
+\lambda_{FS}(t) = a(t) \int_0^t \frac{v(t')}{a(t')} dt'
+\end{equation}
+Moltiplicando il volume definito da questa lunghezza per la densità di background della Dark Matter, otteniamo la \textbf{Massa di Free-Streaming}:
+\begin{equation}
+M_{FS} = \frac{4\pi}{3} \bar{\rho}_{DM} \lambda_{FS}^3
+\end{equation}
+Ogni fluttuazione di densità la cui massa risulti inferiore a $M_{FS}$ verrà inesorabilmente "stirata" e distrutta dal moto termico caotico delle particelle. La struttura macroscopica dell'Universo dipende quindi intimamente dal valore di questo integrale.
+
+\newpage
+\section{Lezione 19 - Extra: Approfondimento Teorico}
+
+\textit{Dietro all'integrale di Free-Streaming si gioca la più grande battaglia cosmologica degli anni '80: il dibattito sui modelli di formazione Top-Down contro quelli Bottom-Up, che decretò il trionfo della Cold Dark Matter.}
+
+\subsection{Risoluzione dell'integrale e il Modello HDM (Top-Down)}
+Prendiamo un Universo dominato da neutrini massivi (HDM). I neutrini si disaccoppiano relativistici ($v \approx c$) nell'era radiativa ($a \propto t^{1/2}$). La loro velocità rimane prossima a $c$ per moltissimo tempo, finché non arriva il momento $a_{NR}$ in cui, a causa dell'espansione, la loro quantità di moto decade ($p \propto a^{-1}$) e diventano non relativistici ($v \propto a^{-1}$).
+
+L'integrale della lunghezza di free-streaming per la HDM è dominato dal periodo relativistico. Valutandolo al tempo dell'equivalenza (quando inizia la formazione strutturale), si trova un valore cosmologicamente gigantesco. Traducendo la lunghezza di free-streaming in massa per un neutrino di circa $30$ eV, otteniamo:
+\begin{equation}
+M_{FS}^{(HDM)} \approx 10^{15} M_\odot
+\end{equation}
+Questo valore corrisponde alla massa di un intero Superammasso di galassie!
+Se l'Universo fosse composto di HDM, il free-streaming avrebbe spazzato via \textit{tutte} le perturbazioni su scala galattica e stellare primordiale. Sopravviverebbero solo fluttuazioni enormi ($>10^{15} M_\odot$). Questo darebbe vita a uno scenario \textbf{Top-Down}: nell'Universo nascerebbero prima delle gigantesche nubi di gas (pancake di Zeldovich) che solo successivamente, frammentandosi per instabilità, darebbero origine alle singole galassie. Purtroppo, le osservazioni del telescopio spaziale Hubble e della CMB hanno falsificato questo scenario: le galassie si sono formate molto prima dei superammassi.
+
+\subsection{Il trionfo della Cold Dark Matter (Bottom-Up)}
+Se prendiamo invece le WIMPs (CDM) ipotizzate dalla supersimmetria, essendo molto massive ($m \sim 100$ GeV), diventano non relativistiche ($a_{NR}$) frazioni di secondo dopo il Big Bang.
+Quando si disaccoppiano, la loro velocità termica $v(t')$ nell'integrale di free-streaming è già quasi nulla e decade inesorabilmente come $a^{-1}$.
+
+Calcolando l'integrale, si scopre che per la CDM la lunghezza di free-streaming è irrisoria (dell'ordine delle dimensioni del sistema solare o meno).
+\begin{equation}
+M_{FS}^{(CDM)} \ll M_{Galassia}
+\end{equation}
+La Cold Dark Matter non cancella le piccole strutture. L'Universo primordiale mantiene intatte le perturbazioni su ogni scala astrofisica. Questo innesca un modello di formazione \textbf{Bottom-Up} (gerarchico): collassano prima gli aloni più piccoli, che poi fondendosi (merging) danno vita alle galassie, le quali infine si raggruppano in ammassi e superammassi sotto l'effetto della gravità.
+L'insignificanza della massa di free-streaming della CDM è il motivo per cui l'attuale modello cosmologico standard prende il nome di \textbf{$\Lambda$CDM}.
+
+% ==========================================
+% LEZIONE 20
+% ==========================================
+\chapter{Lunedì 28 Novembre 2016}
+
+\section{Evoluzione della Massa di Free-Streaming (Fedele alle lezioni)}
+
+Nella lezione precedente abbiamo definito la lunghezza di free-streaming $\lambda_{FS}$ per le particelle di Materia Oscura primordiale. Per calcolarne il valore esatto, l'integrale va spezzato nelle diverse epoche cosmologiche attraversate dalla particella, tenendo conto del momento di derelativizzazione ($a_{NR}$) e dell'equivalenza radiazione-materia ($a_{eq}$).
+Ricordiamo la definizione:
+\begin{equation}
+\lambda_{FS}(t) = a(t) \int_0^t \frac{v(t')}{a(t')} dt'
+\end{equation}
+
+Per una particella di \textbf{Cold Dark Matter (CDM)}, massiva e lenta, $a_{NR}$ precede largamente l'equivalenza ($a_{NR} \ll a_{eq}$). L'integrale si spezza in tre fasi distinte:
+\begin{enumerate}
+    \item \textbf{Fase Relativistica profonda ($a < a_{NR}$):} La velocità è costante $v \approx c/\sqrt{3}$ e l'Universo è dominato dalla radiazione ($a \propto t^{1/2} \implies t \propto a^2 \implies dt \propto a \, da$). Risolvendo, si trova che $\lambda_{FS} \propto a$. Passando alla massa di free-streaming ($M_{FS} \propto \rho \lambda_{FS}^3$ con $\rho \propto a^{-4}$ per la radiazione dominante l'espansione), si ricava che $M_{FS} \propto a^3$.
+    \item \textbf{Fase Non-Relativistica in Era Radiativa ($a_{NR} < a < a_{eq}$):} La velocità decade per l'espansione ($v \propto a^{-1}$). L'integrale produce una dipendenza logaritmica. La massa cresce dolcemente come $M_{FS} \propto (\ln a)^3$.
+    \item \textbf{Era della Materia ($a > a_{eq}$):} La velocità termica residua continua a decadere ($v \propto a^{-1}$) ma ora il background evolve come $a \propto t^{2/3}$. L'integrale converge rapidamente a un valore asintotico. La massa di free-streaming smette di crescere e resta costante.
+\end{enumerate}
+Per le ipotetiche particelle CDM (come le WIMPs), questo valore massimo asintotico raggiunto da $M_{FS}$ ammonta a soli $10^5 - 10^6 M_\odot$. È una scala di massa paragonabile a quella dei piccoli ammassi globulari, confermando che la CDM preserva le perturbazioni su scala galattica, innescando la formazione gerarchica Bottom-Up.
+
+\section{Cosmologia Statistica: $\xi(r)$ e $P(k)$}
+
+L'evoluzione lineare del contrasto di densità $\delta(\vec{x})$ descrive come cresce una singola fluttuazione, ma l'Universo è permeato da una distribuzione complessa e caotica di innumerevoli fluttuazioni. Non potendo prevedere deterministicamente l'esatta dislocazione di ogni galassia, la cosmologia si affida a un approccio statistico.
+
+\subsection{La Funzione di Correlazione a due Punti $\xi(r)$}
+La quantità fondamentale nello spazio reale è la \textbf{Funzione di Correlazione a due punti} $\xi(r)$, che quantifica l'eccesso di probabilità di trovare una concentrazione di materia a distanza $r$ da un'altra rispetto a una distribuzione puramente casuale. Si definisce come il valore di aspettazione (media spaziale sull'intero volume dell'Universo) del prodotto dei contrasti di densità:
+\begin{equation}
+\xi(\vec{r}) = \langle \delta(\vec{x}) \delta(\vec{x} + \vec{r}) \rangle
+\end{equation}
+Assumendo l'isotropia dell'Universo, questa funzione non dipende dalla direzione del vettore $\vec{r}$, ma esclusivamente dal suo modulo $r = |\vec{r}|$.
+
+\subsection{Lo Spettro di Potenza $P(k)$}
+Analizzare il campo di densità nello spazio di Fourier risulta matematicamente più potente. Le componenti di Fourier $\hat{\delta}(\vec{k})$ rappresentano l'ampiezza delle onde piane di numero d'onda $\vec{k}$. 
+Definiamo lo \textbf{Spettro di Potenza} $P(k)$ come la varianza delle ampiezze di Fourier:
+\begin{equation}
+\langle \hat{\delta}(\vec{k}) \hat{\delta}^*(\vec{k}') \rangle = (2\pi)^3 P(k) \delta_D(\vec{k} - \vec{k}')
+\end{equation}
+dove $\delta_D$ è la delta di Dirac e $\hat{\delta}^*$ è il complesso coniugato. Poiché il campo è isotropo, $P$ dipende solo dall'ampiezza dell'onda $k = |\vec{k}|$ e non dalla sua direzione.
+
+\subsection{Legame tra $\xi(r)$ e $P(k)$}
+$\xi(r)$ e $P(k)$ sono una la trasformata di Fourier dell'altra. Per l'isotropia spaziale, l'integrale tridimensionale si può semplificare passando alle coordinate polari sferiche ($d^3k = k^2 \sin\theta \, dk \, d\theta \, d\phi$). 
+Scegliendo l'asse $z$ allineato con $\vec{r}$, il prodotto scalare $\vec{k} \cdot \vec{r}$ diventa $kr \cos\theta$. Integrando la parte angolare:
+\begin{equation}
+\int_0^{2\pi} d\phi \int_0^\pi e^{i kr \cos\theta} \sin\theta \, d\theta = 2\pi \int_{-1}^{1} e^{i kr \mu} d\mu = 2\pi \left[ \frac{e^{i kr} - e^{-i kr}}{i kr} \right] = 4\pi \frac{\sin(kr)}{kr}
+\end{equation}
+Sostituendo questo risultato, si ottiene la relazione scalare esatta tra lo spettro e la correlazione:
+\begin{equation}
+\xi(r) = \frac{1}{2\pi^2} \int_0^\infty P(k) \, k^2 \frac{\sin(kr)}{kr} dk
+\end{equation}
+
+\newpage
+\section{Lezione 20 - Extra: Approfondimento Teorico}
+
+\textit{Il passaggio al formalismo statistico impone l'adozione rigorosa della teoria dei segnali per i campi stocastici. In questa sezione formalizziamo il Teorema di Wiener-Khinchin e il concetto di Ergodicità, calcolando il limite per la varianza puntuale.}
+
+\subsection{Il Campo Gaussiano, l'Ergodicità e il Teorema di Wiener-Khinchin}
+Quando a lezione si scrive $\langle \delta(\vec{x}) \delta(\vec{x} + \vec{r}) \rangle$, la media $\langle \dots \rangle$ indicata è una media spaziale sul volume infinito dell'Universo ($V \to \infty$). 
+Tuttavia, in teoria dei processi stocastici, il valore di aspettazione dovrebbe essere calcolato come \textit{media di insieme} (ensemble average), ovvero la media statistica su tutti i possibili universi paralleli generati dalla stessa fisica quantistica inflazionaria. 
+Noi possediamo un solo Universo da osservare. Possiamo scambiare la media di insieme con la media spaziale solo grazie al \textbf{Teorema Ergodico}. L'ipotesi ergodica in cosmologia afferma che mediare su volumi spaziali sufficientemente disaccoppiati nel nostro Universo equivale a mediare su diverse realizzazioni statistiche.
+
+In questo quadro formale, la densità primordiale è un campo stocastico omogeneo, isotropo e Gaussiano (poiché le fluttuazioni originano da oscillazioni di punto zero del vuoto quantistico, la cui natura è armonica e la cui somma per il teorema del limite centrale è Gaussiana).
+Per i campi omogenei, la funzione di autocorrelazione spaziale è matematicamente legata alla densità spettrale di potenza dal \textbf{Teorema di Wiener-Khinchin}, che assicura che $P(k)$ e $\xi(r)$ contengano esattamente la stessa informazione fisica, essendo l'una la trasformata di Fourier dell'altra. Tutta la complessità dell'Universo Gaussiano è racchiusa in un'unica funzione monodimensionale: $P(k)$.
+
+\subsection{La Varianza Puntuale ($\sigma^2$) e il Problema della Divergenza}
+Dalla formula integrale di $\xi(r)$, possiamo ricavare un indicatore globale dell'ampiezza delle perturbazioni valutando la correlazione a distanza nulla, ovvero $\xi(0)$. 
+Per $r \to 0$, il limite notevole $\lim_{r\to0} \frac{\sin(kr)}{kr} = 1$ semplifica l'espressione:
+\begin{equation}
+\sigma^2 \equiv \langle \delta^2(\vec{x}) \rangle = \xi(0) = \frac{1}{2\pi^2} \int_0^\infty P(k) k^2 dk
+\end{equation}
+Questa quantità è la \textbf{Varianza Puntuale} del campo di densità. 
+
+Tuttavia, questa innocente formula nasconde un grave problema fisico (noto comunemente in teoria dei campi come "divergenza ultravioletta"). Se lo spettro di potenza primordiale è una legge di potenza del tipo $P(k) \propto k^n$ con $n \approx 1$ (Spettro di Harrison-Zel'dovich), l'integrando si comporta come $k^{n+2} = k^3$. 
+Integrando $k^3$ per $k \to \infty$ (verso scale spaziali microscopiche $\lambda \to 0$), l'integrale diverge a infinito ($\sigma^2 \to \infty$). 
+Ciò implicherebbe che l'Universo possieda fluttuazioni di densità infinitamente violente in ogni singolo punto geometrico esatto! 
+La fisica reale non opera su punti geometrici, ma su volumi finiti (galassie, aloni). Per curare questa divergenza, la cosmologia dovrà abbandonare il "campo puntuale" $\delta(\vec{x})$ per adottare un "campo filtrato" $\delta_M(\vec{x})$ (smoothed density field), la cui varianza di massa eliminerà matematicamente le frequenze infinite. È proprio questo l'oggetto delle funzioni finestra (Window Functions) che apriranno la prossima lezione.
+
+% ==========================================
+% LEZIONE 21
+% ==========================================
+\chapter{Martedì 29 Novembre 2016}
+
+\section{La Varianza Puntuale e la Trasformata di Parseval (Fedele alle lezioni)}
+
+Nella lezione precedente abbiamo introdotto lo Spettro di Potenza $P(k)$ e la Funzione di Correlazione $\xi(r)$. Un parametro fondamentale per descrivere l'ampiezza delle fluttuazioni del nostro campo gaussiano è la \textbf{Varianza Puntuale} $\sigma^2 = \langle \delta^2(\vec{x}) \rangle$.
+Per legare esplicitamente questa varianza allo spettro di potenza, facciamo uso del \textbf{Teorema di Parseval}, che (nella sua estensione tridimensionale) afferma che l'integrale del quadrato di una funzione nel dominio spaziale è proporzionale all'integrale del modulo quadro della sua trasformata nel dominio di Fourier:
+\begin{equation}
+\int_{-\infty}^{+\infty} |f(\vec{x})|^2 d^3x = \frac{1}{(2\pi)^3} \int_{-\infty}^{+\infty} |\hat{f}(\vec{k})|^2 d^3k
+\end{equation}
+Sfruttando l'ergodicità (che ci permette di scambiare la media statistica di insieme con la media spaziale su un volume infinito $V \to \infty$), possiamo riscrivere la varianza puntuale del campo di contrasto di densità $\delta(\vec{x})$:
+\begin{equation}
+\sigma^2 = \frac{1}{V} \int d^3x \langle \delta^2(\vec{x}) \rangle = \frac{1}{V (2\pi)^3} \int d^3k \langle |\hat{\delta}(\vec{k})|^2 \rangle
+\end{equation}
+Ricordando la definizione formale di spettro di potenza ($\langle |\hat{\delta}(\vec{k})|^2 \rangle = (2\pi)^3 V P(k)$) e passando in coordinate polari sferiche (per l'isotropia del campo, $d^3k = 4\pi k^2 dk$), l'equazione si semplifica drasticamente, fornendoci il valore della varianza puntuale:
+\begin{equation}
+\sigma^2 = \frac{1}{2\pi^2} \int_0^\infty k^2 P(k) dk
+\end{equation}
+Tuttavia, come accennato in precedenza, questa espressione integrale per un tipico spettro primordiale a legge di potenza diverge a infinito per $k \to \infty$ (piccole scale), restituendoci un valore fisico inaccettabile.
+
+\section{Il Filtraggio e la Varianza di Massa ($\sigma_M^2$)}
+
+Per curare questa divergenza, la cosmologia abbandona il campo di densità definito nei singoli punti geometrici per passare a un campo di densità "smussato" o filtrato su una certa scala spaziale $R$.
+Matematicamente, il campo filtrato $\delta_M(\vec{x})$ si ottiene operando una \textbf{Convoluzione} tra il campo originale $\delta(\vec{x})$ e una certa \textbf{Funzione Finestra} (Filtro) $W(\vec{x}, R)$:
+\begin{equation}
+\delta_M(\vec{x}) = \int \delta(\vec{y}) W(\vec{x} - \vec{y}, R) d^3y = (\delta * W)(\vec{x})
+\end{equation}
+Per il Teorema della Convoluzione, la trasformata di Fourier di una convoluzione è semplicemente il prodotto delle singole trasformate di Fourier. Nello spazio dei numeri d'onda $k$:
+\begin{equation}
+\hat{\delta}_M(\vec{k}) = \hat{\delta}(\vec{k}) \cdot \hat{W}(k, R)
+\end{equation}
+Ricalcolando la varianza per questo nuovo campo filtrato, il modulo quadro della trasformata introduce il quadrato del filtro nell'integrale. Si ottiene così la celebre equazione per la \textbf{Varianza di Massa}:
+\begin{equation}
+\sigma_M^2(R) = \frac{1}{2\pi^2} \int_0^\infty P(k) \hat{W}^2(k, R) k^2 dk
+\end{equation}
+Questa varianza dipende esplicitamente dalla scala geometrica $R$ (e quindi dalla massa racchiusa $M \propto R^3$) su cui stiamo mediando il campo.
+\begin{itemize}
+    \item Se $R \to 0$ (nessun filtraggio), la finestra $\hat{W} \to 1$ e ritroviamo $\sigma_M^2 \to \sigma^2$ (il limite puntuale divergente).
+    \item Se $R \to \infty$ (filtraggio totale), stiamo mediando sull'intero Universo omogeneo e le fluttuazioni vengono completamente cancellate: $\sigma_M^2 \to 0$.
+\end{itemize}
+
+\section{Il Collasso Strutturale e la Massa Non Lineare ($M_*$)}
+
+La varianza $\sigma_M^2$ quantifica "quanta potenza" abbiano le fluttuazioni su una data scala di massa. Le fluttuazioni crescono linearmente nel tempo secondo il fattore di crescita $\delta_+(t)$. Di conseguenza, l'evoluzione temporale della varianza è:
+\begin{equation}
+\sigma_M^2(R, t) \propto \delta_+^2(t) \int P_{iniziale}(k) \hat{W}^2(k, R) k^2 dk
+\end{equation}
+Assumendo uno spettro a legge di potenza $P(k) \propto k^n$ e sapendo che le scale fisiche $R$ sono legate al numero d'onda ($k \propto 1/R \propto M^{-1/3}$), l'integrale dimensionale fornisce una dipendenza dalla scala:
+\begin{equation}
+\sigma_M^2(M, t) \propto \delta_+^2(t) \, k^{n+3} \propto \delta_+^2(t) \, M^{-\frac{n+3}{3}}
+\end{equation}
+Un alone di materia oscura raggiunge il regime non lineare (ovvero si "stacca" dall'espansione del background e collassa per formare una struttura isolata) quando il contrasto di densità diventa dell'ordine dell'unità. Imponiamo la condizione di soglia per il collasso:
+\begin{equation}
+\sigma_M^2(M_*, t) \approx 1
+\end{equation}
+Sostituendo l'equazione precedente e isolando la massa $M_*$, otteniamo la massa tipica degli oggetti che stanno collassando in una certa epoca cosmologica $\delta_+(t)$:
+\begin{equation}
+M_*(t) \propto \delta_+^{\frac{6}{n+3}}(t)
+\end{equation}
+Poiché l'inflazione predice $n \approx 1$ e la funzione $\delta_+(t)$ cresce inesorabilmente col passare del tempo, la massa di collasso $M_*$ è una funzione \textbf{monotonamente crescente} del tempo. Questo è il trionfo matematico del modello \textbf{Bottom-Up (Materia Oscura Fredda)}: in epoche remote (bassi $\delta_+$) collassano le masse piccole, mentre oggi (alti $\delta_+$) raggiungono il regime non lineare e collassano masse gigantesche come i Superammassi di galassie!
+
+\newpage
+\section{Lezione 21 - Extra: Approfondimento Teorico}
+
+\textit{Dietro il generico simbolo $\hat{W}(k, R)$ usato fenomenologicamente a lezione, si nasconde una delle funzioni più usate in astrofisica teorica: il Filtro Top-Hat Sferico.}
+
+\subsection{L'Esatta Forma del Filtro Top-Hat}
+Per mediare fisicamente il campo di densità all'interno di un raggio $R$, la scelta più logica è utilizzare una finestra spaziale "a cilindro" (Top-Hat sferico). Nello spazio reale, questo filtro vale una costante (normalizzata a 1 sul volume) all'interno della sfera $r < R$, e vale 0 all'esterno:
+\begin{equation}
+W_{TH}(r, R) = \begin{cases} 
+\frac{3}{4\pi R^3} & \text{se } r \leq R \\
+0 & \text{se } r > R 
+\end{cases}
+\end{equation}
+Per calcolare la varianza di massa $\sigma_M^2$, ci serve la trasformata di Fourier tridimensionale di questa funzione spaziale. 
+Sfruttando le coordinate polari sferiche (come visto nella lezione precedente per la funzione $\xi(r)$) e introducendo la variabile adimensionale $x = kr$:
+\begin{equation}
+\hat{W}_{TH}(k, R) = 4\pi \int_0^R \frac{3}{4\pi R^3} r^2 \frac{\sin(kr)}{kr} dr = \frac{3}{(kR)^3} \int_0^{kR} x \sin(x) dx
+\end{equation}
+Risolvendo l'integrale per parti ($\int x \sin(x) dx = \sin(x) - x\cos(x)$), otteniamo l'espressione analitica esatta del filtro nello spazio dei momenti:
+\begin{equation}
+\hat{W}_{TH}(k, R) = \frac{3}{(kR)^3} \left[ \sin(kR) - kR\cos(kR) \right]
+\end{equation}
+Questa è la funzione che, inserita nell'integrale di $\sigma_M^2$, forza rapidamente l'integrando a zero per $k \gg 1/R$, smorzando (damping) tutte le alte frequenze e risolvendo matematicamente la divergenza ultravioletta della cosmologia statistica!
+
+\subsection{Significato Quantistico di $M_*$}
+Il parametro $M_*$ (Massa Non Lineare) che abbiamo derivato come soglia $\sigma_M^2 \approx 1$ riveste un ruolo fondamentale in meccanica statistica. 
+Dal momento che il campo di densità primordiale è rigorosamente Gaussiano, le fluttuazioni di densità filtrate su una scala $M$ sono distribuite come una campana di Gauss con larghezza (deviazione standard) pari proprio a $\sigma_M$. 
+
+La condizione $\sigma_{M_*} \approx 1$ implica che, alla scala $M_*$, la tipica fluttuazione spaziale ha un'ampiezza di $1 \sigma$ pari alla densità necessaria per il collasso. 
+In altre parole, la massa $M_*$ rappresenta la scala di massa per la quale un volume \textit{assolutamente tipico e medio} dell'Universo (fluttuazione a $1 \sigma$) possiede esattamente la sovradensità sufficiente a disaccoppiarsi dal flusso di Hubble e implodere sotto la propria gravità in quel preciso istante cosmico. Questa astrazione teorica costituirà le fondamenta della teoria di Zeldovich e del Formalismo della Funzione di Massa (Press-Schechter).
+
+% ==========================================
+% LEZIONE 22
+% ==========================================
+\chapter{Mercoledì 30 Novembre 2016}
+
+\section{Lo Spettro di Potenza e la Funzione di Trasferimento (Fedele alle lezioni)}
+
+Nelle lezioni precedenti abbiamo introdotto lo Spettro di Potenza $P(k)$ per descrivere statisticamente il campo di densità. Ipotizziamo che l'Universo primordiale (uscito dalla fase inflazionaria) possieda uno spettro iniziale descritto da una semplice legge di potenza:
+\begin{equation}
+P_{iniziale}(k) \propto k^n
+\end{equation}
+I modelli cosmologici più accreditati richiedono $n=1$. Questo particolare spettro prende il nome di \textbf{Spettro di Harrison-Zel'dovich}. 
+Tuttavia, noi non osserviamo direttamente lo spettro primordiale. Quello che misuriamo oggi (contando le galassie e gli ammassi) è lo spettro "processato" dall'evoluzione fluidodinamica dell'Universo. Dobbiamo capire come la crescita delle perturbazioni alteri la forma originale di $P(k)$.
+
+\subsection{L'Entrata nell'Orizzonte e lo Spartiacque dell'Equivalenza}
+Tutto ciò che ci interessa accade prima dell'epoca dell'equivalenza materia-radiazione ($t_{eq}$). 
+Definiamo il raggio dell'orizzonte delle particelle $R_H(t) \propto ct$. Poiché nell'Universo primordiale lo spazio si espande con un fattore di scala $a(t) \propto t^{1/2}$ o $t^{2/3}$, il raggio dell'orizzonte (lineare in $t$) cresce sempre più velocemente dell'espansione spaziale. Questo significa che fluttuazioni originariamente più grandi dell'orizzonte (create dall'Inflazione) prima o poi vi "entreranno". 
+
+L'evoluzione di una perturbazione di materia oscura dipende criticamente dal momento in cui entra nell'orizzonte:
+\begin{enumerate}
+    \item \textbf{Scale Giganti (Bassi $k$):} Entrano nell'orizzonte \textit{dopo} il tempo di equivalenza, quando l'Universo è dominato dalla materia. Esse non subiscono alcun ostacolo e crescono ininterrottamente.
+    \item \textbf{Scale Piccole (Alti $k$):} Entrano nell'orizzonte \textit{prima} dell'equivalenza, in piena Era Radiativa. Mentre sono fuori dall'orizzonte crescono come $a^2$, ma non appena entrano subiscono la spaventosa pressione di radiazione del background e \textbf{stagnano}, rimanendo costanti nel tempo finché non si giunge finalmente all'equivalenza ($t_{eq}$).
+\end{enumerate}
+
+\subsection{La Funzione di Trasferimento e la Coda dello Spettro}
+L'effetto di questa stagnazione è drastico: le perturbazioni su piccola scala restano "congelate" per tutto il tempo trascorso dalla loro entrata fino a $t_{eq}$. Rispetto a una scala gigante che è cresciuta liberamente, una scala piccola perde un fattore di crescita proporzionale al tempo perso in stagnazione. 
+Matematicamente, si dimostra che questo tempo di stagnazione impone un "taglio" proporzionale al quadrato della scala, ovvero $k^{-2}$.
+
+Lo spettro di potenza odierno $P(k)$ si ottiene moltiplicando lo spettro iniziale per il quadrato della crescita delle perturbazioni (il quadrato di questo "filtro" cosmologico, chiamato Funzione di Trasferimento $T(k)$):
+\begin{itemize}
+    \item Per scale grandi ($k \to 0$): non c'è stagnazione, il filtro è $1$. Lo spettro mantiene la pendenza originale: $\mathbf{P(k) \propto k^1}$.
+    \item Per scale piccole ($k \to \infty$): interviene il taglio $k^{-2}$. Lo spettro viene modificato come $\mathbf{P(k) \propto k^1 \times (k^{-2})^2 = k^{-3}}$.
+\end{itemize}
+Unendo questi due regimi asintotici, otteniamo la tipica forma "a campana" dello spettro di potenza della Cold Dark Matter: sale linearmente per bassi valori di $k$, raggiunge un picco in corrispondenza del numero d'onda dell'equivalenza ($k_{eq}$) e poi decade dolcemente come $k^{-3}$ per gli alti valori di $k$.
+
+
+\newpage
+\section{Lezione 22 - Extra: Approfondimento Teorico}
+
+\textit{Il valore $n=1$ per lo spettro iniziale e l'esatta posizione del picco $k_{eq}$ non sono assunzioni arbitrarie, ma fondamenti intrinseci della fisica teorica e dell'astrofisica osservativa. In questa sezione ne sveliamo il rigore matematico.}
+
+\subsection{Perché $n=1$? Il Significato dell'Invarianza di Scala}
+A lezione il Professor Moscardini assume l'esponente $n=1$ come un dato di fatto per lo Spettro di Harrison-Zel'dovich. Ma qual è la motivazione fisica profonda dietro questo numero magico?
+L'invarianza di scala non significa che tutte le onde di densità abbiano la stessa ampiezza nello spazio. Significa che \textbf{le fluttuazioni del potenziale metrico gravitazionale ($\delta\phi$) hanno la medesima ampiezza nel preciso istante in cui attraversano l'orizzonte causale}.
+
+Utilizzando l'equazione di Poisson quantistica nello spazio di Fourier ($k^2 \delta\phi_k \propto G \rho_b \delta_k$) e valutando la varianza spaziale delle fluttuazioni di potenziale a una generica scala $\lambda \sim 1/k$, si ottiene:
+\begin{equation}
+\langle \delta\phi^2 \rangle \propto \frac{P(k)}{k^4} k^3 \propto P(k) k^{-1}
+\end{equation}
+Se vogliamo che l'ampiezza delle fluttuazioni metriche sia costante e indipendente dalla scala $k$ (invarianza di scala, $\langle \delta\phi^2 \rangle = \text{costante}$), dobbiamo forzatamente imporre che $P(k) \propto k^1$.
+
+Cosa succederebbe se l'Universo avesse scelto un esponente diverso?
+\begin{itemize}
+    \item Se $n > 1$ (Spettro "Blu"): L'ampiezza delle fluttuazioni metriche divergerebbe sulle piccole scale. L'Universo primordiale si sarebbe riempito istantaneamente di una quantità catastrofica di Buchi Neri Primordiali, collassando su se stesso.
+    \item Se $n < 1$ (Spettro "Rosso"): L'ampiezza divergerebbe sulle grandi scale. L'Universo sarebbe dominato da immensi "vuoti" ed "iper-ammassi" al di fuori del nostro orizzonte, violando palesemente il Principio Cosmologico di omogeneità.
+\end{itemize}
+Il valore $n=1$ (o poco meno, $n \approx 0.96$ come confermato da Planck, a causa della fine dolce dell'Inflazione) è l'unico spettro frattale geometricamente stabile che permetta all'Universo di non auto-distruggersi gravitazionalmente.
+
+\subsection{Il Parametro di Forma ($\Gamma$) e il Picco dello Spettro}
+Il picco dello Spettro di Potenza $P(k)$ si colloca esattamente in corrispondenza del numero d'onda della scala che entra nell'orizzonte al tempo di equivalenza, ovvero $k_{eq}$. Ma quanto vale $k_{eq}$ e da cosa dipende?
+Ricordando che l'equivalenza avviene quando la densità della materia eguaglia quella della radiazione ($\rho_{m,0} (1+z_{eq})^3 = \rho_{r,0} (1+z_{eq})^4$), ricaviamo il fattore di scala all'equivalenza:
+\begin{equation}
+a_{eq} = \frac{1}{1+z_{eq}} = \frac{\Omega_{r,0}}{\Omega_{m,0}}
+\end{equation}
+Poiché la densità di radiazione odierna $\Omega_{r,0}$ è calcolabile esattamente dalla temperatura della CMB ($T \approx 2.725$ K), l'unica variabile in gioco rimane l'ammontare di materia fredda odierna. Inserendo $a_{eq}$ nel calcolo dell'orizzonte, la fisica teorica mostra che il numero d'onda del picco dipende esclusivamente da una combinazione di parametri cosmologici chiamata \textbf{Parametro di Forma} ($\Gamma$):
+\begin{equation}
+k_{eq} \propto \Gamma \equiv \Omega_{m,0} \, h
+\end{equation}
+dove $h$ è la costante di Hubble ridotta. 
+Questa relazione è il Santo Graal dell'astronomia extragalattica: misurando la posizione del picco dello spettro di potenza direttamente dalle mappe tridimensionali della distribuzione delle galassie (come lo Sloan Digital Sky Survey, SDSS), gli astrofisici possono misurare indirettamente l'esatta quantità di Materia Oscura ($\Omega_{m,0}$) contenuta nel nostro Universo, pesando letteralmente l'invisibile!
+
+% ==========================================
+% LEZIONE 23
+% ==========================================
+\chapter{Martedì 6 Dicembre 2016}
+
+\section{Misurare lo Spettro: Dai Cataloghi alla FFT (Fedele alle lezioni)}
+
+Finora abbiamo maneggiato lo Spettro di Potenza $P(k) \propto \langle |\hat{\delta}(\vec{k})|^2 \rangle$ da un punto di vista puramente teorico. Ma come fa l'astrofisica osservativa a calcolarlo materialmente?
+Tutto parte dai cataloghi astronomici. Le grandi survey galattiche (come la SDSS) non forniscono direttamente la densità, ma forniscono un elenco di oggetti puntiformi, ognuno caratterizzato da tre coordinate osservative:
+\begin{enumerate}
+    \item Ascensione Retta ($RA$)
+    \item Declinazione ($Dec$)
+    \item Redshift ($z$)
+\end{enumerate}
+Attraverso il modello cosmologico adottato, il redshift $z$ viene convertito in una distanza radiale comovente. Le coordinate sferiche $(RA, Dec, r)$ vengono quindi trasformate in coordinate cartesiane spaziali $(x, y, z)$. 
+
+A questo punto, si sovrappone al volume tridimensionale osservato una griglia regolare fittizia. Contando il numero di galassie $N_{ogg}$ all'interno di ogni singola cella di volume $V$, si ricava un campo di densità discreto $\rho(\vec{x})$. 
+Calcolando la densità media $\bar{\rho}$, si ottiene finalmente il campo del contrasto di densità nello spazio reale:
+\begin{equation}
+\delta(\vec{x}) = \frac{\rho(\vec{x}) - \bar{\rho}}{\bar{\rho}}
+\end{equation}
+Tuttavia, per calcolare $P(k)$ occorre passare allo spazio di Fourier. L'operazione viene svolta numericamente dai computer applicando algoritmi di \textbf{Fast Fourier Transform (FFT)} sulla griglia cartesiana discreta, ottenendo le ampiezze complesse $\hat{\delta}(\vec{k})$. Il modulo quadro di queste componenti fornisce la misura empirica dello spettro.
+
+\subsection{Distorsioni nello Spazio dei Redshift (RSD)}
+Questo procedimento nasconde un'insidia letale. La conversione dal redshift $z$ alla distanza radiale assume che il redshift sia generato \textit{esclusivamente} dal flusso di Hubble cosmologico. In realtà, le galassie possiedono anche moti propri, detti \textbf{velocità peculiari} ($v_{pec}$ o $v_\parallel$ lungo la linea di vista), dovuti all'attrazione gravitazionale delle strutture vicine.
+La legge di Hubble osservata diventa:
+\begin{equation}
+cz \approx H_0 d + v_\parallel
+\end{equation}
+Noi non possiamo separare a priori la componente cosmologica da quella peculiare. Convertendo il redshift totale in distanza, commettiamo un errore sistematico posizionando le galassie più vicine o più lontane di quanto non siano in realtà. Questo significa che la mappa 3D generata dai cataloghi non rappresenta il vero "Spazio Reale", ma uno spazio deformato chiamato \textbf{Spazio dei Redshift}.
+
+\section{Oltre il Regime Lineare: Il Collasso Sferico}
+
+La teoria perturbativa lineare studiata finora ($\delta \propto a(t)$ per un Universo EdS) è valida fintanto che $\delta \ll 1$. Quando le fluttuazioni raggiungono valori dell'ordine dell'unità ($\delta \sim 1$), i termini non lineari scartati nelle equazioni di Eulero diventano dominanti. La materia si disaccoppia dall'espansione del background e inizia a implodere su se stessa. 
+Trattare fluidodinamicamente questo processo è impossibile analiticamente (richiede simulazioni numeriche a N-corpi). Tuttavia, esiste un'unica soluzione analitica esatta per il regime completamente non lineare: il \textbf{Modello del Collasso Sferico}.
+
+Si considera una perturbazione di materia perfettamente sferica, avente inizialmente una velocità peculiare nulla ($v_i = 0$) e un contrasto di densità positivo seppur piccolissimo ($\delta_i > 0$). Essa è immersa in un background omogeneo in espansione (es. Einstein-de Sitter, $\Omega_b = 1$). 
+Per il Teorema di Birkhoff (l'analogo relativistico del Teorema di Gauss per la gravità), l'evoluzione del raggio $R(t)$ di questa sfera sovradensa dipende esclusivamente dalla massa al suo interno, ignorando la materia all'esterno.
+Questa sfera si comporta dinamicamente come un \textbf{mini-Universo chiuso} ($\Omega > 1$, $k = +1$) incorporato all'interno dell'Universo piatto. 
+L'evoluzione della sfera attraverserà tre fasi fondamentali:
+\begin{enumerate}
+    \item \textbf{Espansione frenata:} Inizialmente la sfera si espande seguendo l'espansione di Hubble, ma la sua gravità interna frena la dilatazione più rapidamente rispetto al background.
+    \item \textbf{Turnaround ($t_{max}$):} La velocità di espansione della sfera si annulla. Raggiunge il suo raggio massimo $R_{max}$.
+    \item \textbf{Collasso e Virializzazione:} La gravità vince e la sfera inizia a contrarsi fisicamente, sganciandosi per sempre dal flusso di Hubble.
+\end{enumerate}
+
+\newpage
+\section{Lezione 23 - Extra: Approfondimento Teorico}
+
+\textit{Il disallineamento tra la previsione lineare dell'espansione e il vero collasso gravitazionale costituisce l'impalcatura teorica dell'astrofisica non lineare. In questa sezione formalizziamo le Distorsioni di Kaiser e il trucco matematico per definire la soglia di collasso.}
+
+\subsection{Effetto Kaiser e Dita di Dio (Fingers of God)}
+L'errore indotto dalle velocità peculiari nello Spazio dei Redshift non distrugge l'informazione, ma anzi svela la dinamica interna delle strutture cosmiche, deformando la funzione di correlazione e lo spettro di potenza in due modi ben distinti a seconda della scala:
+\begin{itemize}
+    \item \textbf{Su Piccola Scala (Regime Non Lineare):} All'interno di un ammasso di galassie virializzato, le velocità peculiari sono enormi e caotiche (fino a $1000$ km/s). Questo causa una fortissima dispersione puramente lungo la linea di vista dell'osservatore terrestre, allungando artificialmente l'ammasso in forma di un "sigaro" che punta dritto verso di noi. Questo vistoso artefatto nelle mappe cosmologiche prende il suggestivo nome di \textbf{Dita di Dio (Fingers of God)}.
+    \item \textbf{Su Grande Scala (Regime Lineare - Effetto Kaiser):} Su scale di decine di Megaparsec, le galassie stanno lentamente "cadendo" verso i centri di massa dei futuri superammassi (infall coerente). Le galassie "davanti" all'ammasso stanno cadendo allontanandosi da noi (redshift aggiuntivo), mentre quelle "dietro" stanno cadendo verso di noi (blueshift aggiuntivo). Questo schiaccia artificialmente le grandi strutture lungo la linea di vista. Questo schiacciamento lineare, formulato da Nick Kaiser nel 1987, aumenta la potenza misurata dello spettro e viene oggi utilizzato per misurare il parametro di crescita strutturale $f \approx \Omega_m^{0.55}$.
+\end{itemize}
+
+\subsection{Perché la Teoria Lineare è "Sballata" ($\delta_c \approx 1.686$)}
+Come ha urlato il professore in aula, per il collasso sferico la teoria lineare fallisce miseramente. Se risolviamo esattamente le equazioni parametriche del modello sferico chiuso, scopriamo che al tempo del collasso totale ($t = 2t_{max}$) il raggio della sfera tende teoricamente a zero e la sua vera densità fisica diverge all'infinito ($\delta_{vera} \to \infty$). Nella realtà, il collasso viene fermato dalla violenta ridistribuzione delle energie cinetiche caotiche (\textit{virializzazione}), portando a una densità finale che è ben $178$ volte superiore a quella dell'Universo di background ($\Delta_{vir} \approx 178$).
+
+Se tuttavia (ostinatamente) \textbf{estrapoliamo la teoria lineare} fino a questo stesso istante di collasso (continuando a usare l'impropria legge $\delta_{lin} \propto t^{2/3}$ della lezione precedente per l'intero intervallo di tempo), otteniamo un risultato finito e apparentemente ridicolo:
+\begin{equation}
+\delta_{lin}(t_{collasso}) = \frac{3}{20} (12\pi)^{2/3} \approx 1.686
+\end{equation}
+La teoria lineare è profondamente sballata rispetto ai veri valori di densità finali. Ciononostante, questo numero (la \textbf{Soglia di Collasso $\delta_c$}) rappresenta il più grande e utile "trucco" della cosmologia teorica: ci permette di studiare il collasso degli aloni usando unicamente la matematica facilissima e lineare del background. Ogni volta che la varianza del campo primordiale lineare raggiunge l'ampiezza di $1.686$, noi sappiamo (grazie al modello sferico) che nella realtà, in quel preciso momento cosmico, lì sta nascendo un alone virializzato!
+
+% ==========================================
+% LEZIONE 24
+% ==========================================
+\chapter{Giovedì 7 Dicembre 2016}
+
+\section{Le Fasi del Collasso Sferico (Fedele alle lezioni)}
+
+Riprendiamo il modello del Collasso Sferico introdotto nella lezione precedente. Tracciando l'evoluzione della densità della perturbazione ($\rho$) in funzione del fattore di scala dell'Universo ($a$) o del tempo, distinguiamo tre fasi cruciali, confrontandole con la densità di background ($\bar{\rho} \propto a^{-3}$):
+\begin{enumerate}
+    \item \textbf{Fase I (Espansione frenata):} La sfera si espande, la sua densità diminuisce, ma diminuisce più lentamente rispetto al background a causa dell'attrazione gravitazionale interna. Il contrasto di densità $\delta = (\rho/\bar{\rho}) - 1$ inizia a crescere.
+    \item \textbf{Fase II (Turnaround):} La sfera smette di espandersi fisicamente. Il suo raggio raggiunge un valore massimo $R_{max}$. In questo istante, la densità della perturbazione raggiunge un minimo locale per poi iniziare a risalire. Rispetto al background (che continua a crollare), il contrasto di densità in questo istante teorico vale circa $\delta \approx 5.5$.
+    \item \textbf{Fase III (Collasso e Virializzazione):} La sfera implode. Se seguissimo ciecamente le equazioni, il raggio tenderebbe a zero e la densità all'infinito. Nella realtà, le particelle convertono l'energia potenziale gravitazionale in energia cinetica caotica (Teorema del Viriale). Il collasso si arresta a un raggio $R_{vir} = R_{max}/2$. La densità si stabilizza a un valore costante, diventando un alone oscuro indipendente dall'espansione cosmica, con una sovradensità rispetto al background pari a $\Delta_{vir} \approx 178$.
+\end{enumerate}
+
+\section{La Funzione di Massa di Press-Schechter}
+
+Sapendo che una struttura collassa quando il suo contrasto di densità lineare supera la soglia critica $\delta_c \approx 1.686$, possiamo usare la statistica per contare quanti aloni di materia oscura esistono per un dato intervallo di massa $dM$. 
+
+Poiché il campo di densità primordiale è Gaussiano, la probabilità che una regione di raggio $R$ (e massa $M$) abbia una sovradensità maggiore di $\delta_c$ è data dall'integrale della coda della campana di Gauss, governata dalla varianza di massa $\sigma_M^2$.
+Questa probabilità rappresenta la frazione di volume dell'Universo racchiusa in aloni di massa maggiore di $M$. 
+Per trovare il numero effettivo di aloni in un esatto intervallo di massa ($n(M, t) dM$), dobbiamo derivare questa probabilità rispetto alla massa. Facendo uso della dipendenza della varianza dalla massa (es. $\sigma_M \propto M^{-(n+3)/6}$), si ottiene un'espressione che ha la forma di un "differenziale di probabilità":
+\begin{equation}
+n(M, t) dM \propto \frac{\bar{\rho}}{M} \left| \frac{d \ln \sigma_M}{d \ln M} \right| \frac{\delta_c}{\sigma_M} \exp\left( - \frac{\delta_c^2}{2\sigma_M^2(t)} \right) dM
+\end{equation}
+Questa è la celebre \textbf{Funzione di Massa di Press-Schechter}, che predice elegantemente una legge di potenza per le masse piccole e un taglio esponenziale drastico per le masse grandi (che faticano a raggiungere la soglia $\delta_c$), ricalcando il comportamento che si osserva empiricamente nelle Funzioni di Luminosità delle galassie.
+
+\section{L'Approssimazione di Zel'dovich: L'Approccio Lagrangiano}
+
+La Teoria delle Perturbazioni Lineare Euleriana fissa un sistema di coordinate e guarda il fluido scorrere. Questo approccio fallisce non appena $\delta \sim 1$.
+Yakov Zel'dovich propose un approccio alternativo estremamente potente: la cinematica \textbf{Lagrangiana}. Invece di guardare il campo vettoriale, seguiamo le traiettorie delle singole particelle.
+
+Sia $\vec{q}$ la posizione iniziale (Lagrangiana) di una particella in un Universo perfettamente omogeneo primordiale. Vogliamo calcolare la sua posizione Euleriana finale $\vec{r}$ al tempo $t$. 
+In assenza di perturbazioni, la particella seguirebbe semplicemente il flusso di Hubble: $\vec{r}(t) = a(t)\vec{q}$. 
+Zel'dovich propose di aggiungere uno spostamento (\textit{displacement}) perturbativo separabile nelle variabili:
+\begin{equation}
+\vec{r}(\vec{q}, t) = a(t) \vec{q} + \vec{F}(\vec{q}, t) \qquad \text{con} \qquad \vec{F}(\vec{q}, t) = f(t) \vec{G}(\vec{q})
+\end{equation}
+Per fare in modo che questa traiettoria cinematica riproduca esattamente i risultati della fluidodinamica lineare ai primi tempi, la funzione temporale deve essere proporzionale al fattore di crescita lineare, $f(t) = a(t)\delta_+(t)$, e la funzione spaziale deve essere il gradiente del potenziale gravitazionale primordiale $\Phi(\vec{q})$ generato dalle fluttuazioni iniziali. L'equazione di traiettoria diventa:
+\begin{equation}
+\vec{r}(\vec{q}, t) = a(t) \left[ \vec{q} - \delta_+(t) \nabla_q \Phi(\vec{q}) \right]
+\end{equation}
+Calcolando la velocità peculiare della particella rispetto all'espansione, $\vec{v}_{pec} = \dot{\vec{r}} - H\vec{r}$, otteniamo:
+\begin{equation}
+\vec{v}_{pec}(\vec{q}, t) = -a(t) \dot{\delta}_+(t) \nabla_q \Phi(\vec{q})
+\end{equation}
+Nell'Approssimazione di Zel'dovich, le particelle si muovono lungo percorsi retti (in coordinate comoventi) dettati per sempre dal potenziale gravitazionale in cui si trovavano all'inizio dei tempi, permettendoci di simulare la formazione strutturale molto oltre il regime lineare Euleriano.
+
+\newpage
+\section{Lezione 24 - Extra: Approfondimento Teorico}
+
+\textit{Questa lezione ha introdotto due dei più potenti strumenti analitici della cosmologia non lineare. Entrambi, però, portano con sé gravi limitazioni fisiche. In questa sezione spieghiamo il "Fattore 2" mancante e i Pancake di Zel'dovich.}
+
+\subsection{Il "Fudge Factor" di Press-Schechter e l'Excursion Set Theory}
+Se integriamo analiticamente la frazione di massa di Press-Schechter delineata a lezione su tutte le masse possibili (da $M=0$ a $M=\infty$), troviamo un paradosso imbarazzante: il risultato dell'integrale è $1/2$. Sembra che il modello perda improvvisamente la metà di tutta la materia oscura dell'Universo!
+
+Il problema (noto come problema del *Cloud-in-Cloud*) deriva dal fatto che Press e Schechter ignorarono le regioni con $\delta < \delta_c$. Essi assunsero che queste regioni non collassassero. In realtà, una regione piccola che apparentemente ha $\delta < \delta_c$, potrebbe trovarsi all'interno di una regione immensa che ha $\delta > \delta_c$. Quella piccola massa, pur essendo sottomedia localmente, verrà trascinata nel collasso del mega-alone che la circonda. 
+
+Press e Schechter risolsero il problema originariamente moltiplicando a mano l'intera formula per $2$ (un trucco matematico o "fudge factor" ingiustificato). Solo 15 anni dopo, con lo sviluppo dell'\textbf{Excursion Set Theory}, si dimostrò matematicamente che trattando la densità smussata come un \textit{cammino aleatorio (Random Walk)} al variare della scala $R$, le traiettorie che attraversano la soglia assorbono esattamente il fattore 2 mancante, dando finalmente dignità matematica all'intuizione di Press-Schechter.
+
+\subsection{Lo Shell-Crossing e i Pancake di Zel'dovich}
+L'approccio Lagrangiano $\vec{r}(\vec{q}, t) = a(t) [ \vec{q} - \delta_+(t) \nabla_q \Phi(\vec{q}) ]$ è straordinariamente elegante, ma cosa succede fisicamente quando $t$ diventa grande?
+
+Poiché il campo del potenziale $\Phi(\vec{q})$ primordiale è anidropo e presenta asimmetrie (matematicamente quantificate dagli autovalori del tensore di deformazione $\partial^2 \Phi / \partial q_i \partial q_j$), il collasso della materia non sarà mai perfettamente sferico. 
+In un sistema a 3 dimensioni, la probabilità che i tre autovalori di deformazione siano identici è pressoché nulla. Ci sarà sempre un asse lungo il quale la particella accelera più velocemente.
+
+Questo significa che la materia collasserà prima lungo 1 asse (formando una struttura piatta bidimensionale, un foglio), poi lungo il secondo (formando un filamento 1D), e infine lungo l'ultimo asse (formando il nodo o l'alone 3D).
+Il collasso lungo il primo asse porta alla creazione dei cosiddetti \textbf{Pancake di Zel'dovich}. 
+Tuttavia, l'approssimazione non include alcuna forza di pressione o di virializzazione termica. Quando due particelle, provenienti da direzioni opposte, raggiungono il piano del pancake, le loro equazioni Lagrangiane le fanno proseguire dritte senza scontrarsi. Attraversano il piano e continuano dall'altra parte. Questo catastrofico incrocio delle traiettorie si chiama \textbf{Shell-Crossing}.
+Nello shell-crossing, la mappatura tra $\vec{q}$ ed $\vec{r}$ smette di essere biunivoca (lo Jacobiano della trasformazione si annulla e la densità Euleriana diviene letteralmente infinita su un piano 2D). Dopo lo shell-crossing, l'Approssimazione di Zel'dovich perde ogni validità fisica: per descrivere i filamenti e gli aloni rilassati, gli astrofisici sono costretti ad abbandonare la matematica analitica per accendere i supercomputer ed eseguire simulazioni Cosmologiche a N-Corpi.
+
+\end{document}
