@@ -1,0 +1,1336 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+
+\title{Modelli Numerici per la Fisica\\ \large Appunti del Corso}
+\author{Domingo Verdini}
+\date{Lezione 1: Martedì 28 Febbraio: Introduzione e Ricerca delle Radici}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+L'idea di questo corso è fornire tecniche numeriche ed esempi pratici per risolvere problemi fisici complessi. Oltre agli aspetti algoritmici, il corso presenta una profonda impalcatura teorica che spazia dalle modellizzazioni dei sistemi hamiltoniani fino ai modelli dissipativi e ai sistemi caotici. Tali modelli trovano oggi applicazione nello studio dei sistemi complessi, nella fisica degli acceleratori, nella biofisica e nella meccanica statistica.
+\end{abstract}
+% ==========================================
+% LEZIONE 1                                  
+% ========================================== 
+
+\section*{Struttura del Corso}
+Il corso si divide concettualmente in due macro-aree:
+\begin{enumerate}
+    \item \textbf{Parte Deterministica:} Studia sistemi governati da leggi esatte (es. dinamica classica e sistemi hamiltoniani). Culmina nello studio delle equazioni alle derivate parziali di tipo iperbolico, con particolare attenzione all'equazione di Vlasov, in cui le particelle stesse creano il campo macroscopico che ne determina la dinamica.
+    \item \textbf{Parte Stocastica:} Studia sistemi soggetti a fluttuazioni e "rumore". Culmina nell'equazione di Fokker-Planck, fondamentale per la termodinamica del non-equilibrio, che descrive l'evoluzione della densità di probabilità di un sistema soggetto a urti o forze casuali.
+\end{enumerate}
+In entrambe le parti, l'obiettivo è costruire un modello matematico, simularlo al calcolatore, e interpretare i risultati per comprendere i fenomeni fisici reali.
+\section{Metodi Numerici di Base: La ricerca delle radici}
+
+Uno dei problemi fondamentali in fisica computazionale è trovare gli zeri di una generica funzione $f(x)$, ovvero risolvere l'equazione:
+\begin{equation}
+f(x) = 0
+\end{equation}
+Poiché i computer calcolano approssimazioni tramite operazioni discrete, utilizziamo algoritmi iterativi che, partendo da una stima iniziale, si avvicinano progressivamente al valore esatto.
+
+\subsection{Il Metodo della Bisezione}
+Il metodo della bisezione è il più semplice tra i metodi di ricerca delle radici. Si basa sul Teorema degli Zeri, il quale afferma che se una funzione continua $f(x)$ assume segni opposti agli estremi di un intervallo $[a, b]$ (cioè $f(a) \cdot f(b) < 0$), allora deve necessariamente esistere almeno un punto in cui la curva interseca l'asse delle ascisse.
+
+L'algoritmo procede dimezzando iterativamente l'intervallo: si calcola il punto medio $c = \frac{a+b}{2}$ e si valuta il segno di $f(c)$. Si scarta quindi la metà dell'intervallo che non contiene il cambio di segno. Sebbene sia un metodo molto robusto e garantisca sempre la convergenza, risulta essere piuttosto lento rispetto a metodi più avanzati.
+
+\subsection{Il Metodo di Newton (o delle tangenti)}
+Per ovviare alla lentezza della bisezione, si introduce il Metodo di Newton. Geometricamente, il metodo consiste nel tracciare la retta tangente al grafico della funzione $f(x)$ in un punto iniziale $x_0$, determinando il punto $x_1$ in cui tale retta interseca l'asse delle ascisse. 
+
+Il procedimento viene iterato generando una successione di punti secondo la formula:
+
+\begin{equation}
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+\end{equation}
+A differenza della bisezione, il metodo di Newton garantisce una \textbf{convergenza quadratica} (l'errore decresce proporzionalmente al quadrato dell'errore al passo precedente), purché il punto iniziale sia scelto sufficientemente vicino allo zero e la derivata nel punto di annullamento non sia nulla (zero non critico).
+
+\subsection{Il Metodo di Halley}
+Un'ulteriore accelerazione si ottiene tenendo conto non solo della pendenza della curva, ma anche della sua concavità. Il metodo di Halley introduce infatti nello schema iterativo anche la derivata seconda $f''(x)$, portando alla seguente ricorrenza:
+\begin{equation}
+x_{n+1} = x_n + \frac{2f(x_n)f'(x_n)}{f''(x_n)f(x_n) - 2(f'(x_n))^2}
+\end{equation}
+
+\subsection{Dai Metodi Numerici al Caos: I Bacini di Attrazione}
+I metodi iterativi non sono infallibili. Se la funzione presenta più radici (soprattutto nel campo dei numeri complessi $z = x + iy$), la convergenza a una specifica radice dipende strettamente dalla scelta del punto di partenza $z_0$. 
+
+L'insieme di tutti i punti iniziali che convergono a una determinata radice prende il nome di \textbf{bacino di attrazione}. Applicando i metodi di Newton e Halley a funzioni complesse, come ad esempio l'equazione $f(z) = z^3 - 1$, si osserva un fenomeno straordinario: i confini tra i diversi bacini di attrazione non sono linee lisce, ma geometrie infinitamente frastagliate e complesse note come \textbf{frattali} (Insiemi di Julia). 
+
+Questa è la prima dimostrazione fisica di come un semplice algoritmo deterministico (una formula ripetuta in loop) possa generare comportamenti apparentemente caotici e geometrie di infinita complessità se sottoposto a piccole variazioni delle condizioni iniziali.
+
+\subsection*{Approfondimento Teorico: Mappe Contrattive e Condizione di Hölder}
+
+Dal punto di vista formale, la ricerca delle radici tramite metodi iterativi $\vec{x}_{n+1} = M(\vec{x}_n)$ si traduce nello studio della convergenza verso un punto fisso $\vec{x}_* = M(\vec{x}_*)$. Definendo l'errore al passo $n$ come $e_n = \|\vec{x}_n - \vec{x}_*\|$, la stabilità dell'algoritmo dipende dalle proprietà di contrazione della mappa $M$.
+
+\paragraph{Convergenza Lineare (Condizione di Lipschitz)}
+Se la mappa è una contrazione Lipschitziana, soddisfa la relazione:
+\begin{equation}
+\|M(\vec{x}) - M(\vec{y})\| \le L \|\vec{x} - \vec{y}\| \quad \text{con } L < 1
+\end{equation}
+Da cui deriva rigorosamente che l'errore decade in modo esponenziale: $e_{n+1} \le L e_n \implies e_n \le L^n e_0$.
+Ponendo il tasso di decadimento $\lambda = -\ln(L) > 0$, si ottiene l'espressione $e_n \le e^{-\lambda n} e_0$.
+
+\paragraph{Convergenza Superiore (Condizione di Hölder)}
+Per i metodi accelerati (come Newton o Halley), la mappa soddisfa una condizione più generale, nota come Condizione di Hölder di ordine $\alpha \ge 1$:
+\begin{equation}
+\|M(\vec{x}) - M(\vec{y})\| \le L \|\vec{x} - \vec{y}\|^\alpha
+\end{equation}
+Se $\alpha > 1$, la mappa risulta contrattiva \textit{qualunque} sia il valore della costante $L$. 
+
+In particolare, per $\alpha = 2$ (convergenza quadratica del metodo di Newton), la propagazione dell'errore segue la legge:
+\begin{equation}
+e_n \le L^{-1} (L e_0)^{2^n}
+\end{equation}
+Questa formula definisce analiticamente il limite del bacino di attrazione: affinché l'algoritmo converga senza divergere, è strettamente necessario che la scelta del punto iniziale soddisfi la condizione $L e_0 < 1$.
+
+\newpage
+% ==========================================
+% LEZIONE 2
+% ==========================================
+
+\section{Lezione 2 - Mercoledì 1 Marzo 2017: Ordine di Convergenza e Mappa Logistica}
+
+In questa lezione si approfondiscono le ricorrenze del tipo $x_n = M(x_{n-1})$ e si formalizza il concetto di convergenza [1]. Affinché la successione converga a un punto fisso $x_*$, la mappa deve essere contrattiva nell'intorno del punto, richiedendo che $|M'(x_*)| < 1$ [1]. L'ordine di convergenza di un metodo iterativo può essere determinato rigorosamente studiando il resto $R_n(x)$ dello sviluppo in serie di Taylor della funzione $f(x)$ [1].
+
+\subsection*{Approfondimento Matematico: Dimostrazioni della Lezione 2}
+
+\paragraph{1. Ordine di Convergenza e Resto Integrale di Taylor}
+L'ordine di convergenza di un metodo iterativo è intimamente legato allo sviluppo di Taylor della funzione. Negli appunti si formalizza il resto dello sviluppo all'ordine $n$ nella forma integrale:
+\begin{equation}
+R_n(x) = \frac{1}{n!} \int_{x_0}^x (x-t)^n f^{(n+1)}(t) dt
+\end{equation}
+Attraverso l'integrazione per parti, è possibile legare $R_n(x)$ al resto di ordine inferiore $R_{n-1}(x)$, ottenendo la fondamentale relazione di ricorrenza:
+\begin{equation}
+R_{n-1}(x) = \frac{(x-x_0)^n}{n!} f^{(n)}(x_0) + R_n(x)
+\end{equation}
+Questa struttura analitica permette di valutare esattamente l'ordine dell'errore ad ogni passo iterativo.
+
+\paragraph{2. Rappresentazione Geometrica a "Ragnatela" (Cobweb)}
+Un metodo visivo potentissimo per studiare la stabilità dei punti fissi per mappe monodimensionali ($x_{n+1} = M(x_n)$) consiste nel tracciare simultaneamente la curva $y = M(x)$ e la bisettrice $y = x$.
+Partendo da un punto iniziale $x_0$ sull'asse delle ascisse, si proietta verticalmente sulla curva per trovare $y_0 = M(x_0)$. Da qui, si proietta orizzontalmente sulla bisettrice per trasferire il valore sull'asse $x$ (ottenendo $x_1 = y_0$), e si ripete il processo iterativamente.
+Se $|M'(x_*)| < 1$, i "rimbalzi" costruiscono una ragnatela che converge verso l'intersezione (punto fisso). Se la derivata in modulo è maggiore di 1, la ragnatela si allontana inesorabilmente.
+
+\paragraph{3. Mappa Quadratica e Convergenza Quadratica}
+Consideriamo il modello quadratico $M(x) = bx - ax^2$. Calcoliamo il punto fisso imponendo la condizione di equilibrio $M(x_*) = x_*$:
+\begin{equation}
+x_* = bx_* - ax_*^2 \implies 1 = b - ax_* \implies x_* = \frac{b-1}{a}
+\end{equation}
+Per valutare la stabilità, studiamo la derivata prima $M'(x) = b - 2ax$ calcolata nel punto fisso:
+\begin{equation}
+M'(x_*) = b - 2a\left(\frac{b-1}{a}\right) = b - 2(b-1) = 2 - b
+\end{equation}
+Se imponiamo la condizione $b=2$, otteniamo $M'(x_*) = 0$. Sviluppando in serie di Taylor la mappa attorno a $x_*$ si ottiene:
+\begin{equation}
+M(x) = M(x_*) + M'(x_*)(x-x_*) + \frac{1}{2}M''(\xi)(x-x_*)^2
+\end{equation}
+Poiché per $b=2$ si ha $M'(x_*)=0$ e $M''(x) = -2a$, l'equazione diventa esatta e priva di termini lineari:
+\begin{equation}
+M(x) = x_* - a(x-x_*)^2
+\end{equation}
+Questa relazione dimostra analiticamente che l'errore al passo successivo, $x_{n+1} - x_*$, è proporzionale al \textit{quadrato} dell'errore al passo precedente $(x_n - x_*)^2$. È la dimostrazione rigorosa e definitiva della convergenza quadratica.
+
+\subsection{Il Metodo delle Secanti}
+Un algoritmo fondamentale introdotto in questa lezione per la ricerca degli zeri è il \textbf{Metodo delle Secanti} [2]. A differenza del metodo di Newton, questo schema approssima la derivata prima tracciando una retta secante tra due punti successivi dell'iterazione ($x_0$ e $x_1$), non richiedendo così il calcolo analitico della derivata della funzione [2]. 
+In questo caso, la convergenza per i sistemi a una variabile non è quadratica, ma è di un ordine intermedio pari alla sezione aurea $\alpha = \frac{1+\sqrt{5}}{2} \simeq 1.62$ [2]. Nel caso in cui si debbano trovare tutte le soluzioni di un polinomio $P_n(x)$, il metodo viene tipicamente combinato con la \textit{deflazione}, ovvero dividendo il polinomio iterativamente per la radice appena trovata [2].
+
+\subsection{Sistemi Dinamici: La Mappa Logistica}
+Abbandoniamo ora la semplice ricerca degli zeri per interpretare le ricorrenze come veri e propri \textbf{sistemi dinamici} discreti [3]. Un prototipo fondamentale studiato a lezione è la \textbf{Mappa Logistica}, definita dall'equazione quadratica:
+\begin{equation}
+x_{n+1} = r x_n (1 - x_n)
+\end{equation}
+Questa mappa descrive, ad esempio, l'evoluzione di una popolazione: il parametro $r$ rappresenta il fattore moltiplicativo (se $r>1$ le nascite superano le morti), mentre il termine $(1-x_n)$ agisce come vincolo per limitare le risorse, impedendo così una crescita infinita della popolazione [3].
+
+\subsection{Stabilità e Fenomeno della Biforcazione}
+Per comprendere l'evoluzione a lungo termine del sistema, cerchiamo i punti fissi imponendo la condizione di equilibrio $M(x_*) = x_*$ [3]:
+\begin{equation}
+x_* = r x_* (1 - x_*) \implies x_* = 0 \quad \text{oppure} \quad x_* = 1 - \frac{1}{r}
+\end{equation}
+Per studiare la stabilità di queste due soluzioni, valutiamo la derivata prima della mappa, $M'(x) = r - 2rx$, in corrispondenza dei punti fissi appena trovati [3]:
+\begin{itemize}
+    \item Nel punto $x_* = 0$, la derivata è $M'(0) = r$ [3]. L'origine è un punto fisso \textit{stabile} solo se il fattore di crescita obbedisce alla condizione $|r| < 1$ [3].
+    \item Nel punto $x_* = 1 - \frac{1}{r}$, la derivata vale $M'(x_*) = r - 2r\left(1 - \frac{1}{r}\right) = 2 - r$ [3]. Affinché questa popolazione raggiunga un equilibrio stabile diverso da zero, deve valere la condizione $|2 - r| < 1$, che si traduce nell'intervallo $1 < r < 3$ [3].
+\end{itemize}
+
+Cosa accade quando il parametro $r$ aumenta e supera il valore critico $r = 3$? Il punto fisso $x_*$ perde la sua stabilità [3]. In questo esatto momento, il sistema subisce il \textbf{Fenomeno della Biforcazione} [3]. L'orbita non si assesta più su un singolo valore di equilibrio, ma iniziano a nascere due nuove orbite stabili periodiche tra le quali il sistema salta indefinitamente [3]. Questo meccanismo è il primo passo verso l'innesco del comportamento caotico del sistema.
+
+\newpage
+% ==========================================
+% LEZIONE 3
+% ==========================================
+\section{Lezione 3 - Martedì 7 Marzo 2017: Sistemi Multidimensionali e Ricorrenze Vettoriali}
+
+Fino ad ora abbiamo analizzato metodi numerici per la ricerca degli zeri di funzioni scalari. In questa lezione estendiamo il problema a sistemi di $d$ equazioni in $d$ incognite, cercando gli zeri di un'applicazione $\vec{f}(\vec{x}) = 0$ con $\vec{x} \in \mathbb{R}^d$.
+
+\subsection{Il Metodo di Bisezione in 2D}
+L'estensione multidimensionale del metodo di bisezione è concettualmente semplice e robusta, poiché richiede solo la valutazione del segno delle funzioni e non delle loro derivate. Consideriamo un sistema di due equazioni $f(x, y) = 0$ e $g(x, y) = 0$. Geometricamente, le due curve dividono il piano in 4 quadranti, ciascuno caratterizzato da una specifica "segnatura" (la combinazione dei segni di $f$ e $g$: $(+,+), (+,-), (-,+), (-,-)$). Lo zero del sistema è il punto di intersezione in cui convergono i 4 quadranti.
+
+Iterando il procedimento, un quadrilatero test si stringe progressivamente attorno allo zero del sistema (scartando a ogni passo il vertice con la stessa segnatura del nuovo punto medio), garantendo una convergenza lineare analoga al caso monodimensionale.
+
+\subsection{Sviluppo di Taylor Multidimensionale e Metodo di Newton}
+Per ottenere una convergenza quadratica, passiamo al Metodo di Newton in $\mathbb{R}^d$. Arrestiamo lo sviluppo di Taylor vettoriale al primo ordine:
+\begin{equation}
+\vec{L}(\vec{x}) = \vec{f}(\vec{x}_0) + F(\vec{x}_0)(\vec{x} - \vec{x}_0)
+\end{equation}
+dove $F(\vec{x}_0)$ è la Matrice Jacobiana, con elementi $F_{il} = \frac{\partial f_i}{\partial x_l}$. Risolvendo il sistema linearizzato $\vec{L}(\vec{x}_1) = 0$, otteniamo lo schema iterativo di Newton per sistemi multidimensionali:
+\begin{equation}
+\vec{x}_{n+1} = \vec{x}_n - F^{-1}(\vec{x}_n)\vec{f}(\vec{x}_n)
+\end{equation}
+Condizione necessaria per la convergenza quadratica è che il determinante della Jacobiana valutata nel punto fisso non sia nullo ($\det F(\vec{x}^*) \neq 0$).
+
+\paragraph{Esempio Pratico: Intersezione di Coniche}
+Consideriamo l'intersezione tra un'iperbole equilatera e un cerchio:
+\begin{equation}
+\begin{cases}
+f(x, y) = y^2 - x^2 - 1 = 0 \\
+g(x, y) = x^2 + y^2 - 3 = 0
+\end{cases}
+\end{equation}
+Le soluzioni analitiche sono i 4 zeri $x^* = \pm 1$ e $y^* = \pm \sqrt{2}$. La matrice Jacobiana del sistema è:
+\begin{equation}
+F(x, y) = \begin{pmatrix} -2x & 2y \\ 2x & 2y \end{pmatrix}
+\end{equation}
+Invertendo la matrice e applicando l'algoritmo di Newton, si osserva una straordinaria proprietà: il sistema si disaccoppia in due ricorrenze indipendenti $x_{n+1} = \frac{x_n}{2} + \frac{1}{2x_n}$ e $y_{n+1} = \frac{y_n}{2} + \frac{1}{y_n}$. Questo dimostra l'efficienza computazionale del metodo in presenza di simmetrie.
+
+\subsection{Dalle Mappe ai Flussi: Ricorrenze Lineari}
+Vi è una corrispondenza fondamentale tra i sistemi dinamici a tempo discreto (le mappe $\vec{x}_{n+1} = \vec{M}(\vec{x}_n)$) e quelli a tempo continuo (le equazioni differenziali $\frac{d\vec{x}}{dt} = \vec{\Phi}(\vec{x})$). Per studiare la stabilità di un punto di equilibrio, è prassi linearizzare il sistema.
+
+Consideriamo una ricorrenza lineare non omogenea del tipo:
+\begin{equation}
+\vec{x}_{n+1} = A\vec{x}_n + \vec{b}
+\end{equation}
+Il punto fisso vettoriale del sistema si ricava imponendo $\vec{x}^* = A\vec{x}^* + \vec{b}$, da cui $\vec{x}^* = (I - A)^{-1}\vec{b}$. Sottraendo il punto fisso dalla ricorrenza, l'equazione diventa $\vec{x}_{n+1} - \vec{x}^* = A(\vec{x}_n - \vec{x}^*)$, la cui soluzione esatta per l'orbita è:
+\begin{equation}
+\vec{x}_n = \vec{x}^* + A^n(\vec{x}_0 - \vec{x}^*)
+\end{equation}
+La condizione di convergenza ($\vec{x}_n \to \vec{x}^*$) impone che la norma $\|A^n\|$ tenda a zero. Affinché ciò accada, tutti gli autovalori della matrice $A$ devono avere modulo strettamente minore di 1.
+
+\paragraph{Riduzione di ricorrenze di ordine superiore}
+Una ricorrenza scalare a $p$ passi può sempre essere trasformata in un sistema vettoriale del primo ordine. Data l'equazione a due termini:
+\begin{equation}
+x_{n+2} = a_1 x_{n+1} + a_0 x_n
+\end{equation}
+si introduce il vettore di stato $\vec{x}_n = \begin{pmatrix} x_{n+1} \\ x_n \end{pmatrix}$. L'equazione si riscrive in forma matriciale esatta $\vec{x}_{n+1} = A\vec{x}_n$:
+\begin{equation}
+\begin{pmatrix} x_{n+2} \\ x_{n+1} \end{pmatrix} = \begin{pmatrix} a_1 & a_0 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} x_{n+1} \\ x_n \end{pmatrix}
+\end{equation}
+
+\subsection{Soluzione Analitica delle Ricorrenze e Oscillatore Armonico Discreto}
+Quando si affronta una ricorrenza lineare a due passi della forma $x_{n+2} - a_1 x_{n+1} - a_0 x_n = 0$, la ricerca della soluzione analitica procede ponendo un ansatz del tipo $x_n = \lambda^n$. Sostituendo, si ottiene l'equazione per il polinomio caratteristico:
+\begin{equation}
+\lambda^2 - a_1 \lambda - a_0 = 0
+\end{equation}
+Se le radici $\lambda_1$ e $\lambda_2$ sono distinte, la soluzione generale è una combinazione lineare $x_n = c_1 \lambda_1^n + c_2 \lambda_2^n$. Se le radici sono complesse coniugate, la soluzione descrive un andamento oscillatorio governato dalla fase e dal modulo di $\lambda$.
+
+Un'applicazione fisica formidabile di questa tecnica è la discretizzazione dell'oscillatore armonico $\ddot{x} = -\omega^2 x$. Se utilizziamo l'operatore alle differenze centrali per la derivata seconda, otteniamo:
+\begin{equation}
+\frac{x_{n+1} - 2x_n + x_{n-1}}{\Delta t^2} = -\omega^2 x_n \implies x_{n+1} - 2\left(1 - \frac{\omega^2 \Delta t^2}{2}\right)x_n + x_{n-1} = 0
+\end{equation}
+L'equazione caratteristica associata a questa mappa discreta è $\lambda^2 - 2\lambda\left(1 - \frac{\omega^2 \Delta t^2}{2}\right) + 1 = 0$.
+Poiché il termine noto (il prodotto delle radici) vale esattamente 1, per passi temporali sufficientemente piccoli le soluzioni sono complesse coniugate del tipo $\lambda_{1,2} = \cos \alpha \pm i \sin \alpha = e^{\pm i \alpha}$.
+Essendo il modulo degli autovalori rigorosamente pari a 1 ($|\lambda| = 1$), l'algoritmo numerico genera un'orbita discretizzata perpetuamente stabile (un'ellisse che non diverge), conservando le aree nello spazio delle fasi.
+
+Al contrario, se si tenta di discretizzare lo stesso sistema con il metodo di Eulero esplicito al primo ordine, l'equazione caratteristica fornisce $\lambda = 1 \pm i \omega \Delta t$. In questo caso il modulo al quadrato risulta $|\lambda|^2 = 1 + \omega^2 \Delta t^2 > 1$. L'orbita numerica è perciò destinata a divergere esponenzialmente, rendendo l'algoritmo intrinsecamente instabile ("la soluzione esplode") a causa della mancata conservazione dei volumi.
+
+\newpage
+% ==========================================
+% LEZIONE 4
+% ==========================================
+\section{Lezione 4 - Mercoledì 8 Marzo 2017: Dai Sistemi Discreti ai Flussi Continui e Biforcazioni}
+
+In questa lezione completiamo il ponte tra i sistemi dinamici a tempo discreto (mappe del tipo $\vec{x}_{n+1} = M(\vec{x}_n)$) e quelli a tempo continuo, introducendo lo studio qualitativo dei flussi, la topologia delle orbite nello spazio delle fasi e i fondamentali fenomeni di biforcazione [1, 2].
+
+\subsection{Flussi Continui e Linearizzazione}
+L'evoluzione di un sistema a tempo continuo è governata da un'equazione differenziale vettoriale autonoma della forma:
+\begin{equation}
+\frac{d\vec{x}}{dt} = \vec{\Phi}(\vec{x})
+\end{equation}
+La soluzione di questa equazione, al variare del tempo $t$, definisce una traiettoria nello spazio delle fasi. L'insieme di tutte le traiettorie generate a partire da ogni possibile condizione iniziale $\vec{x}_0$ definisce il \textit{flusso} continuo del sistema, indicato come $\vec{x}(t) = S_t(\vec{x}_0)$ [2]. Il flusso gode della proprietà di gruppo $S_{t_1+t_2} = S_{t_2} \circ S_{t_1}$ [1, 3].
+
+Un punto $\vec{x}_*$ è detto di equilibrio se annulla il campo vettoriale, ovvero se $\vec{\Phi}(\vec{x}_*) = 0$ [4]. Per studiare la dinamica in un intorno del punto di equilibrio, si procede con la \textbf{linearizzazione} del campo tramite lo sviluppo in serie di Taylor al primo ordine:
+\begin{equation}
+\frac{d\vec{x}}{dt} \approx \Phi'(\vec{x}_*)(\vec{x} - \vec{x}_*)
+\end{equation}
+Nel caso monodimensionale ($d=1$), la stabilità asintotica è garantita se e solo se $\Phi'(x_*) < 0$, portando a un decadimento esponenziale dell'errore. Nei sistemi bidimensionali ($d=2$), la topologia delle orbite dipende dagli autovalori della matrice Jacobiana valutata nel punto fisso: si avranno \textit{nodi} (autovalori reali concordi), \textit{selle} (autovalori reali discordi), \textit{fuochi} (autovalori complessi con parte reale non nulla) o \textit{centri} (autovalori immaginari puri, tipici dei sistemi conservativi) [5-8].
+
+\subsection{Teoria delle Biforcazioni in 1D}
+Se il campo vettoriale dipende da un parametro di controllo $r$, cioè $\dot{x} = \Phi(x, r)$, i punti di equilibrio $x_*(r)$ si spostano al variare del parametro [9]. Nei punti critici in cui si ha simultaneamente $\Phi(x_*, r) = 0$ e $\Phi'(x_*, r) = 0$, il sistema subisce un cambiamento strutturale della stabilità, noto come \textbf{biforcazione} [10]. Esistono tre forme normali principali [11]:
+
+\begin{enumerate}
+    \item \textbf{Biforcazione Sella-Nodo (Saddle-Node):} È governata dall'equazione canonica:
+    \begin{equation}
+    \dot{x} = -r + x^2
+    \end{equation}
+    Per $r < 0$ il campo non si annulla mai e non esistono equilibri. Attraversando $r = 0$, nascono simultaneamente due equilibri, uno stabile ($x_* = -\sqrt{r}$) e uno instabile ($x_* = +\sqrt{r}$) [9, 12].
+    
+    \item \textbf{Biforcazione Transcritica:} È governata da:
+    \begin{equation}
+    \dot{x} = rx - x^2
+    \end{equation}
+    I due equilibri $x_*=0$ e $x_*=r$ coesistono e collidono nell'origine quando $r=0$, scambiandosi reciprocamente la stabilità. Per $r<0$ l'origine è stabile, mentre per $r>0$ l'origine diventa instabile e l'equilibrio $x_*=r$ acquisisce stabilità [13, 14].
+    
+    \item \textbf{Biforcazione a Forchetta (Pitchfork):} Nella sua variante sovracritica è descritta da:
+    \begin{equation}
+    \dot{x} = rx - x^3
+    \end{equation}
+    Per $r < 0$ l'origine è l'unico punto fisso ed è stabile. Per $r > 0$ l'origine diventa un punto instabile, da cui "biforcano" simmetricamente due nuovi rami di equilibrio stabili in $x_* = \pm\sqrt{r}$ [15, 16]. Tali biforcazioni possono essere studiate in modo equivalente analizzando la topologia del potenziale associato $V(x) = -r\frac{x^2}{2} + \frac{x^4}{4}$ [17].
+\end{enumerate}
+
+\subsection{Approssimazione di Strong Damping (Forte Dissipazione)}
+Un risultato di profonda importanza fisica, che permette di passare da un problema meccanico bidimensionale nello spazio delle fasi $(x, p)$ a un sistema monodimensionale, è il limite di \textit{strong damping} [18, 19]. Consideriamo una particella in un potenziale $V(x)$ soggetta a un forte attrito viscoso dipendente dal parametro $\beta \gg 1$:
+\begin{equation}
+\begin{cases}
+\dot{x} = p \\
+\dot{p} = -V'(x) - \beta p
+\end{cases}
+\end{equation}
+La soluzione generale mostra che il transiente della velocità (proporzionale a $e^{-\beta t}$) decade in modo estremamente rapido. Una volta esaurito il transiente, la variazione dell'impulso $\dot{p}$ diventa trascurabile ($\dot{p} \approx 0$). Il sistema perde la componente puramente inerziale e l'equazione differenziale del secondo ordine si riduce drasticamente ad un'equazione del primo ordine:
+\begin{equation}
+\beta \dot{x} = -V'(x)
+\end{equation}
+Questa riduzione dimensionale ("precipitazione" sulla varietà lenta) non è solo un trucco matematico, ma è la base teorica fondamentale per lo studio dei sistemi dinamici soggetti a rumore. L'aggiunta di una componente stocastica a questa equazione ridotta definisce infatti l'\textbf{Equazione di Langevin}, che governa il moto browniano e l'evoluzione dei sistemi complessi dissipativi [20, 21].
+
+\newpage
+% ==========================================
+% LEZIONE 5
+% ==========================================
+\section{Lezione 5 - Martedì 14 Marzo 2017: Stabilità Non Lineare, Equazione Integrale e Lemma di Gronwall}
+
+Nelle lezioni precedenti abbiamo stabilito che la stabilità di un punto di equilibrio per un sistema dinamico $\dot{\vec{x}} = \vec{\Phi}(\vec{x})$ può essere indagata analizzando il sistema linearizzato nell'intorno del punto fisso $\vec{x}_*$. Sorge tuttavia un quesito matematico e fisico fondamentale: la stabilità asintotica predetta dal modello lineare sopravvive in presenza delle inevitabili perturbazioni non lineari del sistema completo?
+
+\subsection{Linearizzazione e Stima del Resto}
+Consideriamo un sistema unidimensionale per semplicità notazionale, sebbene i risultati siano validi in $\mathbb{R}^d$. Sia $\Phi(x_*) = 0$. Sviluppando in serie di Taylor attorno all'equilibrio otteniamo:
+\begin{equation}
+\dot{x} = \Phi'(x_*)(x - x_*) + R_1(x)
+\end{equation}
+dove il resto $R_1(x) = \frac{1}{2}\Phi''(\xi)(x-x_*)^2$ contiene tutta l'informazione non lineare. 
+Se il sistema linearizzato è asintoticamente stabile, si ha $\Phi'(x_*) = -\lambda$ con $\lambda > 0$. L'equazione esatta diventa quindi:
+\begin{equation}
+\dot{x} = -\lambda(x - x_*) + R_1(x)
+\end{equation}
+
+Per studiare l'effetto del resto, è necessario imporre un limite alla sua crescita locale. In un intorno di raggio $R$ del punto di equilibrio ($|x - x_*| < R$), possiamo maggiorare il resto in modo lineare:
+\begin{equation}
+|R_1(x)| \le M |x - x_*|^2 \le \epsilon |x - x_*|
+\end{equation}
+dove $\epsilon = MR$. Più stringiamo l'intorno (più $R$ è piccolo), più $\epsilon$ diventa trascurabile.
+
+\subsection{L'Equazione Integrale e il Lemma di Gronwall}
+Per risolvere l'equazione differenziale completa, utilizziamo il metodo della variazione delle costanti (o fattore integrante), trasformandola in un'equazione integrale esatta:
+\begin{equation}
+x(t) - x_* = (x_0 - x_*)e^{-\lambda t} + \int_0^t e^{-\lambda(t-s)} R_1(x(s)) ds
+\end{equation}
+Questa equazione integrale di Volterra mostra come l'errore non lineare si accumuli e decada nel tempo. Passando ai moduli e utilizzando la stima del resto $|R_1(x)| \le \epsilon |x - x_*|$, otteniamo una disuguaglianza per l'evoluzione della distanza dal punto di equilibrio:
+\begin{equation}
+|x(t) - x_*| \le |x_0 - x_*|e^{-\lambda t} + \epsilon \int_0^t e^{-\lambda(t-s)} |x(s) - x_*| ds
+\end{equation}
+
+Per risolvere questa disuguaglianza interviene una variante del \textbf{Lemma di Gronwall}. Definiamo una funzione limite $X(t)$ che obbedisca all'equazione integrale in forma di uguaglianza. Derivando $X(t)$ rispetto al tempo, si ricava l'equazione differenziale per l'involucro superiore dell'errore:
+\begin{equation}
+\dot{X} = -\lambda X + \epsilon X = -(\lambda - \epsilon)X
+\end{equation}
+La soluzione per la funzione maggiorante è banalmente $X(t) = |x_0 - x_*| e^{-(\lambda - \epsilon)t}$. 
+
+Questo risultato è di un'eleganza assoluta: affinché il sistema reale (non lineare) rimanga asintoticamente stabile e decada esponenzialmente verso l'equilibrio, è sufficiente scegliere una condizione iniziale in un intorno abbastanza piccolo tale che $\epsilon < \lambda$. In altre parole, \textbf{la dissipazione lineare $-\lambda$ è in grado di "riassorbire" e dominare l'esplosione causata dal termine non lineare $\epsilon$}, garantendo la stabilità asintotica locale del sistema completo.
+
+\subsection{Classificazione degli Equilibri nel Piano delle Fasi in $\mathbb{R}^2$}
+Applicando i concetti di stabilità ai sistemi bidimensionali lineari $\dot{\vec{x}} = A\vec{x}$, possiamo classificare in modo rigoroso la topologia delle orbite in base agli autovalori $\lambda_{1,2}$ della matrice Jacobiana $A$. Se rappresentiamo gli autovalori nel campo complesso come $\lambda = \mu \pm i\omega$:
+\begin{itemize}
+    \item \textbf{Fuoco (o Spirale):} Se $\mu \neq 0$ e $\omega \neq 0$. Le orbite sono spirali. Se $\mu < 0$ l'equilibrio è un fuoco asintoticamente stabile (l'orbita decade); se $\mu > 0$ è un fuoco instabile.
+    \item \textbf{Centro:} Se $\mu = 0$ e $\omega \neq 0$ ($\lambda = \pm i\omega$). Le orbite sono chiuse (ellissi). Il punto è perpetuamente stabile (caso tipico dei moti oscillatori conservativi).
+    \item \textbf{Nodo:} Se gli autovalori sono puramente reali ($\omega = 0$). Le orbite convergono (o divergono) al punto senza oscillare.
+    \item \textbf{Sella:} Se gli autovalori sono reali ma di segno discorde. L'equilibrio è intrinsecamente instabile, caratterizzato da varietà stabili (dove il flusso entra) e instabili (dove il flusso esce).
+\end{itemize}
+
+\newpage
+% ==========================================
+% LEZIONE 6
+% ==========================================
+\section{Lezione 6 - Mercoledì 15 Marzo 2017: Cicli Limite, Biforcazione di Hopf e Biforcazioni Discrete}
+
+In questa lezione estendiamo lo studio della stabilità non lineare analizzando la nascita di orbite chiuse auto-sostenute (cicli limite) nei sistemi continui bidimensionali, per poi passare all'analisi delle biforcazioni nei sistemi a tempo discreto, aprendo le porte alla teoria del caos deterministico.
+
+\subsection{Cicli Limite e Biforcazione di Hopf}
+Mentre nei sistemi conservativi le orbite chiuse (centri) dipendono strettamente dalle condizioni iniziali, nei sistemi dissipativi non lineari possono esistere orbite chiuse isolate che agiscono come attrattori (o repulsori) per tutte le traiettorie vicine. Queste orbite prendono il nome di \textbf{cicli limite}.
+
+Per comprenderne la genesi analitica, consideriamo un sistema bidimensionale descritto dalle seguenti equazioni differenziali accoppiate:
+\begin{equation}
+\begin{cases}
+\dot{x} = \omega p + x(\mu - x^2 - p^2) \\
+\dot{p} = -\omega x + p(\mu - x^2 - p^2)
+\end{cases}
+\end{equation}
+dove $\mu$ è un parametro di controllo e $\omega$ determina la frequenza di rotazione. 
+Questo sistema apparentemente complesso può essere disaccoppiato in modo esatto passando a coordinate polari. Introduciamo il raggio quadro (o pseudo-energia) $\rho = x^2 + p^2$ e l'angolo $\phi$. Calcoliamo la derivata temporale di $\rho$:
+\begin{equation}
+\frac{1}{2}\dot{\rho} = x\dot{x} + p\dot{p} = x[\omega p + x(\mu - \rho)] + p[-\omega x + p(\mu - \rho)] = \rho(\mu - \rho)
+\end{equation}
+La dinamica angolare si ottiene banalmente come $\dot{\phi} = -\omega$. Il sistema si disaccoppia quindi in un'equazione lineare per la fase e un'equazione non lineare logistica per l'ampiezza:
+\begin{equation}
+\frac{1}{2}\dot{\rho} = \rho(\mu - \rho)
+\end{equation}
+
+Questa separazione rivela l'essenza della \textbf{Biforcazione di Hopf}:
+\begin{itemize}
+    \item \textbf{Se $\mu < 0$:} L'unico punto fisso fisicamente accettabile per l'equazione radiale è $\rho_* = 0$. Lo spazio delle fasi presenta un \textit{fuoco stabile}: tutte le orbite spiraleggiano decadendo inesorabilmente verso l'origine.
+    \item \textbf{Se $\mu > 0$:} L'origine $\rho_* = 0$ diventa un equilibrio instabile. Emerge un nuovo punto fisso radiale in $\rho_* = \mu$, che corrisponde a una circonferenza di raggio $r_* = \sqrt{\mu}$. L'origine "espelle" un \textbf{ciclo limite stabile}. Qualsiasi orbita parta dall'interno ($0 < r < \sqrt{\mu}$) o dall'esterno ($r > \sqrt{\mu}$) convergerà asintoticamente verso questa circonferenza.
+\end{itemize}
+
+\paragraph{Risoluzione Esatta del Transiente}
+Un aspetto formidabile di questo modello è che l'equazione radiale può essere integrata analiticamente. Separando le variabili nell'equazione $d\rho / [\rho(\mu - \rho)] = 2 dt$, la soluzione esatta per l'involucro dell'ampiezza è:
+\begin{equation}
+\rho(t) = \frac{\mu \rho_0}{\rho_0 + (\mu - \rho_0)e^{-2\mu t}}
+\end{equation}
+Questa formula mostra esplicitamente che per $t \to \infty$, l'esponenziale decade e l'orbita collassa asintoticamente sul ciclo limite $\rho \to \mu$, indipendentemente dal punto di partenza $\rho_0 > 0$.
+
+\subsection{Biforcazioni nelle Mappe Discrete e Mappa Logistica}
+Abbandoniamo ora i flussi continui per tornare ai sistemi a tempo discreto (mappe). Consideriamo una ricorrenza non lineare unidimensionale $x_{n+1} = M(x_n, r)$ dipendente da un parametro $r$. 
+La condizione affinché un punto fisso $x_* = M(x_*, r)$ sia stabile è che il modulo della derivata prima (il "moltiplicatore") sia strettamente minore di 1:
+\begin{equation}
+|M'(x_*, r)| < 1
+\end{equation}
+Quando, variando il parametro $r$, il moltiplicatore attraversa il valore $+1$ o $-1$, il punto fisso perde stabilità e la mappa subisce una biforcazione.
+
+\paragraph{Il Modello Logistico}
+Il prototipo per eccellenza della transizione al caos è la \textbf{Mappa Logistica}:
+\begin{equation}
+x_{n+1} = r x_n (1 - x_n)
+\end{equation}
+Cerchiamo i punti fissi imponendo $x_* = r x_* (1 - x_*)$. Otteniamo due soluzioni:
+\begin{enumerate}
+    \item L'origine $x_* = 0$. La derivata è $M'(0) = r$. L'origine è stabile per $0 < r < 1$. A $r=1$ si ha una \textit{biforcazione transcritica} in cui l'origine perde stabilità a favore del secondo punto fisso.
+    \item Il punto non banale $x_* = 1 - \frac{1}{r}$. La sua derivata è $M'(x_*) = 2 - r$. Imponendo la condizione di stabilità $|2 - r| < 1$, otteniamo che questo punto fisso è stabile nell'intervallo \textbf{$1 < r < 3$}.
+\end{enumerate}
+
+\paragraph{Il Raddoppio del Periodo (Biforcazione Flip)}
+Cosa succede quando $r$ supera il valore 3? La derivata in $x_*$ diventa minore di $-1$. Il punto fisso diventa instabile, ma l'orbita non diverge all'infinito: inizia a rimbalzare alternativamente tra due nuovi valori. Analiticamente, questo significa che l'applicazione composta al secondo iterato $M^{(2)}(x) = M(M(x))$ subisce una \textit{biforcazione a forchetta} (pitchfork), generando due nuovi punti fissi stabili per la mappa iterata. Il sistema ha creato un'orbita di \textbf{periodo 2}. 
+
+Aumentando ulteriormente $r$, questa orbita perderà stabilità creando un'orbita di periodo 4, poi 8, 16, in una cascata inarrestabile (nota come \textit{Cascata di Feigenbaum}) che precipita rapidamente verso il regime del \textbf{caos deterministico}.
+
+\newpage
+% ==========================================
+% LEZIONE 7
+% ==========================================
+\section{Lezione 7 - Martedì 21 Marzo 2017: Interpolazione Polinomiale, Fenomeno di Runge e Nodi di Chebyshev}
+
+Abbandoniamo temporaneamente lo studio dei sistemi dinamici per affrontare un problema fondamentale dell'analisi numerica: data una serie di misurazioni discrete o un campionamento di una funzione su un numero finito di punti $(x_k, y_k)$ con $k=1,\dots,n$, come possiamo ricostruire l'andamento continuo della funzione sottostante $y = f(x)$? La risposta classica è l'interpolazione polinomiale [1].
+
+\subsection{Matrice di Vandermonde e Base di Lagrange}
+Cerchiamo un polinomio $P_{n-1}(x) = \sum_{k=0}^{n-1} a_k x^k$ di grado $n-1$ che passi esattamente per gli $n$ punti assegnati [2, 3]. Imponendo la condizione di passaggio $P_{n-1}(x_j) = y_j$, si ottiene un sistema lineare $\vec{y} = M\vec{a}$, dove $M$ è la \textbf{Matrice di Vandermonde}:
+\begin{equation}
+M = 
+\begin{pmatrix}
+1 & x_1 & x_1^2 & \dots & x_1^{n-1} \\
+1 & x_2 & x_2^2 & \dots & x_2^{n-1} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_n & x_n^2 & \dots & x_n^{n-1}
+\end{pmatrix}
+\end{equation}
+Il determinante di questa matrice è $\det M = \prod_{i < j} (x_j - x_i)$ [2, 3]. Se i punti di interpolazione sono tutti distinti, il determinante è non nullo, garantendo che il polinomio interpolante esista e sia unico [2, 4].
+
+Risolvere numericamente questo sistema invertendo la matrice di Vandermonde è computazionalmente costoso e soggetto a errori di arrotondamento. Si preferisce quindi costruire il polinomio direttamente usando la \textbf{Base di Lagrange}. Definiamo i polinomi di base come:
+\begin{equation}
+L_k^{(n-1)}(x) = \prod_{j \neq k} \frac{x - x_j}{x_k - x_j}
+\end{equation}
+Questi polinomi godono della proprietà fondamentale $L_k^{(n-1)}(x_i) = \delta_{ki}$ (valgono 1 nel punto $x_k$ e 0 in tutti gli altri nodi) [4, 5]. Il polinomio interpolante complessivo si scrive banalmente come combinazione lineare dei valori campionati:
+\begin{equation}
+P_{n-1}(x) = \sum_{k=1}^n y_k L_k^{(n-1)}(x)
+\end{equation}
+
+\subsection{Il Resto dell'Interpolazione e il Fenomeno di Runge}
+Se i punti $(x_k, y_k)$ appartengono al grafico di una funzione originaria $f(x)$ di classe $C^n$, quanto differisce il nostro polinomio dalla funzione reale nei punti non campionati? L'errore formale è espresso dalla formula del resto [4, 5]:
+\begin{equation}
+f(x) = P_{n-1}(x) + \frac{f^{(n)}(\xi)}{n!} U_n(x) \quad \text{dove} \quad U_n(x) = \prod_{i=1}^n (x - x_i)
+\end{equation}
+con $\xi$ un punto incognito compreso nell'intervallo di interpolazione [4, 6].
+
+Sorge una domanda critica: aumentando il numero di punti $n$ (usando una griglia di nodi \textit{equispaziati}), il polinomio $P_{n-1}(x)$ converge sempre alla funzione $f(x)$? \textbf{La risposta è no}. 
+Questo comportamento patologico è noto come \textbf{Fenomeno di Runge}. Un esempio classico trattato a lezione è la funzione analitica $f(x) = \frac{1}{1+x^2}$ campionata sull'intervallo $[-5, 5]$ [7, 8]. Aumentando il grado del polinomio con nodi equispaziati, l'approssimazione al centro dell'intervallo migliora, ma ai bordi (per $|x| > 3.63$) l'errore esplode a causa di violente oscillazioni del polinomio interpolante [8].
+
+\subsection{La Soluzione Suprema: I Nodi di Chebyshev}
+Per domare il Fenomeno di Runge e garantire la convergenza, non si deve usare una griglia di punti equispaziati. Bisogna invece minimizzare il termine $U_n(x)$ nella formula dell'errore [9, 10]. La matematica dimostra che la scelta ottimale consiste nel disporre i punti in modo più denso vicino agli estremi dell'intervallo e più rado al centro [8, 11].
+
+Questi punti magici corrispondono agli zeri dei \textbf{Polinomi di Chebyshev}, definiti trigonometricamente come $T_n(x) = \cos(n \arccos(x))$ sull'intervallo $[-1, 1]$ [12, 13]. 
+Scegliendo i nodi di Chebyshev:
+\begin{equation}
+x_k = \cos\left(\frac{2k - 1}{2n}\pi\right) \quad \text{con } k = 1, \dots, n
+\end{equation}
+si abbatte l'ampiezza massima delle oscillazioni del polinomio $U_n(x)$, che passa da un andamento divergente a un valore rigorosamente limitato, garantendo la convergenza uniforme del polinomio interpolante alla funzione esatta ed eliminando l'esplosione ai bordi [14, 15].
+
+\newpage
+% ==========================================
+% LEZIONE 8
+% ==========================================
+\section{Lezione 8 - Interpolazione a Tratti (Spline) e Metodo dei Minimi Quadrati}
+
+Nella lezione precedente abbiamo visto come l'interpolazione con un unico polinomio di grado elevato su nodi equispaziati porti a instabilità numeriche (Fenomeno di Runge) [3, 5]. Quando non è possibile scegliere liberamente i nodi di campionamento (ad esempio usando i nodi di Chebyshev), si ricorre a due strategie alternative e potentissime: l'interpolazione a tratti e l'approssimazione ai minimi quadrati [1, 3, 4].
+
+\subsection{Interpolazione a Tratti: Le Spline}
+Invece di utilizzare un singolo polinomio di grado $n-1$ per $n$ punti, l'idea è suddividere l'intervallo globale in sotto-intervalli e utilizzare in ciascuno di essi un polinomio di grado basso, imponendo condizioni di raccordo ai bordi [1, 3]. 
+
+\begin{itemize}
+    \item \textbf{Spline Lineari (Grado 1):} Si interpolano le coppie di punti consecutivi $(x_k, y_k)$ e $(x_{k+1}, y_{k+1})$ con segmenti di retta [1, 6]. La funzione risultante è continua (classe $C^0$), ma la sua derivata prima è discontinua nei nodi [6, 7]. Il grande vantaggio è che la convergenza è garantita all'aumentare dei punti, con un errore massimo che scala come $\mathcal{O}(1/n^2)$ [7, 8].
+    
+    \item \textbf{Spline Quadratiche (Grado 2):} In ogni intervallo si definisce un arco di parabola [1, 7]. Si impone non solo il passaggio per i punti (continuità della funzione), ma anche la continuità della derivata prima nei nodi di raccordo ($C^1$) [7, 9]. 
+    
+    \item \textbf{Spline Cubiche (Grado 3):} Utilizzando polinomi di grado 3, si garantisce la continuità della funzione, della derivata prima e della derivata seconda ($C^2$) in ogni nodo [1, 10]. Questo genera curve estremamente fluide, che rappresentano lo standard assoluto nella computer grafica e nel design vettoriale [10, 11].
+\end{itemize}
+
+\subsection{Approssimazione dei Dati: Il Metodo dei Minimi Quadrati (Best Fit)}
+Quando i punti $(x_k, y_k)$ derivano da misurazioni sperimentali, essi sono inevitabilmente affetti da rumore (Observation Noise) [2, 12]. Imporre a una curva di passare esattamente per ogni punto significherebbe "imparare il rumore" (overfitting) [1, 4]. Si rinuncia quindi all'interpolazione esatta a favore dell'approssimazione, cercando la curva che minimizza la distanza globale dai dati [4].
+
+Consideriamo il caso del fit lineare, in cui cerchiamo una retta $L(x) = a_0 + a_1 x$ [2, 13]. Definiamo la \textbf{Funzione Costo} $C(\vec{a})$ come la somma dei quadrati degli scarti (residui) tra il valore misurato $y_k$ e il valore predetto $L(x_k)$ [2, 13, 14]:
+\begin{equation}
+C(a_0, a_1) = \sum_{k=1}^n \left( y_k - (a_0 + a_1 x_k) \right)^2
+\end{equation}
+Per trovare i parametri ottimali $a_0$ e $a_1$, dobbiamo minimizzare questa funzione quadratica, annullando le sue derivate parziali [2, 13]:
+\begin{equation}
+\frac{\partial C}{\partial a_0} = 0, \quad \frac{\partial C}{\partial a_1} = 0
+\end{equation}
+Questo sistema di equazioni può essere scritto in una formulazione matriciale di straordinaria eleganza, che costituisce la base dell'algebra lineare per l'analisi dei dati [2, 13]. Definiamo il vettore dei parametri $\vec{a} = \begin{pmatrix} a_0 \\ a_1 \end{pmatrix}$, il vettore delle misure $\vec{y}$, e la matrice rettangolare $X$ (di dimensione $n \times 2$) le cui colonne contengono le basi del nostro modello (1 e $x_k$) [2, 13]:
+\begin{equation}
+X = \begin{pmatrix}
+1 & x_1 \\
+1 & x_2 \\
+\vdots & \vdots \\
+1 & x_n
+\end{pmatrix}
+\end{equation}
+Il sistema delle derivate parziali si traduce nell'equazione matriciale esatta [2, 13]:
+\begin{equation}
+(X^T X) \vec{a} = X^T \vec{y}
+\end{equation}
+da cui si ricava analiticamente il vettore dei parametri ottimali invertendo la matrice quadrata $(X^T X)$ [2, 15]:
+\begin{equation}
+\vec{a} = (X^T X)^{-1} X^T \vec{y}
+\end{equation}
+Questo formalismo si estende immediatamente al fit con polinomi di grado superiore o con combinazioni lineari di funzioni di base arbitrarie, fornendo lo strumento analitico definitivo per estrarre la legge fisica soggiacente ai dati sperimentali [4, 16].
+
+\newpage
+% ==========================================
+% LEZIONE 9
+% ==========================================
+\section{Lezione 9 - Integrazione Numerica: Formule di Newton-Cotes e Quadrature di Gauss}
+Il calcolo di un integrale definito $I = \int_a^b f(x) dx$ al calcolatore richiede di approssimare la funzione integranda continua con un modello discreto. Il principio fondamentale dei metodi di quadratura consiste nell'interpolare la funzione $f(x)$ su un set di $m$ punti (nodi) $x_1, \dots, x_m$ e integrare analiticamente il polinomio interpolante. 
+La formula generale di quadratura si esprime come una combinazione lineare dei valori della funzione valutati nei nodi, pesati da opportuni coefficienti $w_k$:
+\begin{equation}
+I \approx I_m = \sum_{k=1}^m f(x_k) w_k
+\end{equation}
+
+\subsection{Formule di Newton-Cotes: Trapezi e Simpson}
+Le formule di Newton-Cotes si ottengono scegliendo una griglia di nodi \textbf{equispaziati} nell'intervallo $[a, b]$ [5]. A seconda del numero di punti $m$ scelti, otteniamo precisioni diverse:
+
+\paragraph{Il Metodo dei Trapezi ($m=2$)}
+Si interpola la funzione con una retta (polinomio di grado 1) passante per i punti estremi $x_1=a$ e $x_2=b$. I pesi risultano essere geometricamente le basi del trapezio, $w_1 = w_2 = \frac{b-a}{2}$ [6]. L'integrale approssimato è:
+\begin{equation}
+I_T = \frac{b-a}{2} \left[ f(a) + f(b) \right]
+\end{equation}
+La teoria dell'errore ci garantisce che se $M$ è il massimo di $|f''(x)|$, l'errore commesso scala come un termine cubico: $|E| \le \frac{M}{12}(b-a)^3$ [6, 7].
+
+\paragraph{Il Metodo di Simpson ($m=3$)}
+Utilizzando tre punti equispaziati ($a$, il punto medio $\frac{a+b}{2}$, e $b$), approssimiamo la funzione con un arco di parabola [8, 9]. I pesi calcolati portano alla formula:
+\begin{equation}
+I_S = \frac{b-a}{6} \left[ f(a) + 4f\left(\frac{a+b}{2}\right) + f(b) \right]
+\end{equation}
+Grazie alla perfetta simmetria dell'intervallo, i termini di errore di ordine dispari si elidono. La formula risulta quindi esatta non solo per polinomi di grado 2, ma anche per polinomi di grado 3, e l'errore scala sorprendentemente con la potenza quinta: $|E| \le \frac{M}{90}\left(\frac{b-a}{2}\right)^5$ [9-11].
+
+\subsection{Metodi Iterati (Propagazione)}
+Esattamente come per il Fenomeno di Runge nell'interpolazione, aumentare indiscriminatamente il grado $m$ del polinomio su un singolo macro-intervallo porta a gravi instabilità numeriche [12]. 
+La soluzione standard è il \textbf{metodo iterato} (o composito): si suddivide l'intervallo globale $[a,b]$ in $n$ sotto-intervalli di ampiezza $h = \frac{b-a}{n}$ [13, 14]. Applicando la formula base su ciascun frammento e sommando i risultati, l'errore globale decresce drasticamente:
+\begin{itemize}
+    \item \textbf{Trapezi iterati:} l'errore scala come $O(1/n^2)$ [14, 15].
+    \item \textbf{Simpson iterato:} l'errore scala come $O(1/n^4)$ [14, 16].
+\end{itemize}
+
+\subsection{L'Ottimizzazione Suprema: Le Quadrature di Gauss}
+Fino ad ora, i punti di campionamento $x_k$ erano obbligatoriamente equispaziati. Se invece consideriamo i nodi $x_k$ come \textit{parametri liberi} da ottimizzare, possiamo raddoppiare i gradi di libertà del sistema. 
+
+Gauss dimostrò che se scegliamo come nodi di campionamento gli \textbf{zeri dei Polinomi Ortogonali} (in particolare i polinomi di Legendre per l'intervallo $[-1, 1]$), otteniamo la massima accuratezza teoricamente possibile [17, 18]. 
+Una formula di Gauss a $n$ punti non è esatta solo per polinomi di grado $n-1$, ma integra \textbf{in modo analiticamente esatto tutti i polinomi fino al grado $2n - 1$} [3, 18].
+
+\paragraph{Un esempio clamoroso affrontato a lezione}
+Per dimostrare la mostruosa superiorità di Gauss rispetto ai metodi standard, consideriamo l'integrazione della parabola $f(x) = x^2$ sull'intervallo simmetrico $[-1, 1]$ [4]. Sappiamo analiticamente che l'integrale esatto vale $I = \frac{2}{3}$.
+\begin{itemize}
+    \item \textbf{Metodo dei Trapezi:} Usa i 2 estremi $\pm 1$. Applicando la formula: $\frac{1 - (-1)}{2} [f(1) + f(-1)] = 1 \cdot [1 + 1] = 2$. Il risultato è pesantemente \textbf{sbagliato} (errore enorme) [4].
+    \item \textbf{Gauss a 2 punti:} I nodi, corrispondenti agli zeri del polinomio di Legendre di grado 2, sono $\pm \frac{1}{\sqrt{3}}$, ed i pesi valgono entrambi $w_1=w_2=1$ [4, 19]. Applicando la formula di quadratura: 
+    \begin{equation*}
+    1 \cdot \left(\frac{1}{\sqrt{3}}\right)^2 + 1 \cdot \left(-\frac{1}{\sqrt{3}}\right)^2 = \frac{1}{3} + \frac{1}{3} = \frac{2}{3}
+    \end{equation*}
+    Il risultato è \textbf{perfettamente esatto}, come predetto dal teorema ($2n-1 = 3$, quindi integra perfettamente fino alle cubiche con soli due punti!) [4].
+\end{itemize}
+Questa scelta ottimale dei punti permette inoltre di trattare senza patemi d'animo le singolarità agli estremi o di calcolare integrali su intervalli illimitati, assorbendo la funzione "scomoda" direttamente nella densità di misura dei polinomi ortogonali [3, 20].
+
+\newpage
+% ==========================================
+% LEZIONE 10
+% ==========================================
+\section{Lezione 10 - Mercoledì 29 Marzo 2017: Integrazione Numerica di Equazioni Differenziali, Eulero e Runge-Kutta}
+
+Il problema centrale della simulazione fisica consiste nell'integrare un sistema di equazioni differenziali del primo ordine $\dot{\vec{x}}(t) = \vec{\Phi}(\vec{x}(t))$ partendo da una condizione iniziale $\vec{x}(0) = \vec{x}_0$ [1]. L'operatore di evoluzione esatta $S_t$ definisce l'orbita continua $\vec{x}(t) = S_t(\vec{x}_0)$ [1]. 
+Al calcolatore, tuttavia, dobbiamo avanzare per intervalli di tempo discreti $\Delta t$, costruendo un'applicazione approssimata $\Psi$ tale che [1]:
+\begin{equation}
+\vec{x}(t+\Delta t) = \vec{x}(t) + \Delta t \vec{\Psi}(\vec{x}(t)) + \vec{E}_m
+\end{equation}
+dove $\vec{E}_m$ è l'errore locale di troncamento al passo singolo, che per un metodo di ordine $m$ scala come $\|\vec{E}_m\| \le M(\Delta t)^{m+1}$ [1].
+
+\subsection{Sviluppo di Taylor e Metodi di Eulero}
+L'approccio più istintivo per costruire $\Psi$ sfrutta lo sviluppo in serie di Taylor [5]:
+\begin{equation}
+\vec{x}(t+\Delta t) = \vec{x}(t) + \dot{\vec{x}}(t)\Delta t + \frac{1}{2}\ddot{\vec{x}}(t)(\Delta t)^2 + \dots
+\end{equation}
+Arrestando lo sviluppo al primo ordine (cioè approssimando la curva con la sua tangente iniziale), si ottiene il \textbf{Metodo di Eulero Esplicito} [5]:
+\begin{equation}
+\vec{x}_{n+1} = \vec{x}_n + \Delta t \vec{\Phi}(\vec{x}_n)
+\end{equation}
+Esiste anche una variante denominata \textbf{Eulero Implicito}, definita da $\vec{x}_{n+1} = \vec{x}_n + \Delta t \vec{\Phi}(\vec{x}_{n+1})$ [2]. Poiché lo stato futuro $\vec{x}_{n+1}$ compare anche nell'argomento della funzione vettoriale non lineare, questo schema richiede la risoluzione di un sistema algebrico ad ogni passo (ad esempio tramite l'algoritmo di Newton) [2]. Nonostante l'elevato costo computazionale, i metodi impliciti garantiscono una stabilità numerica mostruosamente superiore per i sistemi "stiff" (fortemente dissipativi) [6].
+
+\subsection{Dall'Errore Locale all'Errore Globale}
+Un concetto teorico di vitale importanza è la propagazione dell'errore. Ad ogni passo iterativo, commettiamo un errore locale proporzionale a $(\Delta t)^2$ [7]. Tuttavia, per simulare un tempo macroscopico $T$, dobbiamo compiere $N = T/\Delta t$ passi. Gli errori non si sommano semplicemente, ma si \textit{amplificano} a causa dell'instabilità intrinseca del campo vettoriale [3]. 
+Se $L$ è la costante di contrazione (o espansione) di Lipschitz del campo vettoriale, il teorema della stabilità garantisce che l'errore globale $e_k = \|\vec{x}(t_k) - \vec{x}_k\|$ al tempo $t_k = k \Delta t$ per uno schema di ordine $m$ sia limitato da [3, 4]:
+\begin{equation}
+e_k \le (\Delta t)^m \frac{M}{L} \left[ e^{L t_k} - 1 \right]
+\end{equation}
+Questo risultato analitico ci avverte che, se il sistema reale è caotico o instabile ($L > 0$), l'errore numerico diverge esponenzialmente nel tempo, indipendentemente dalla precisione del passo $\Delta t$ [4].
+
+\subsection{Metodi Predictor-Corrector e Runge-Kutta}
+Per migliorare l'ordine di precisione usando Taylor, dovremmo calcolare analiticamente le derivate superiori del campo $\ddot{\vec{x}} = \frac{\partial \vec{\Phi}}{\partial \vec{x}} \dot{\vec{x}}$, il che richiede la costruzione esplicita e la moltiplicazione della Matrice Jacobiana ad ogni istante: una catastrofe in termini di memoria e tempo di calcolo per sistemi a molte variabili [2, 5].
+
+La genialità della famiglia di \textbf{Metodi di Runge-Kutta (RK)} consiste nell'ottenere ordini di approssimazione elevati evitando totalmente il calcolo delle derivate [2]. Invece di derivare, il metodo campiona il campo vettoriale $\vec{\Phi}$ in punti strategici intermedi all'interno dell'intervallo $[t, t+\Delta t]$ [2, 8].
+
+Lo schema \textbf{Runge-Kutta al secondo ordine (RK2)}, o metodo di Heun, calcola una previsione ("predictor") con Eulero esplicito, valuta il campo in quel punto futuro, e ne fa la media ("corrector") con il campo iniziale [6]:
+\begin{equation}
+\vec{x}_{n+1} = \vec{x}_n + \frac{\Delta t}{2} \left[ \vec{\Phi}(\vec{x}_n) + \vec{\Phi}(\vec{x}_n + \Delta t \vec{\Phi}(\vec{x}_n)) \right]
+\end{equation}
+Questo singolo sdoppiamento del campionamento abbatte l'errore locale da $(\Delta t)^2$ a $(\Delta t)^3$, garantendo un errore globale lineare $\mathcal{O}(\Delta t^2)$ [6]. Generalizzando questo principio su 4 nodi di campionamento interni, si ottiene il leggendario schema RK4, lo standard industriale ("workhorse") per l'integrazione numerica in assenza di vincoli conservativi [9, 10].
+
+\newpage
+% ==========================================
+% LEZIONE 11
+% ==========================================
+
+\section{Lezione 11 - Martedì 4 Aprile 2017: Sistemi Hamiltoniani, Integratori Simplettici e Invarianza di Poincaré}
+
+Il problema della soluzione numerica delle equazioni di Hamilton è centrale nella fisica computazionale. L'equazione di Hamilton descrive l'evoluzione dei sistemi fisici, specialmente nei modelli microscopici (dove sono presenti le interazioni fondamentali) e nei modelli vincolati macroscopici. 
+Come visto nelle lezioni precedenti, gli schemi di integrazione standard (come Runge-Kutta) non rispettano i vincoli geometrici intrinseci del sistema: se non sono vincolati, diventano a lungo termine instabili o dissipativi.
+
+I "rimedi" a questo collasso numerico si basano sul rispetto dei dati geometrici del flusso continuo:
+\begin{itemize}
+    \item La conservazione degli integrali primi (primo fra tutti, l'energia).
+    \item La conservazione della geometria dello spazio delle fasi (conservazione dei volumi e Invarianza di Poincaré).
+\end{itemize}
+I sistemi Hamiltoniani possiedono la forma canonica delle equazioni del moto. È possibile costruire schemi che conservano gli invarianti, ma se non mantengono la forma canonica, la geometria dello spazio delle fasi viene comunque alterata. La soluzione definitiva è richiedere che l'\textbf{integratore numerico agisca esattamente come una mappa simplettica}.
+
+\subsection{Evoluzione Esatta tramite Serie di Lie e Parentesi di Poisson}
+Il flusso continuo $\vec{x}(t) = S_t(\vec{x}_0)$ è un gruppo a un parametro. Possiamo rappresentare questo effetto in modo computazionale utilizzando le serie di Lie per il campo vettoriale. 
+Definiamo il campo Hamiltoniano $\vec{\Phi} = J \frac{\partial H}{\partial \vec{x}}$. L'operatore derivata di Lie associato è:
+\begin{equation}
+D_\Phi \equiv D_H = \vec{\Phi} \cdot \frac{\partial}{\partial \vec{x}}
+\end{equation}
+Se applichiamo $D_H$ a una generica variabile dinamica $A$, otteniamo la parentesi di Poisson:
+\begin{equation}
+D_H A = \frac{\partial A}{\partial \vec{x}} \cdot J \frac{\partial H}{\partial \vec{x}} = \sum_i \left( \frac{\partial A}{\partial q_i}\frac{\partial H}{\partial p_i} - \frac{\partial A}{\partial p_i}\frac{\partial H}{\partial q_i} \right) = [A, H]
+\end{equation}
+La soluzione formale dell'equazione del moto applicata a $\vec{x}_0$ si scrive quindi come:
+\begin{equation}
+\vec{x}(t) = e^{t D_H} \vec{x}_0
+\end{equation}
+
+\subsection{Dimostrazione della Simpletticità}
+Un risultato fondamentale mostrato a lezione è che la trasformazione generata da $e^{t D_H}$ conserva le parentesi di Poisson fondamentali, ed è quindi intrinsecamente simplettica. 
+Riscriviamo il cambio di coordinate indicando le vecchie coordinate con $\vec{x}$ e le nuove al tempo $t$ con $\vec{X}$:
+\begin{equation}
+\vec{X} = e^{t D_H} \vec{x}
+\end{equation}
+Calcoliamo le parentesi di Poisson tra due nuove coordinate $X_i$ e $X_k$ rispetto alle vecchie variabili $\vec{x}$. Grazie alla linearità e alla proprietà distributiva dell'operatore $e^{t D_H}$ rispetto alle parentesi di Poisson, si ha:
+\begin{equation}
+[X_i, X_k]_{\vec{x}} = \left[ e^{t D_H} x_i, e^{t D_H} x_k \right]_{\vec{x}} = e^{t D_H} [x_i, x_k]_{\vec{x}}
+\end{equation}
+Poiché per le variabili canoniche fondamentali $[x_i, x_k]_{\vec{x}} = J_{ik}$ (che è una matrice di costanti), l'operatore esponenziale applicato a una costante restituisce la costante stessa. Quindi:
+\begin{equation}
+e^{t D_H} J_{ik} = J_{ik} \implies [X_i, X_k]_{\vec{x}} = J_{ik} = [X_i, X_k]_{\vec{X}}
+\end{equation}
+Questo dimostra matematicamente che l'evoluzione temporale esatta preserva la struttura simplettica (Invarianza di Poincaré).
+
+\subsection{L'Algoritmo di Splitting a 2 Passi (Eulero Simplettico)}
+Poiché non possiamo calcolare l'esponenziale $e^{\Delta t D_H}$ per tempi macroscopici, lo approssimiamo sfruttando la separabilità dell'Hamiltoniana $H = T(p) + V(q)$. Dalla conseguenza dell'identità di Jacobi, sappiamo che $D_T D_V \neq D_V D_T$, quindi l'esponenziale della somma non è il prodotto degli esponenziali. Tuttavia, al primo ordine:
+\begin{equation}
+e^{\Delta t D_H} \approx e^{\Delta t D_T} e^{\Delta t D_V}
+\end{equation}
+Questo definisce l'algoritmo di Eulero Simplettico, che possiamo scrivere in due passi sequenziali $\vec{x}_{k+1} = e^{\Delta t D_T} \left( e^{\Delta t D_V} \vec{x}_k \right)$.
+Definiamo uno stato intermedio $\vec{x}' = e^{\Delta t D_V} \vec{x}_k$:
+\begin{equation}
+\begin{cases}
+q' = q_k \\
+p' = p_k - V'(q_k)\Delta t
+\end{cases}
+\end{equation}
+Il secondo passo applica l'evoluzione cinetica $\vec{x}_{k+1} = e^{\Delta t D_T} \vec{x}'$:
+\begin{equation}
+\begin{cases}
+q_{k+1} = q' + \Delta t \, p' \\
+p_{k+1} = p'
+\end{cases}
+\end{equation}
+Combinando i due passi, otteniamo uno schema iterativo esplicito che aggiorna prima i momenti usando le posizioni vecchie, e poi le posizioni usando i momenti appena aggiornati. Essendo la composizione di due flussi hamiltoniani esatti, la mappa discreta globale risulta perfettamente simplettica.
+
+\newpage
+% ==========================================
+% LEZIONE 12
+% ==========================================
+\section{Lezione 12 - Mercoledì 5 Aprile 2017: Sistemi Integrabili, Variabili Azione-Angolo e Risonanze}
+
+In questa lezione torniamo ad analizzare i sistemi integrabili, estendendo i concetti al caso multidimensionale. Il passaggio cruciale per comprendere la topologia delle orbite nello spazio delle fasi consiste in un cambio di coordinate canonico che semplifica al massimo l'Hamiltoniana.
+
+\subsection{Coordinate Azione-Angolo}
+Per un sistema integrabile, è possibile trovare una trasformazione canonica $(q, p) \to (\theta, J)$ tale che la nuova Hamiltoniana dipenda esclusivamente dalle nuove variabili momento, dette \textbf{Azioni} ($J$), e sia indipendente dalle nuove coordinate spaziali, dette \textbf{Angoli} ($\theta$).
+Nel caso unidimensionale, l'azione è legata all'area racchiusa dall'orbita chiusa nello spazio delle fasi:
+\begin{equation}
+J = \frac{\text{Area}}{2\pi} = \frac{1}{2\pi} \oint p \, dq
+\end{equation}
+Poiché l'Hamiltoniana trasformata $H(J)$ dipende solo da $J$, le equazioni del moto di Hamilton assumono una forma banalmente integrabile:
+\begin{equation}
+\begin{cases}
+\dot{\theta} = \frac{\partial H}{\partial J} \equiv \omega(J) \\
+\dot{J} = -\frac{\partial H}{\partial \theta} = 0
+\end{equation}
+Dalla seconda equazione segue che l'azione è un integrale primo del moto ($J(t) = J(0)$). Dalla prima equazione, essendo le frequenze $\omega(J)$ costanti lungo l'orbita, si ricava che l'angolo evolve linearmente nel tempo:
+\begin{equation}
+\theta(t) = \omega t + \theta(0)
+\end{equation}
+
+\subsection{Sistemi a Due Gradi di Libertà e Dinamica sul Toro}
+Consideriamo un sistema a due gradi di libertà ($d=2$). L'Hamiltoniana nelle variabili azione-angolo si scrive come $H(J_1, J_2)$, e il vettore delle frequenze è $\vec{\omega} = (\omega_1, \omega_2)$ con $\omega_k = \frac{\partial H}{\partial J_k}$. 
+Le azioni $J_1$ e $J_2$ sono costanti, e questo definisce geometricamente la superficie invariante del moto: un \textbf{toro bidimensionale} ($T^2$). Le variabili $\theta_1$ e $\theta_2$ rappresentano gli angoli di avvolgimento sui due cicli fondamentali del toro.
+
+L'evoluzione temporale degli angoli, ponendo per semplicità $\theta_1(0) = \theta_2(0) = 0$, è data da:
+\begin{equation}
+\theta_1 = \omega_1 t, \quad \theta_2 = \omega_2 t
+\end{equation}
+Nel piano srotolato dei due angoli, l'orbita è semplicemente una retta passante per l'origine con pendenza pari al rapporto delle frequenze:
+\begin{equation}
+\theta_2 = \frac{\omega_2}{\omega_1} \theta_1
+\end{equation}
+Per tracciare l'orbita sul toro reale, dobbiamo prendere gli angoli modulo $2\pi$, ovvero considerare le trasformazioni $\theta_1' = \theta_1 \pmod{2\pi}$ e $\theta_2' = \theta_2 \pmod{2\pi}$.
+
+\subsection{Condizione di Risonanza e Densità delle Orbite}
+La topologia dell'orbita sul toro dipende criticamente dal rapporto delle due frequenze $\omega_1/\omega_2$. A lezione si distinguono due regimi fondamentali:
+
+\begin{itemize}
+    \item \textbf{Caso Non Risonante ($\omega_1/\omega_2$ irrazionale):} La retta tracciata nel piano degli angoli non ripassa mai per lo stesso punto equivalente (modulo $2\pi$). L'orbita non si chiude mai su se stessa e riempie in modo \textbf{denso} l'intero spazio del toro (il quadrato $[0,2\pi] \times [0,2\pi]$ viene colorato interamente). Il moto si dice quasi-periodico.
+    
+    \item \textbf{Caso Risonante ($\omega_1/\omega_2$ razionale):} Il rapporto tra le frequenze può essere espresso come il rapporto di due numeri interi coprimi, $\frac{\omega_1}{\omega_2} = \frac{m}{n}$. 
+    In questo caso, esiste un tempo $T$ in cui entrambi gli angoli compiono un numero intero di giri esatti:
+    \begin{equation}
+    \theta_1(T) = \omega_1 T = 2\pi m, \quad \theta_2(T) = \omega_2 T = 2\pi n
+    \end{equation}
+    Ciò implica che $\omega_1 = \frac{2\pi}{T}m$ e $\omega_2 = \frac{2\pi}{T}n$. Dopo il tempo $T$, l'orbita torna esattamente al punto di partenza. L'orbita è quindi una \textbf{curva chiusa} monodimensionale sul toro. 
+\end{itemize}
+
+Queste risonanze e il modo di rappresentarle nello spazio delle azioni costituiscono l'anticamera della perturbazione dei sistemi Hamiltoniani (Teorema KAM), che sarà oggetto della lezione successiva.
+
+\newpage
+% ==========================================
+% LEZIONE 13
+% ==========================================
+
+\section{Lezione 13 - Martedì 11 Aprile 2017: Teoria Perturbativa Hamiltoniana e Risonanze}
+
+Nella lezione precedente abbiamo visto che un sistema hamiltoniano integrabile può essere descritto nelle variabili azione-angolo $(\vec{\Theta}, \vec{J})$, dove l'Hamiltoniana imperturbata $H_0(\vec{J})$ dipende solo dalle azioni. Di conseguenza, le azioni sono costanti e gli angoli evolvono linearmente con frequenze $\vec{\omega}(\vec{J}) = \frac{\partial H_0}{\partial \vec{J}}$.
+Consideriamo ora l'effetto di una piccola perturbazione non lineare parametrizzata da $\lambda \ll 1$:
+\begin{equation}
+H(\vec{\Theta}, \vec{J}) = H_0(\vec{J}) + \lambda H_1(\vec{\Theta}, \vec{J})
+\end{equation}
+
+\subsection{Teoria Perturbativa: Caso Non Risonante}
+L'obiettivo della teoria perturbativa canonica è trovare una trasformazione di coordinate vicino all'identità che permetta di "mediare" ed eliminare la dipendenza dagli angoli nel termine perturbativo del primo ordine. Se il vettore delle frequenze $\vec{\omega}$ è \textbf{non risonante} (cioè $\vec{k} \cdot \vec{\omega} \neq 0$ per ogni vettore di interi $\vec{k}$ non nullo), è possibile costruire una nuova Hamiltoniana in cui il termine di ordine $\lambda$ dipende solo dalle nuove azioni:
+\begin{equation}
+H = H_0(\vec{J}) + \lambda \bar{H}_1(\vec{J}) + \lambda^2 H_2(\vec{\Theta}, \vec{J})
+\end{equation}
+Qual è il vantaggio di questa trasformazione? 
+Nelle vecchie coordinate, la variazione delle azioni era dominata da $\lambda$, limitando la validità dell'approssimazione a tempi dell'ordine $t \simeq 1/\lambda$. Nelle nuove coordinate, il resto che guida la variazione delle azioni è stato spinto all'ordine $\lambda^2$:
+\begin{equation}
+\frac{d\vec{J}}{dt} = -\lambda^2 \frac{\partial H_2}{\partial \vec{\Theta}}
+\end{equation}
+Questo implica che $\vec{J}(t) = \vec{J}(0) + \mathcal{O}(\lambda^2 t)$. L'errore si accumula in modo estremamente più lento, garantendo che le azioni restino pressappoco costanti per tempi lunghissimi, dell'ordine di $t \simeq 1/\lambda^2$. Per una perturbazione tipica in meccanica celeste (es. $\lambda = 10^{-2}$), si guadagna un fattore $100$ nel tempo di predicibilità del sistema.
+
+\subsection{Caso Risonante e Nuovo Invariante in 2D}
+La procedura precedente fallisce (i denominatori nella serie perturbativa divergono) se il sistema si trova in una \textbf{risonanza}.
+Consideriamo un sistema a $d=2$ gradi di libertà in cui il rapporto delle frequenze imperturbate sia razionale:
+\begin{equation}
+\frac{\omega_1}{\omega_2} = \frac{m}{n} \quad \implies \quad n\omega_1 - m\omega_2 = 0
+\end{equation}
+Possiamo definire un vettore di interi $\vec{e} = (n, -m)$ tale per cui la condizione di risonanza si scrive come il prodotto scalare $\vec{e} \cdot \vec{\omega} = 0$.
+
+In questo caso, non è possibile eliminare completamente gli angoli dalla perturbazione di ordine $\lambda$. Tuttavia, tramite un'opportuna trasformazione canonica, è possibile eliminare l'angolo "veloce" e far dipendere il termine perturbativo $H_1$ esclusivamente dalla combinazione lineare risonante (lenta) degli angoli $\vec{e} \cdot \vec{\Theta} = n\Theta_1 - m\Theta_2$. L'Hamiltoniana assume la forma:
+\begin{equation}
+H = H_0(\vec{J}) + \lambda H_1(\vec{e} \cdot \vec{\Theta}, \vec{J}) + \lambda^2 H_2(\vec{\Theta}, \vec{J})
+\end{equation}
+
+Trascurando il termine residuo di ordine $\lambda^2$, abbiamo guadagnato una proprietà fisica monumentale. Poiché la nuova Hamiltoniana troncata $H \approx H_0 + \lambda H_1$ dipende dagli angoli \textit{solo} tramite la specifica combinazione $\vec{e} \cdot \vec{\Theta}$, per il teorema di Nöther il sistema possiede un \textbf{nuovo invariante del moto} esatto:
+\begin{equation}
+I = m J_1 + n J_2 = \text{costante}
+\end{equation}
+La dinamica del sistema risonante viene così ridotta formalmente a quella di un sistema unidimensionale (equivalente a un pendolo non lineare). L'orbita non riempie più il toro originario in modo denso, ma genera delle strutture topologiche chiuse: le \textbf{isole di risonanza}. Ai bordi di queste isole, attorno ai punti iperbolici e alle loro separatrici, inizierà a germogliare l'instabilità caotica.
+
+
+\newpage
+% ==========================================
+% LEZIONE 14
+% ==========================================
+
+\section{Lezione 14 - Mercoledì 12 Aprile 2017: Indicatori Dinamici, Separatrici e Flusso Tangente}
+
+Nella lezione precedente abbiamo visto come, in presenza di perturbazioni non lineari e risonanze, l'integrabilità di un sistema venga compromessa. Tuttavia, per caratterizzare un comportamento genuinamente caotico e quantificare l'imprevedibilità a lungo termine, occorre uno strumento matematico in grado di misurare la velocità con cui due condizioni iniziali vicine si separano nel tempo. A questo scopo si introducono gli \textbf{indicatori dinamici}.
+
+\subsection{Separazione delle Orbite nei Sistemi Integrabili}
+Consideriamo un sistema hamiltoniano integrabile, descritto dalle variabili azione-angolo $H = H(\vec{J})$. Le equazioni del moto forniscono un'evoluzione esatta in cui le azioni sono costanti ($\vec{J} = \vec{J}_0$) e gli angoli evolvono linearmente:
+\begin{equation}
+\vec{\theta}(t) = \vec{\omega}(\vec{J})t + \vec{\theta}(0)
+\end{equation}
+Cosa succede se perturbiamo minimamente la condizione iniziale? Prendiamo due orbite che partono vicinissime: la prima da $\vec{J}_0$ e la seconda da $\vec{J}_0 + \vec{\eta}$, dove $\vec{\eta}$ è una perturbazione spaziale infinitesima. 
+La separazione angolare tra le due orbite al tempo $t$ si ricava dallo sviluppo in serie:
+\begin{equation}
+\Delta\vec{\theta}(t) \approx \frac{\partial \vec{\omega}}{\partial \vec{J}} \vec{\eta} \, t + \mathcal{O}(\eta^2)
+\end{equation}
+Questo risultato analitico ci dice due cose fondamentali:
+\begin{enumerate}
+    \item Se il sistema è \textbf{isocrono} (cioè le frequenze non dipendono dalle azioni, $\frac{\partial \vec{\omega}}{\partial \vec{J}} = 0$, come nell'oscillatore armonico perfetto), la distanza iniziale tra le orbite è mantenuta inalterata nel tempo.
+    \item Se il sistema è \textbf{anisocrono}, la distanza $\Delta\vec{\theta}$ cresce, ma lo fa \textbf{linearmente} col tempo.
+\end{enumerate}
+Pertanto, nei sistemi regolarmente integrabili, due stati vicini divergono lentamente. Per avere un comportamento caotico, non bastano queste orbite: abbiamo bisogno di una separazione che cresca in modo \textit{esponenziale}.
+
+\subsection{Instabilità e Ruolo della Separatrice}
+L'instabilità esponenziale si sviluppa tipicamente nell'intorno dei punti di equilibrio iperbolici (sella). Consideriamo dapprima l'hamiltoniana dell'oscillatore armonico invertito:
+\begin{equation}
+H = \frac{p^2}{2} - \frac{x^2}{2}
+\end{equation}
+Questa energia dà orbite che sono rami d'iperbole, le quali indicano un allontanamento esponenziale (repulsione inarrestabile dall'origine). Se "chiudiamo" il sistema per confinarne il moto, aggiungendo un termine quartico, otteniamo il potenziale a doppia buca:
+\begin{equation}
+H = \frac{p^2}{2} - \frac{x^2}{2} + \frac{x^4}{4}
+\end{equation}
+In questo sistema chiuso, l'origine resta un punto iperbolico instabile, circondato da due buche di potenziale stabili. La traiettoria critica che congiunge il punto di sella con se stesso (la forma a "otto" rovesciato) prende il nome di \textbf{separatrice}. È un risultato classico della dinamica non lineare che, in presenza di minime perturbazioni (Teorema KAM), è proprio l'intorno della separatrice che sgretolandosi dà luogo a regioni di moto caotico altamente instabile.
+
+\subsection{L'Equazione del Flusso Tangente}
+Per quantificare computazionalmente questa instabilità per un generico sistema continuo $\dot{\vec{x}} = \vec{\Phi}(\vec{x})$, dobbiamo analizzare l'evoluzione di una piccola perturbazione vettoriale $\vec{\eta}(t)$ sommata alla traiettoria di riferimento non perturbata $\vec{x}(t)$.
+
+Sostituendo il vettore perturbato $\vec{x}(t) + \vec{\eta}(t)$ nell'equazione del moto e arrestando lo sviluppo di Taylor al primo ordine, otteniamo un'equazione differenziale (esatta a meno di piccole variazioni di ordine superiore) per l'evoluzione della perturbazione:
+\begin{equation}
+\frac{d\vec{\eta}}{dt} = M(t)\vec{\eta}(t)
+\end{equation}
+Questa equazione vettoriale prende il nome di equazione per il \textbf{flusso tangente}. L'operatore $M(t)$ governa l'amplificazione dell'errore ed è definito come la matrice Jacobiana del campo vettoriale valutata istante per istante lungo l'orbita esatta:
+\begin{equation}
+M_{ij}(t) = \frac{\partial \Phi_i}{\partial x_j}(\vec{x}(t))
+\end{equation}
+Integrando numericamente e simultaneamente le equazioni per $\vec{x}(t)$ e per $\vec{\eta}(t)$, è possibile tracciare il tasso di divergenza asintotico delle orbite, fornendo gli elementi per calcolare l'Esponente di Lyapunov e stabilire rigorosamente se il sistema in esame è ordinato o caotico.
+
+\newpage
+% ==========================================
+% LEZIONE 15
+% ==========================================
+
+\section{Lezione 15 - Mercoledì 19 Aprile 2017: Sistemi Stocastici, Rumore Bianco e Integrale di Wiener}
+
+Con questa lezione si apre formalmente la seconda macro-area del corso: lo studio dei sistemi stocastici. Abbandoniamo il paradigma puramente deterministico per descrivere sistemi macroscopici in cui un numero elevatissimo di gradi di libertà inosservabili viene schematizzato come un'interazione aleatoria (il cosiddetto "bagno termico").
+
+\subsection{L'Equazione di Langevin e il Rumore Bianco}
+L'evoluzione di un sistema soggetto a fluttuazioni aleatorie è governata da un'equazione differenziale stocastica, nota come equazione di Langevin. In una dimensione, essa assume la forma:
+\begin{equation}
+\frac{dx}{dt} = \Phi(x) + \epsilon \xi(t)
+\end{equation}
+dove $\Phi(x)$ rappresenta il campo vettoriale deterministico (le forze classiche del sistema) ed $\epsilon \xi(t)$ modella il termine fluttuante rapido, pesato dalla sua ampiezza $\epsilon$. 
+
+Il termine $\xi(t)$ prende il nome di \textbf{rumore bianco}. È una variabile aleatoria idealizzata definita in modo che le fluttuazioni non abbiano alcuna "memoria" del passato (assenza di correlazione temporale). Le sue proprietà statistiche fondamentali sono:
+\begin{itemize}
+    \item Media nulla in ogni istante: $\langle \xi(t) \rangle = 0$.
+    \item Funzione di correlazione impulsiva: 
+    \begin{equation}
+    \langle \xi(t) \xi(t') \rangle = \delta(t - t')
+    \end{equation}
+\end{itemize}
+La presenza della Delta di Dirac $\delta(t-t')$ indica che il rumore in un istante è totalmente scorrelato da se stesso in qualsiasi altro istante infinitesimamente diverso.
+
+\subsection{L'Integrale di Wiener}
+Poiché il rumore bianco, rigorosamente parlando, ha una varianza infinita ed è una funzione ovunque discontinua, per conferire solidità matematica all'equazione si ricorre all'integrale nel tempo del rumore bianco. Si definisce così il \textbf{Processo di Wiener} $W(t)$ (o moto browniano standard):
+\begin{equation}
+W(t) = \int_0^t \xi(s) ds
+\end{equation}
+Il processo di Wiener è l'esatto limite continuo al quale converge la passeggiata aleatoria discreta (random walk) quando il passo temporale tende a zero. Calcolando i momenti statistici sfruttando le proprietà di $\xi(t)$, si ottiene:
+\begin{enumerate}
+    \item La media dell'integrale rimane nulla: $\langle W(t) \rangle = 0$.
+    \item La covarianza dipende linearmente dall'istante più breve: $\langle W(t) W(t') \rangle = \min(t, t')$.
+    \item La varianza cresce linearmente con il tempo: $\langle W^2(t) \rangle = t$.
+\end{enumerate}
+
+\subsection{Diffusione Pura}
+L'applicazione più immediata si ha spegnendo il campo deterministico ($\Phi(x) = 0$). In questo caso l'equazione di Langevin modella un processo di pura diffusione stocastica. Integrando direttamente l'equazione otteniamo:
+\begin{equation}
+x(t) = x_0 + \epsilon W(t)
+\end{equation}
+Se eseguiamo una simulazione numerica di questo processo, non otteniamo più una singola curva liscia e deterministica, ma un insieme infinito di realizzazioni estremamente frastagliate. Mediando su un numero enorme di esperimenti, troveremo che la posizione media attesa della particella rimarrà ferma in $x_0$, ma il suo scarto quadratico medio (l'incertezza sulla sua posizione) si allargherà nello spazio proporzionalmente a $\sqrt{t}$, che rappresenta la firma inequivocabile dei processi diffusivi.
+
+\newpage
+% ==========================================
+% LEZIONE 16
+% ==========================================
+
+\section{Lezione 16 - Mercoledì 26 Aprile 2017: Sistemi Lineari, Matrice Esponenziale e Mappa di Poincaré}
+
+Questa lezione funge da ponte matematico fondamentale per affrontare successivamente le Equazioni alle Derivate Parziali (PDE) e le equazioni lineari forzate per la teoria del controllo. Abbandoniamo temporaneamente la non-linearità per concentrarci sulla struttura formale e geometrica dei sistemi di equazioni differenziali lineari.
+
+\subsection{Sistemi Lineari e l'Esponenziale di Matrice}
+Consideriamo un sistema di equazioni differenziali lineari vettoriali dipendenti dal tempo:
+\begin{equation}
+\dot{\vec{x}} = A(t)\vec{x} \quad \text{con} \quad A \in \mathbb{R}^{d \times d}
+\end{equation}
+Questo sistema è scalabile. Se troviamo delle soluzioni linearmente indipendenti $\vec{y}_k(t)$, la soluzione più generale si esprime per il principio di sovrapposizione come $\vec{x}(t) = \sum_{k=1}^d c_k \vec{y}_k(t)$, dove le costanti $c_k$ vengono fissate dalle condizioni di unicità iniziali.
+
+Se il sistema avesse dimensione $d=1$ (caso scalare $\dot{x} = a(t)x$), la soluzione esatta si otterrebbe per separazione delle variabili integrando direttamente: $dx/x = a(t)dt \implies \ln(x) = \int_0^t a(s)ds + c$, da cui $x(t) = x_0 \exp\left(\int_0^t a(s)ds\right)$.
+
+Il tentativo di generalizzare questa soluzione al caso multidimensionale matriciale incontra un ostacolo algebrico severo: in generale le matrici valutate in istanti diversi non commutano, ovvero $A(t)A(s) \neq A(s)A(t)$. A causa di questa non commutatività, la regola di derivazione composta per l'esponenziale fallisce:
+\begin{equation}
+\frac{d}{dt} \exp\left( \int_0^t A(s)ds \right) \neq A(t) \exp\left( \int_0^t A(s)ds \right)
+\end{equation}
+poiché non è possibile "scambiare" liberamente l'operatore $A(t)$ con l'integrale all'esponente.
+
+Tuttavia, nel caso in cui la matrice sia a coefficienti costanti ($A(t) = A$), possiamo definire rigorosamente l'operatore di evoluzione temporale tramite la serie di Taylor dell'esponenziale di matrice:
+\begin{equation}
+\vec{x}(t) = \exp(A t)\vec{x}_0 \quad \text{dove} \quad \exp(At) = \sum_{k=0}^{\infty} \frac{t^k}{k!} A^k
+\end{equation}
+La convergenza di questa serie matriciale è sempre garantita ed è controllabile introducendo la norma di matrice $\|A\| = \sup_{\vec{x}} \frac{\|A\vec{x}\|}{\|\vec{x}\|}$. 
+Risolvere operativamente un sistema lineare a coefficienti costanti si riduce quindi al problema algebrico della ricerca di autovalori e autovettori. Se la matrice è diagonalizzabile, si ha $A = T\Lambda T^{-1}$. Inserendola nello sviluppo in serie, le matrici di trasformazione intermedie si semplificano (rimane $T$ all'ingresso e $T^{-1}$ all'uscita), da cui segue banalmente:
+\begin{equation}
+\exp(At) = T \exp(\Lambda t) T^{-1}
+\end{equation}
+
+\subsection{Proprietà del Flusso, Complessi e Quaternioni}
+Dal punto di vista dell'analisi dinamica, la matrice esponenziale definisce l'operatore di flusso $S(t) = \exp(At)$. Questo operatore eredita la struttura di gruppo per il flusso delle fasi:
+\begin{equation}
+S(t)S(s) = S(t+s) \quad \text{e obbedisce all'equazione} \quad \frac{dS}{dt} = A S(t)
+\end{equation}
+
+Un aspetto affascinante è l'isomorfismo tra le matrici antisimmetriche e i campi numerici superiori. Una matrice della forma $\begin{pmatrix} a & b \\ -b & a \end{pmatrix}$ si comporta algebricamente in modo identico a un numero complesso $a+ib$. In modo analogo, estendendo la dimensionalità, le rotazioni nello spazio possono essere rappresentate matricialmente sfruttando il campo dei \textbf{Quaternioni} (che, analogamente alle matrici, non godono della proprietà commutativa).
+
+Un esempio canonico studiato a lezione è l'oscillatore armonico, governato dal sistema $\dot{x} = p$ e $\dot{p} = -\omega^2 x$. La matrice associata è $A = \begin{pmatrix} 0 & 1 \\ -\omega^2 & 0 \end{pmatrix}$, che rientra perfettamente in questa struttura algebrica.
+
+\subsection{Acceleratori e Mappa di Poincaré}
+Cosa succede se la frequenza dell'oscillatore dipende dal tempo, ovvero $\dot{p} = -\omega^2(t)x$? Il moto nello spazio delle fasi (piano $x, p$) rimane confinato su un'ellisse, ma la variazione di $\omega(t)$ ha l'effetto di accelerare o rallentare il punto che si muove lungo l'ellisse. Finché il moto si mantiene su questa traiettoria, il sistema non acquisisce né perde energia netta.
+
+Questo è il principio su cui si basa la dinamica dei fasci negli acceleratori di particelle. In un acceleratore, il fascio attraversa in successione blocchi magnetici diversi (focheggianti e defocheggianti, ovvero un'alternanza a tratti di $\omega_+$ e $\omega_-$). L'operatore di evoluzione non è un singolo flusso continuo, ma una moltiplicazione di matrici costanti a blocchi.
+
+Piuttosto che integrare faticosamente l'intera traiettoria continua all'interno di ogni magnete, si campiona lo stato della particella in stazioni di osservazione discrete (es. alla fine di ogni blocco A e B). Questa procedura genera la \textbf{Mappa di Poincaré}. 
+Perdiamo il dettaglio della dinamica interna continua ("transiente"), ma guadagniamo una rappresentazione formidabile: la stabilità a lungo termine dell'acceleratore (e del fascio di particelle) viene stabilita analizzando unicamente le proprietà di convergenza di questa mappa discreta di Poincaré.
+
+\newpage
+% ==========================================
+% LEZIONE 17
+% ==========================================
+\section{Lezione 17 - Martedì 2 Maggio 2017: Equazioni Lineari e Risonanza Parametrica}
+
+In questa lezione completiamo lo studio dei sistemi lineari dipendenti dal tempo affrontando il fenomeno della \textbf{risonanza parametrica}. Il modello di riferimento è l'oscillatore armonico in cui la frequenza non è costante, ma varia periodicamente nel tempo:
+\begin{equation}
+\ddot{x} = -\omega^2(t)x
+\end{equation}
+Questa equazione governa, ad esempio, le piccole oscillazioni di un pendolo la cui lunghezza dipenda dal tempo, oppure la dinamica trasversale del fascio di particelle all'interno degli acceleratori, dove l'alternanza dei campi magnetici agisce come una forza di richiamo variabile.
+
+\subsection{Modello a Due Stati (Onda Quadra)}
+Per studiare analiticamente la stabilità del sistema, consideriamo il caso in cui $\omega^2(t)$ assuma alternativamente due stati costanti a tratti (un'onda quadra di periodo $2T$):
+\begin{equation}
+\omega_+ = \omega_0 + \epsilon \quad \text{e} \quad \omega_- = \omega_0 - \epsilon
+\end{equation}
+dove il sistema evolve per un tempo $T$ con frequenza $\omega_+$ e per il successivo tempo $T$ con frequenza $\omega_-$. 
+
+L'operatore di evoluzione sull'intero periodo è dato dalla composizione dei due operatori esatti per i due tratti a coefficienti costanti:
+\begin{equation}
+M = M_- M_+ = \exp(A_- T) \exp(A_+ T)
+\end{equation}
+Poiché l'equazione (nel piano delle fasi $x, \dot{x}$) conserva i volumi, il determinante jacobiano di ciascuna matrice è 1. Dunque, gli autovalori della matrice di transizione $M$ sull'intero periodo saranno necessariamente del tipo $\lambda$ e $1/\lambda$.
+
+\subsection{Condizione di Instabilità e Risonanza}
+La stabilità dell'orbita dipende dagli autovalori di $M$. Se questi sono complessi coniugati (di modulo unitario), il sistema è perpetuamente stabile. Se invece sono reali, uno dei due sarà in modulo maggiore di 1, portando a una divergenza esponenziale delle traiettorie. 
+La condizione matematica per l'instabilità si verifica quando la traccia della matrice supera 2:
+\begin{equation}
+\text{Tr}(M) = \lambda + \frac{1}{\lambda} > 2
+\end{equation}
+Componendo esplicitamente i "due pezzi" del moto e sviluppando i termini al secondo ordine, si giunge alla seguente condizione per la traccia:
+\begin{equation}
+\left(1 + \frac{\epsilon^2}{\omega_0^2}\right) \cos(2\omega_0 T) - \frac{\epsilon^2}{\omega_0^2} \left(1 - 2\epsilon^2 T^2\right) > 1
+\end{equation}
+Per capire quando il sistema esplode, studiamo il comportamento dell'espressione lavorando nell'intorno dei massimi del coseno, ovvero imponendo la \textbf{condizione di risonanza parametrica}:
+\begin{equation}
+2\omega_0 T \simeq c\pi \implies T \simeq \frac{c\pi}{2\omega_0} \quad \text{con } c \in \mathbb{N}
+\end{equation}
+Sostituendo la condizione di risonanza esatta, il coseno vale 1, e l'equazione per l'instabilità si riduce a:
+\begin{equation}
+1 + 2\frac{\epsilon^4}{\omega_0^2} T^2 > 1
+\end{equation}
+Essendo questa disuguaglianza sempre verificata per ogni $\epsilon \neq 0$, si dimostra rigorosamente l'insorgenza di zone di forte instabilità ogniqualvolta il periodo della forzante sia un multiplo intero del semi-periodo naturale dell'oscillatore.
+
+\newpage
+% ==========================================
+% LEZIONE 18
+% ==========================================
+\section{Lezione 18 - Mercoledì 3 Maggio 2017: Equazione di Langevin, Rumore Moltiplicativo e Integrale di Wiener}
+
+In questa lezione si approfondisce la struttura formale dell'equazione differenziale stocastica di Langevin. Il punto di partenza è la definizione rigorosa del legame tra il rumore bianco $\xi(t)$ e il processo di Wiener $W(t)$.
+
+\subsection{Costruzione del Processo di Wiener}
+L'equazione differenziale di Langevin viene scritta formalmente come $\frac{dx}{dt} = \Phi(x) + \varepsilon \xi(t)$. Per dare un senso matematico rigoroso, si definisce il processo $W(t)$ come limite per $\Delta t \to 0$ di una funzione $W_{\Delta t}(t)$ lineare a tratti e continua. Fissato uno step $\Delta t$, il processo assume nei nodi temporali $t_n = n\Delta t$ i valori:
+\begin{equation}
+W_{\Delta t}(t_n) = \sqrt{\Delta t} (\xi_1 + \xi_2 + \dots + \xi_n)
+\end{equation}
+dove le $\xi_k$ sono variabili aleatorie indipendenti con media $\langle \xi_k \rangle = 0$ e covarianza $\langle \xi_n \xi_j \rangle = \delta_{nj}$. 
+Passando al limite del continuo, le proprietà statistiche del processo di Wiener si consolidano in:
+\begin{equation}
+\langle W(t) \rangle = 0, \quad \langle W^2(t) \rangle = t, \quad \langle W(t)W(t') \rangle = \min(t, t')
+\end{equation}
+Il rumore bianco $\xi(t)$, che idealmente rappresenta la derivata $dW/dt$, eredita quindi una correlazione puramente impulsiva espressa dalla delta di Dirac: $\langle \xi(t)\xi(t') \rangle = \delta(t-t')$, confermando l'assenza totale di memoria nel processo.
+
+\subsection{L'Equazione di Fokker-Planck e il Rumore Moltiplicativo}
+L'evoluzione della probabilità di trovare la particella in un intervallo $[x, x+dx]$ al tempo $t$ è governata dall'equazione alle derivate parziali di Fokker-Planck:
+\begin{equation}
+\frac{\partial \rho}{\partial t} + \frac{\partial}{\partial x} (\rho \Phi) = \frac{\varepsilon^2}{2} \frac{\partial^2 \rho}{\partial x^2}
+\end{equation}
+A volte nei modelli fisici si incontra un'equazione in forma più generale, con un "rumore moltiplicativo", in cui l'ampiezza delle fluttuazioni dipende dalla posizione:
+\begin{equation}
+\frac{dx}{dt} = a(x) + b(x)\xi(t)\varepsilon
+\end{equation}
+Per ricondurre questo sistema alla forma additiva trattabile dalla Fokker-Planck classica, si effettua il cambio di variabile $y = \int_0^x \frac{dx'}{b(x')}$. Derivando implicitamente rispetto al tempo, si ottiene un'equazione differenziale equivalente con rumore puramente additivo:
+\begin{equation}
+\frac{dy}{dt} = \frac{1}{b(x)}\frac{dx}{dt} = \frac{a(x)}{b(x)} + \varepsilon \xi(t) \equiv \Phi(y) + \varepsilon \xi(t)
+\end{equation}
+
+\subsection{Soluzione del Caso Lineare e Distribuzione Gaussiana}
+Consideriamo l'equazione differenziale stocastica lineare $\frac{dx}{dt} = \alpha(t)x + \varepsilon \xi(t)$. Questa equazione scalare può essere risolta esplicitamente usando il fattore integrante $e^{\int_0^t \alpha(s)ds}$. La soluzione completa è:
+\begin{equation}
+x(t) = x_0 e^{\int_0^t \alpha(s)ds} + \varepsilon \int_0^t e^{\int_u^t \alpha(s)ds} \xi(u) du = \langle x(t) \rangle + \varepsilon X(t)
+\end{equation}
+dove $X(t) = \int_0^t K(t,u)\xi(u)du$ rappresenta la convoluzione temporale del rumore bianco con il kernel deterministico $K(t,u) = e^{\int_u^t \alpha(s)ds}$.
+Calcoliamo i momenti della variabile stocastica $X(t)$. Grazie all'indipendenza delle variabili aleatorie ($\delta$-correlazione), tutti i momenti di ordine dispari si annullano ($\langle X^{2m+1} \rangle = 0$), mentre i momenti di ordine pari seguono la regola combinatoria:
+\begin{equation}
+\langle X^{2m} \rangle = (2m-1)!! \, \sigma^{2m} \quad \text{dove} \quad \sigma^2 = \langle X^2 \rangle = \int_0^t K^2(t,u)du
+\end{equation}
+Questa è la prova matematica fondamentale che $X(t)$ è governato da una distribuzione rigorosamente \textbf{Gaussiana}:
+\begin{equation}
+\rho(X) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{X^2}{2\sigma^2}}
+\end{equation}
+Derivando direttamente questa gaussiana rispetto a $\sigma^2$ e a $X$, si dimostra l'identità $\frac{\partial \rho}{\partial \sigma^2} = \frac{1}{2} \frac{\partial^2 \rho}{\partial X^2}$, che non è altro che la struttura matematica portante dell'equazione di diffusione.
+
+\subsection{Dinamica Stocastica della Particella Libera}
+Un risultato notevole ed inaspettato emerge studiando lo spazio delle fasi per una particella libera soggetta unicamente a rumore: $\dot{x} = p$ e $\dot{p} = \varepsilon \xi(t)$. Integrando il momento si ha banalmente $p(t) = p_0 + \varepsilon W(t)$. 
+Sostituendo il momento dipendente dal processo di Wiener nell'equazione della posizione e integrando, si ricava:
+\begin{equation}
+x(t) = x_0 + p_0 t + \varepsilon \int_0^t W(s)ds = x_0 + p_0 t + \varepsilon \int_0^t \left( \int_0^s \xi(u)du \right) ds
+\end{equation}
+Scambiando l'ordine di integrazione nel dominio bidimensionale $(u,s)$, il doppio integrale si riduce a un integrale singolo $\int_0^t (t-u)\xi(u)du$. Essendo il kernel di convoluzione lineare nel tempo residuo $(t-u)$, il calcolo della varianza spaziale fornisce:
+\begin{equation}
+\sigma_x^2(t) = \int_0^t (t-u)^2 du = \frac{t^3}{3}
+\end{equation}
+Mentre il momento diffonde in modo lineare ($\sigma_p^2 \propto t$), la posizione spaziale $x$ di una particella libera soggetta ad accelerazioni fluttuanti esplode in modo anomalo con una legge $\sigma_x \propto t^{3/2}$. Questo allargamento super-diffusivo diventa criticamente importante quando le coordinate continue rappresentano variabili angolari vincolate.
+
+\newpage
+% ==========================================
+% LEZIONE 19
+% ==========================================
+\section{Lezione 19 - Martedì 9 Maggio 2017: Non Differenziabilità di Wiener e l'Integrale di Itô}
+
+In questa lezione si analizzano le proprietà matematiche del processo di Wiener e si pongono le basi per il calcolo stocastico, mostrando come l'impossibilità di definire una derivata classica obblighi a introdurre un nuovo tipo di integrale e nuove regole di differenziazione.
+
+\subsection{Non-Differenziabilità e Assenza di Velocità}
+Il processo di Wiener $W(t)$ è tale per cui gli incrementi scorrelati danno $\langle dW_t dW_s \rangle = 0$ se $t \neq s$. Se tentiamo di definirne la derivata (la "velocità"), dobbiamo calcolare il limite del rapporto incrementale generalizzato:
+\begin{equation}
+\lim_{\Delta t \to 0} \frac{W(t+\Delta t) - W(t)}{\Delta t^\alpha}
+\end{equation}
+Valutando l'ordine di grandezza tramite la varianza $\langle (W(t+\Delta t) - W(t))^2 \rangle = \Delta t$, scopriamo che l'incremento scala come $\Delta W \sim \Delta t^{1/2}$. Di conseguenza, analizzando il limite per diversi valori di $\alpha$:
+\begin{itemize}
+    \item Se $\alpha < 1/2$, il limite va a 0.
+    \item Se $\alpha > 1/2$ (incluso il caso classico $\alpha=1$ per la derivata ordinaria), il limite diverge.
+    \item Se $\alpha = 1/2$, il limite non esiste. Non è garantita l'esistenza di una funzione lipschitziana.
+\end{itemize}
+Questo tipo di comportamento è intrinseco dei processi diffusivi. È "fastidioso" fisicamente poiché implica che non esista una singola traiettoria liscia e che non si possa definire una velocità macroscopica. Dal punto di vista del calcolo, questo significa che \textbf{i differenziali del secondo ordine fanno saltare i differenziali del primo ordine} (ovvero $(dW)^2 \propto dt$).
+
+\subsection{L'Integrale Stocastico: Itô vs Stratonovich}
+Poiché non esiste un'unica traiettoria regolare, "non esiste un solo integrale". Quando si definisce l'integrale come limite di una sommatoria di Riemann, la scelta del punto in cui valutare la funzione nell'intervallo diventa discriminante.
+\begin{itemize}
+    \item \textbf{Integrale di Itô:} La funzione si valuta nell'estremo a \textit{sinistra} dell'intervallo. "Per i conti conviene scegliere l'intervallo a sinistra" perché non anticipa il futuro e mantiene la media nulla.
+    \item \textbf{Integrale di Stratonovich:} La funzione si valuta nel \textit{mezzo} dell'intervallo.
+\end{itemize}
+Un esempio fondamentale mostrato a lezione è l'integrale stocastico $\int_0^t W_s dW_s$. Usando la prescrizione di Itô, il risultato differisce dalle regole del calcolo classico (in cui varrebbe $W_t^2/2$). Si dimostra che:
+\begin{equation}
+\int_0^t W_s dW_s = \frac{W_t^2}{2} - \frac{t}{2}
+\end{equation}
+Il termine aggiuntivo $-t/2$ garantisce che il valore medio dell'integrale rimanga nullo, in accordo col fatto che $\langle W_t^2 \rangle = t$. L'integrale di Itô non può quindi essere trattato semplicemente con le regole algebriche tradizionali, altrimenti "perdiamo il controllo" delle osservabili.
+
+\subsection{Applicazione del Lemma di Itô e Variabili Azione-Angolo}
+La conseguenza pratica dell'integrale di Itô è la modifica della regola della catena (Lemma di Itô), che richiede di sviluppare la serie di Taylor fino al secondo ordine. A lezione viene ripreso un esempio di un sistema differenziale stocastico in due variabili:
+\begin{equation}
+\begin{cases}
+dq = (\omega_0 dt - \varepsilon dW_t) p \\
+dp = -(\omega_0 dt + \varepsilon dW_t) q
+\end{cases}
+\end{equation}
+Vogliamo passare alle variabili Azione-Angolo $(\theta, I)$, dove $I = \frac{p^2+q^2}{2}$ rappresenta l'ampiezza, e l'angolo è $\theta = \arctan\left(\frac{q}{p}\right)$.
+Calcoliamo il differenziale stocastico esatto per l'azione $I$. A causa del termine $(dW)^2 \sim dt$, dobbiamo arrestare lo sviluppo di Taylor al secondo ordine:
+\begin{equation}
+dI = \frac{\partial I}{\partial q} dq + \frac{\partial I}{\partial p} dp + \frac{1}{2}\frac{\partial^2 I}{\partial q^2}(dq)^2 + \frac{1}{2}\frac{\partial^2 I}{\partial p^2}(dp)^2
+\end{equation}
+Sostituendo le derivate spaziali si ottiene $dI = q dq + p dp + \frac{1}{2}(dq)^2 + \frac{1}{2}(dp)^2$. Inserendo le equazioni del moto e calcolando i quadrati dei differenziali (ricordando che $(dt)^2 \to 0$, $dW dt \to 0$ e $(dW)^2 \to dt$):
+\begin{equation}
+(dq)^2 = \varepsilon^2 p^2 dt, \quad (dp)^2 = \varepsilon^2 q^2 dt
+\end{equation}
+Sostituendo nell'espressione di $dI$ otteniamo un'equazione esatta per la diffusione dell'ampiezza:
+\begin{equation}
+dI = \frac{1}{2} \varepsilon^2 q^2 dt + \frac{1}{2} \varepsilon^2 p^2 dt = \varepsilon^2 I dt
+\end{equation}
+Eseguendo lo stesso sviluppo differenziale per l'angolo $d\theta = \frac{1}{1+(q/p)^2}\frac{1}{p}dq - \frac{1}{1+(q/p)^2}\frac{q}{p^2}dp + \dots$ si ricava una dinamica con un'oscillazione costante ma perturbata stocasticamente. Questo mostra esplicitamente come usare "le funzioni per passare da $(dq, dp)$ a $(d\theta, dI)$" nel corretto formalismo stocastico.
+
+\newpage
+% ==========================================
+% LEZIONE 20
+% ==========================================
+\section{Lezione 20 - Mercoledì 10 Maggio 2017: Maneggiare i Differenziali Stocastici}
+
+In questa lezione si mettono in pratica le regole del calcolo differenziale stocastico, mostrando operativamente come trattare le equazioni che presentano un termine di rumore.
+
+\subsection{L'Oscillatore Stocastico}
+Ripartiamo dall'equazione differenziale stocastica generale:
+\begin{equation}
+dx = a(x)dt + b(x)dW_t
+\end{equation}
+In forma discreta, l'evoluzione in un passo temporale $\Delta t$ è data da:
+\begin{equation}
+x(t+\Delta t) = x(t) + \underbrace{a(x(t))\Delta t}_{\text{parte deterministica}} + \underbrace{b(x(t))\Delta W_t}_{\text{effetto dell'ambiente}}
+\end{equation}
+dove l'incremento di Wiener si modella come $\Delta W_t = \sqrt{\Delta t}\xi$. La variabile generata $\xi$ rappresenta il rumore bianco ("bagno termico") e soddisfa $\langle \xi \rangle = 0$ e $\langle \xi^2 \rangle = 1$, da cui $\langle \Delta W_t \rangle = 0$ e $\langle \Delta W_t^2 \rangle = \Delta t$.
+
+Torniamo a un caso fisicamente noto, l'oscillatore armonico, ma introducendo una fluttuazione stocastica nella frequenza (risonanza parametrica con rumore):
+\begin{equation}
+H = \frac{p^2}{2} + \frac{\omega_0^2}{2}(1+\xi)q^2
+\end{equation}
+L'equazione differenziale associata (scelta per semplicità in una forma vettoriale simmetrica) presenta piccoli urti stocastici sui differenziali:
+\begin{equation}
+\begin{cases}
+dq = (\omega_0 dt - \varepsilon dW_t)p \\
+dp = -(\omega_0 dt + \varepsilon dW_t)q
+\end{cases}
+\end{equation}
+
+\subsection{Regola della Catena e Calcolo dell'Azione}
+Vogliamo calcolare l'evoluzione delle variabili Azione-Angolo $(\theta, I)$. L'angolo è $\theta = \arctan(q/p)$, ma il differenziale $d\theta$ risulta complesso da manipolare formalmente per l'espansione. 
+Concentriamoci sull'Azione $I = \frac{p^2+q^2}{2}$. Applicando il Lemma di Itô, il differenziale esatto richiede di arrestare lo sviluppo di Taylor al secondo ordine:
+\begin{equation}
+dI = q\,dq + p\,dp + \frac{1}{2}(dq)^2 + \frac{1}{2}(dp)^2
+\end{equation}
+Calcoliamo i quadrati dei differenziali, ricordando che i termini misti $dt dW_t$ e $(dt)^2$ sono di ordine superiore e spariscono, mentre $(dW_t)^2 \to dt$:
+\begin{equation}
+(dq)^2 = \varepsilon^2 p^2 dt \quad \text{e} \quad (dp)^2 = \varepsilon^2 q^2 dt
+\end{equation}
+Sostituendo le espressioni di $dq$, $dp$, $(dq)^2$ e $(dp)^2$ all'interno di $dI$, il termine deterministico oscilla, ma il contributo stocastico al secondo ordine si somma fornendo:
+\begin{equation}
+dI = \frac{1}{2}\varepsilon^2 q^2 dt + \frac{1}{2}\varepsilon^2 p^2 dt
+\end{equation}
+Questo mostra esplicitamente che l'Azione non si conserva, ma subisce un drift indotto dal rumore moltiplicativo.
+
+\newpage
+% ==========================================
+% LEZIONE 21
+% ==========================================
+\section{Lezione 21 - Martedì 16 Maggio 2017: Sistemi Continui, Fluidi e Mezzo Elastico}
+
+Sino ad ora si è discusso il problema generale dei sistemi dinamici (con $d=6N$ per sistemi discreti di particelle) il cui campo è descritto da $\frac{d\vec{x}}{dt} = \vec{\Phi}(\vec{x})$. Con questa lezione passiamo allo studio dei \textbf{sistemi continui} ad infiniti gradi di libertà.
+
+\subsection{Dinamica dei Fluidi ed Equazione di Continuità}
+Il primo caso analizzato è il fluido. La descrizione si basa su campi macroscopici:
+\begin{itemize}
+    \item $\vec{u}(\vec{r}, t)$: il vettore velocità media del fluido.
+    \item $\rho(\vec{r}, t)$: la densità del fluido.
+\end{itemize}
+Le leggi che valgono sono espressione di conservazione. La prima è l'equazione di continuità per la densità:
+\begin{equation}
+\frac{\partial \rho}{\partial t} + \frac{\partial (\rho u_i)}{\partial x_i} = 0 \quad \implies \quad \frac{\partial \rho}{\partial t} + \text{div}(\rho \vec{u}) = 0
+\end{equation}
+
+\subsection{Seconda Legge della Dinamica nel Continuo}
+Il secondo principio è la versione continua della II legge della dinamica per il campo di velocità:
+\begin{equation}
+\rho \frac{\partial u_i}{\partial t} + u_j \frac{\partial u_i}{\partial x_j} = f_i - \frac{\partial P}{\partial x_i} - \epsilon_{ijl} \Omega_j u_l + \mu \Delta u_i
+\end{equation}
+Questa espressione modella la derivata convettiva nel fluido e le forze agenti:
+\begin{itemize}
+    \item $f_i$: forze di campo esterne.
+    \item $-\frac{\partial P}{\partial x_i}$: gradiente di Pressione.
+    \item $-\epsilon_{ijl} \Omega_j u_l$: forza di Coriolis (nei sistemi in rotazione).
+    \item $\mu \Delta u_i$: smorzamento viscoso.
+\end{itemize}
+
+\subsection{Tensore degli Sforzi e Passaggio al Mezzo Elastico}
+Per ricavare un'equazione di continuità analoga per l'impulso $\vec{p}$, occorre valutare il flusso dei momenti microscopici (teoria cinetica delle particelle che urtano nel mezzo). L'integrazione del termine $\frac{\partial}{\partial x_L} \left( \frac{p_i}{m} p_j d\vec{p} \right)$ introduce naturalemente il \textbf{tensore degli sforzi} $\tau_{ij}(\vec{r}, t)$, che dimensionalmente ha il significato di una forza per unità di superficie (pressione).
+
+Assumendo che la distribuzione di probabilità del sistema sia quella dell'equilibrio termodinamico, le forze tangenziali si annullano e il tensore si riduce alla forma diagonale isotropa:
+\begin{equation}
+\tau_{ij} = -P \delta_{ij}
+\end{equation}
+Secondo questi concetti esatti si perviene alla scrittura formale dell'equazione nei mezzi continui per il fluido. A fine lezione, il professore passa al secondo caso fondamentale: il \textbf{mezzo elastico}, ponendo le basi per l'equazione della corda elastica.
+
+\newpage
+% ==========================================
+% LEZIONE 22
+% ==========================================
+\section{Lezione 22 - Mercoledì 17 Maggio 2017: Metodi Spettrali, Derivate su Reticolo e Funzione di Green}
+
+In questa lezione si affronta il problema cruciale della risoluzione numerica delle Equazioni alle Derivate Parziali (PDE): come approssimare fedelmente le derivate spaziali su un reticolo discreto. Viene effettuato un confronto analitico tra l'approccio classico alle differenze finite e l'analisi di Fourier. Nella seconda parte, si imposta la soluzione formale del problema differenziale continuo tramite la Funzione di Green.
+
+\subsection{Discretizzazione e Differenza Centrale}
+Consideriamo una funzione periodica $f(x) = f(x+1)$ definita sull'intervallo $[3]$. Discretizziamo il dominio spaziale introducendo un reticolo di $N+1$ punti $x_j = j h$, dove il passo spaziale è $h = \frac{1}{N+1}$.
+
+Sviluppiamo la funzione in serie di Fourier discreta:
+\begin{equation}
+f_j = \sum_{k=-N/2}^{N/2} \hat{f}_k e^{2\pi i k x_j} \quad \text{dove} \quad \hat{f}_k = \frac{1}{N+1} \sum_{j=0}^{N} f_j e^{-2\pi i k x_j}
+\end{equation}
+Consideriamo il comportamento su un singolo "modo" di Fourier $f(x) = e^{2\pi i k x}$. La sua derivata analitica esatta è banalmente $f'(x) = 2\pi i k f(x)$.
+
+Applichiamo ora l'operatore di derivata numerica (differenza finita centrale) $(f'_j)_A = \frac{f_{j+1} - f_{j-1}}{2h}$ allo stesso modo di Fourier. Valutando la funzione nei nodi adiacenti, otteniamo:
+\begin{equation}
+(f'_j)_A = f_j \frac{e^{i\varphi} - e^{-i\varphi}}{2h} = i f_j \frac{\sin \varphi}{h}
+\end{equation}
+dove abbiamo introdotto la fase adimensionale $\varphi = 2\pi k h$. Moltiplicando e dividendo per $\varphi$, possiamo riscrivere il risultato mettendo in evidenza la derivata analitica esatta ($2\pi i k f_j$):
+\begin{equation}
+(f'_j)_A = (2\pi i k f_j) \left[ \frac{\sin \varphi}{\varphi} \right] = f'_j \left[ \frac{\sin \varphi}{\varphi} \right]
+\end{equation}
+
+\subsection{La Distorsione delle Onde Corte}
+Se la funzione possiede tutte le componenti di Fourier, la sua derivata numerica globale sarà la somma delle derivate esatte, pesate dal coefficiente di attenuazione geometrico:
+\begin{equation}
+(f'_j)_A = \sum_{k=-N/2}^{N/2} \hat{f}_k \left( \frac{\sin \varphi(k)}{\varphi(k)} \right) 2\pi i k e^{2\pi i k x_j}
+\end{equation}
+Valutando l'accuratezza componente per componente, osserviamo che l'approssimazione è esatta solo per $\varphi \simeq 0$ (basse frequenze spaziali, per cui $\frac{\sin \varphi}{\varphi} \to 1$). 
+Al crescere del numero d'onda, l'errore aumenta drasticamente. In particolare, alla frequenza di taglio del reticolo ($\varphi = \pi$), si ha $\frac{\sin \pi}{\pi} = 0$, il che implica che l'approssimazione numerica per le onde corte è totalmente scadente (la derivata viene valutata nulla).
+
+\subsection{Operatori Differenziali e Funzione di Green}
+La lezione prosegue analizzando le proprietà dell'operatore spaziale continuo e poi discreto. Data un'equazione differenziale astratta, possiamo scrivere:
+\begin{align}
+1^\text{a} \text{ eq. (Stazionaria):} \quad & Du = f \\
+2^\text{a} \text{ eq. (Evoluzione):} \quad & \frac{\partial u}{\partial t} = -Du + f
+\end{align}
+La soluzione per l'equazione stazionaria può essere scritta formalmente in termini di un nucleo integrale, la \textbf{Funzione di Green} $G_E(x,t)$:
+\begin{equation}
+u(x) = \int_0^1 G_E(x,t) f(t) dt
+\end{equation}
+La funzione di Green può essere espressa valutando il caso in cui la derivata seconda di $u$ è uguale a zero. Essendo le soluzioni indipendenti banali dell'omogenea $1$ e $x$, per soddisfare le condizioni al contorno su un dominio $[3]$ la forma esatta della funzione di Green si spezza in due rami:
+\begin{equation}
+u(x) = \int_0^x t(1-x)f(t)dt + \int_x^1 x(1-t)f(t)dt
+\end{equation}
+Tuttavia, se la forzante $f(t)$ risulta analiticamente troppo complicata da integrare, la soluzione esatta diviene impraticabile. Si rende perciò necessario il passaggio ai metodi numerici discreti, come ad esempio l'approssimazione dell'integrale tramite il \textbf{metodo dei trapezi} nell'intervallo tra $0$ e $1$.
+
+\newpage
+% ==========================================
+% LEZIONE 23
+% ==========================================
+\section{Lezione 23 - Martedì 23 Maggio 2017: Equazione di Avvezione, Shock ed Equazione delle Onde}
+
+In questa lezione si introduce il proposito dei metodi numerici per le Equazioni alle Derivate Parziali (PDE), analizzando il contrasto matematico e fisico tra l'equazione di avvezione (primo ordine) e l'equazione delle onde (secondo ordine).
+
+\subsection{L'Equazione di Avvezione (Primo Ordine)}
+Il modello differenziale più semplice per la propagazione è l'equazione di avvezione:
+\begin{equation}
+\frac{\partial u}{\partial t} + c \frac{\partial u}{\partial x} = 0 \quad (1)
+\end{equation}
+La natura della propagazione dipende esplicitamente dalla velocità $c$:
+\begin{itemize}
+    \item Se $c = \text{costante}$, il segnale originario semplicemente trasla nello spaziotempo senza subire deformazioni.
+    \item Se si vuole studiare un'equazione come la (1) su un intervallo spaziale finito, le classiche condizioni al contorno di Dirichlet (bordi fissi a zero) non sono adatte in quanto bloccherebbero il deflusso dell'onda; occorre imporre condizioni periodiche.
+    \item Se $c \neq \text{costante}$, si verifica la formazione di uno \textbf{shock (onda d'urto)}.
+\end{itemize}
+
+\subsection{Avvezione Non Lineare e Metodo delle Caratteristiche}
+Per comprendere la formazione dello shock, si studia il caso non lineare in cui la velocità dipende dal campo stesso, ponendo $c = u$.
+Il sistema si analizza seguendo l'evoluzione lungo le \textit{rette caratteristiche}. Su queste curve si ha:
+\begin{equation}
+\dot{x} = u, \quad \dot{u} = 0 \implies x = x_0 + u_0(x_0)t
+\end{equation}
+Poiché $\dot{u} = 0$, il campo si conserva lungo la caratteristica: $u = u_0(x_0) = u(x - ut)$. Questa espressione definisce la soluzione implicitamente e permette di "ricostruire la funzione" nel tempo.
+Graficamente, rappresentando i profili d'onda, le "creste" (dove $u$ è maggiore) viaggiano più velocemente delle "valli". Il fronte dell'onda si inclina sempre di più al crescere del tempo $t$ fino a quando le rette caratteristiche si incrociano, generando una singolarità matematica e fisica (lo shock).
+
+\subsection{L'Equazione delle Onde (Secondo Ordine)}
+Passando al secondo ordine differenziale, troviamo la classica equazione delle onde d'Alembertiana:
+\begin{equation}
+\frac{\partial^2 u}{\partial t^2} - c^2 \frac{\partial^2 u}{\partial x^2} = 0 \quad (2)
+\end{equation}
+Come appuntato a lezione, dal punto di vista della propagazione del segnale si ha $(2) \neq (1)$. La natura del secondo ordine modifica profondamente la dinamica: non abbiamo più un solo segnale che trasla rigidamente, ma un segnale iniziale che si propaga scomponendosi in \textbf{due onde distinte}, una progressiva e una regressiva.
+
+Proprio per via di questa doppia propagazione, per l'equazione delle onde (2), a differenza di quella di avvezione, è fisicamente sensato e matematicamente corretto poter imporre \textbf{condizioni al contorno di Dirichlet} (come nel caso di una corda fissata e vincolata agli estremi), oltre alle normali condizioni periodiche.
+
+\newpage
+% ==========================================
+% LEZIONE 24
+% ==========================================
+\section{Lezione 24 - Mercoledì 24 Maggio 2017: Equazione Backward, Probabilità e Sistemi Caotici}
+
+In questa lezione si chiude il cerchio tra l'evoluzione delle singole traiettorie stocastiche e l'evoluzione della densità di probabilità associata all'intero ensemble, interpretando fisicamente il significato delle equazioni studiate.
+
+\subsection{Equazione Backward e Operatori}
+Siamo ora in grado di interpretare rigorosamente l'equazione differenziale stocastica:
+\begin{equation}
+dx = a(x)dt + b(x)dw_t
+\end{equation}
+dove $w_t$ indica l'indice del processo di Wiener.
+Piuttosto che focalizzarci sulla singola traiettoria, ci interessa valutare la media di un'osservabile, ovvero il suo valore di aspettazione $E(f(x))$.
+Si dimostra che l'evoluzione temporale di questa media obbedisce all'equazione \textit{Backward} di Kolmogorov:
+\begin{equation}
+\frac{\partial f}{\partial t} = \underbrace{a(x_0) \frac{\partial f}{\partial x_0}}_{\text{gradiente}} + \underbrace{\frac{1}{2} b^2(x_0) \frac{\partial^2 f}{\partial x_0^2}}_{\text{laplaciano}}
+\end{equation}
+Come appuntato a lezione, l'operatore si scompone in due contributi geometrici chiari: il termine del prim'ordine agisce come un gradiente (deriva deterministica), mentre il termine del second'ordine, legato al quadrato dell'ampiezza del rumore, agisce come un Laplaciano (diffusione).
+
+\subsection{Interpretazione della Funzione di Distribuzione}
+Passando dalla singola particella alla descrizione macroscopica, dobbiamo interpretare fisicamente la funzione di distribuzione $p(x,t)$. 
+In senso probabilistico, la quantità $p(x,t)dx$ rappresenta la probabilità che lo stato del sistema al tempo $t$ si trovi nell'intervallo spaziale $(x, x+dx)$. 
+Questa distribuzione si costruisce idealmente realizzando tutti i possibili cammini per una data distribuzione iniziale. Nel caso in cui si segua una singola particella, la funzione $p(x,t)$ rappresenta una probabilità condizionata rispetto al punto di partenza.
+
+\subsection{Irreversibilità e Sistemi Caotici}
+L'effetto del bagno termico (il rumore stocastico) ha una conseguenza termodinamica cruciale: l'ambiente stesso tende a omogeneizzare il sistema. Il termine diffusivo (legato al fattore $-T \frac{\partial p}{\partial x}$) è la forza motrice che rende il sistema omogeneo, rompendo la simmetria temporale e introducendo di fatto l'irreversibilità termodinamica.
+
+In conclusione, si osserva che il processo di Wiener è caratterizzato dall'avere memoria nulla. Un'osservazione profonda che unisce le due anime di questo corso è che, dal punto di vista macroscopico, \textbf{i sistemi caotici deterministici rappresentano bene il sistema di Wiener}: la perdita esponenziale di memoria delle condizioni iniziali tipica del caos non-lineare si traduce, su larga scala, nell'aleatorietà pura descritta dal moto browniano.
+
+\newpage
+% ==========================================
+% LEZIONE 25
+% ==========================================
+\section{Lezione 25 - Martedì 30 Maggio 2017: Equazione di Smoluchowski ed Equilibrio Termodinamico}
+
+L'ultima lezione del corso è dedicata alla conclusione delle proprietà delle equazioni di Fokker-Planck, concentrandosi in particolare sull'equazione di Smoluchowski e sul suo legame con la termodinamica.
+
+\subsection{Equazione di Smoluchowski e Maxwell-Boltzmann}
+L'equazione differenziale che descrive la diffusione di probabilità in presenza di un campo di forze derivante da un potenziale $V(x)$ è l'equazione di Smoluchowski:
+\begin{equation}
+\frac{\partial \rho}{\partial t} = \frac{\partial}{\partial x} \left( \frac{dV}{dx} \rho \right) + D \frac{\partial^2 \rho}{\partial x^2} \quad (1)
+\end{equation}
+Questa equazione è fondamentale perché riproduce analiticamente la condizione di equilibrio di Maxwell-Boltzmann. Infatti, imponendo la stazionarietà $\frac{\partial \rho}{\partial t} = 0$, si ottiene la distribuzione asintotica:
+\begin{equation}
+\rho \sim \exp\left( - \frac{V(x)}{D} \right) \quad (2)
+\end{equation}
+Confrontando questa espressione con la meccanica statistica classica, si nota come in questo contesto il coefficiente di diffusione $D$ possa essere interpretato fisicamente come la \textbf{temperatura} del sistema.
+
+\subsection{Corrente di Probabilità, Stati Stazionari ed Equilibrio}
+Per comprendere a fondo la dinamica, si guarda l'equazione (1) come un'equazione di continuità stocastica:
+\begin{equation}
+\frac{\partial \rho}{\partial t} = -\frac{\partial}{\partial x} J(x,t)
+\end{equation}
+dove si definisce la \textbf{corrente di probabilità} $J(x,t)$ come:
+\begin{equation}
+J(x,t) = - \frac{dV}{dx} \rho - D \frac{\partial \rho}{\partial x}
+\end{equation}
+La corrente risulta quindi proporzionale al gradiente della densità di probabilità $\rho$.
+
+A questo punto occorre distinguere fisicamente tra un generico stato stazionario (in cui la configurazione spaziale non varia più nel tempo, per cui il flusso $J_S(x)$ è costante nello spazio) e il vero equilibrio termodinamico. 
+A lezione viene fatto un esempio macroscopico chiarificatore: un sistema fisico in cui sono presenti \textbf{una piastra calda e una piastra fredda}. Il sistema evolve verso una configurazione stazionaria, ma "non è equilibrio": per mantenere il gradiente, le correnti termiche e particellari all'interno del mezzo non sono nulle. 
+
+L'equazione (2), invece, caratterizza unicamente l'equilibrio termodinamico isolato. La condizione di vero equilibrio si ha ponendo rigorosamente $J_S(x) = 0$: questa è l'unica distribuzione statistica che \textbf{annulla localmente le correnti} in ogni punto dello spazio.
+
+%\newpage
+% ==========================================
+% LEZIONE 
+% ==========================================
+\end{document}
+
